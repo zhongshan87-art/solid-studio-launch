@@ -22,6 +22,78 @@ const projects = [
     title: "Art Museum",
     location: "Tokyo, Japan",
     image: project3,
+  },
+  {
+    id: 4,
+    title: "城市更新项目 Urban Renewal",
+    location: "北京 Beijing",
+    image: project1,
+  },
+  {
+    id: 5,
+    title: "文化中心 Cultural Center",
+    location: "上海 Shanghai",
+    image: project2,
+  },
+  {
+    id: 6,
+    title: "住宅综合体 Residential Complex",
+    location: "深圳 Shenzhen",
+    image: project3,
+  },
+  {
+    id: 7,
+    title: "商业广场 Commercial Plaza",
+    location: "广州 Guangzhou",
+    image: project1,
+  },
+  {
+    id: 8,
+    title: "学校设计 School Design",
+    location: "杭州 Hangzhou",
+    image: project2,
+  },
+  {
+    id: 9,
+    title: "办公大楼 Office Building",
+    location: "成都 Chengdu",
+    image: project3,
+  },
+  {
+    id: 10,
+    title: "公园景观 Park Landscape",
+    location: "武汉 Wuhan",
+    image: project1,
+  },
+  {
+    id: 11,
+    title: "酒店设计 Hotel Design",
+    location: "西安 Xi'an",
+    image: project2,
+  },
+  {
+    id: 12,
+    title: "体育馆 Sports Center",
+    location: "重庆 Chongqing",
+    image: project3,
+  },
+  {
+    id: 13,
+    title: "图书馆 Library",
+    location: "天津 Tianjin",
+    image: project1,
+  },
+  {
+    id: 14,
+    title: "医院建筑 Hospital Building",
+    location: "南昌 Nanchang",
+    image: project2,
+  },
+  {
+    id: 15,
+    title: "交通枢纽 Transport Hub",
+    location: "长沙 Changsha",
+    image: project3,
   }
 ];
 
@@ -41,15 +113,11 @@ export const ProjectGrid = () => {
 
   return (
     <section id="works" className="py-8">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="w-full px-0">
+        <div className="grid grid-cols-3 gap-0">
           {projects.map((project, index) => (
-            <article key={project.id} className="group cursor-pointer">
-              <div className={`overflow-hidden ${
-                index === 0 ? 'aspect-[4/3]' : 
-                index === 1 ? 'aspect-[3/4]' : 
-                'aspect-square'
-              }`}>
+            <article key={project.id} className={`group cursor-pointer border-b border-gray-200 ${(index + 1) % 3 !== 0 ? 'border-r' : ''}`}>
+              <div className="aspect-[4/3] overflow-hidden">
                 <img 
                   src={project.image} 
                   alt={project.title}
@@ -57,7 +125,7 @@ export const ProjectGrid = () => {
                   onClick={() => handleImageClick(project)}
                 />
               </div>
-              <div className="pt-3 pb-2">
+              <div className="p-4">
                 <h2 className="text-base font-medium text-foreground mb-1 leading-tight">
                   {project.title}
                 </h2>
