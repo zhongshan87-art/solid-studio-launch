@@ -5,7 +5,7 @@ import project3 from "@/assets/project-3.jpg";
 const projects = [
   {
     id: 1,
-    title: "Cultural Center",
+    title: "一室亦园 One Room One Garden",
     location: "New York, USA",
     image: project1,
   },
