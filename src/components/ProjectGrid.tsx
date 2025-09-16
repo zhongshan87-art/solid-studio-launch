@@ -43,20 +43,32 @@ export const ProjectGrid = () => {
     <section id="works" className="py-0">
       <div className="space-y-0">
         {projects.map((project, index) => (
-          <article key={project.id} className="group cursor-pointer border-b border-studio-gray-light">
-            <div className="container-studio py-16 md:py-24">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div className="order-2 lg:order-1">
-                  <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-4">
+          <article key={project.id} className="group cursor-pointer">
+            <div className="container-studio py-4 md:py-6">
+              <div className={`grid items-center gap-4 md:gap-6 ${
+                index % 2 === 0 
+                  ? 'grid-cols-1 md:grid-cols-3 lg:grid-cols-5' 
+                  : 'grid-cols-1 md:grid-cols-3 lg:grid-cols-5'
+              }`}>
+                <div className={`${
+                  index % 2 === 0 
+                    ? 'order-2 md:order-1 md:col-span-2 lg:col-span-3' 
+                    : 'order-2 md:order-2 md:col-span-2 lg:col-span-3'
+                }`}>
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black tracking-tighter mb-2">
                     {project.title.toUpperCase()}
                   </h2>
-                  <p className="text-xl md:text-2xl text-studio-gray-medium">
+                  <p className="text-sm md:text-base lg:text-lg text-studio-gray-medium">
                     {project.location}
                   </p>
                 </div>
                 
-                <div className="order-1 lg:order-2">
-                  <div className="aspect-[4/3] overflow-hidden">
+                <div className={`${
+                  index % 2 === 0 
+                    ? 'order-1 md:order-2 md:col-span-1 lg:col-span-2' 
+                    : 'order-1 md:order-1 md:col-span-1 lg:col-span-2'
+                }`}>
+                  <div className="aspect-[3/2] md:aspect-[4/3] overflow-hidden">
                     <img 
                       src={project.image} 
                       alt={project.title}
@@ -67,6 +79,7 @@ export const ProjectGrid = () => {
                 </div>
               </div>
             </div>
+            <div className="border-b border-studio-gray-light"></div>
           </article>
         ))}
       </div>
