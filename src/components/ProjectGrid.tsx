@@ -6,7 +6,7 @@ const projects = [
   {
     id: 1,
     title: "一室亦园 One Room One Garden",
-    location: "New York, USA",
+    location: "南京 Nanjing",
     image: project1,
   },
   {
