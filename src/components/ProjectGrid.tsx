@@ -40,29 +40,34 @@ export const ProjectGrid = () => {
   ];
 
   return (
-    <section id="works" className="py-0">
-      <div className="space-y-1">
-        {projects.map((project, index) => (
-          <article key={project.id} className="group cursor-pointer relative">
-            <div className="relative aspect-[16/10] overflow-hidden">
-              <img 
-                src={project.image} 
-                alt={project.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                onClick={() => handleImageClick(project)}
-              />
-              {/* Overlay text */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
-                <h2 className="text-xl md:text-2xl font-bold text-white mb-1">
+    <section id="works" className="py-8">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {projects.map((project, index) => (
+            <article key={project.id} className="group cursor-pointer">
+              <div className={`overflow-hidden ${
+                index === 0 ? 'aspect-[4/3]' : 
+                index === 1 ? 'aspect-[3/4]' : 
+                'aspect-square'
+              }`}>
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  onClick={() => handleImageClick(project)}
+                />
+              </div>
+              <div className="pt-3 pb-2">
+                <h2 className="text-base font-medium text-foreground mb-1 leading-tight">
                   {project.title}
                 </h2>
-                <p className="text-sm md:text-base text-white/80">
+                <p className="text-sm text-muted-foreground">
                   {project.location}
                 </p>
               </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))}
+        </div>
       </div>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
