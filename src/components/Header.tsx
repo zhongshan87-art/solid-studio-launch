@@ -29,9 +29,9 @@ export const Header = () => {
         </Button>
 
         {isMenuOpen && (
-          <nav className="fixed inset-0 bg-white/20 backdrop-blur-md flex items-center justify-center z-40">
-            <div className="text-center space-y-8 mt-20">
-              <div className="space-y-8">
+          <nav className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-40">
+            <div className="text-center space-y-8 mt-16">
+              <div className="space-y-8 bg-white/10 backdrop-blur-sm rounded-lg px-8 py-6">
                 <a href="#studio" className="block text-title hover:text-studio-gray-medium transition-colors" onClick={() => setIsMenuOpen(false)}>
                   Studio
                 </a>
@@ -44,7 +44,7 @@ export const Header = () => {
                       Media
                     </button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-md bg-white/95 backdrop-blur-sm">
+                  <DialogContent className="max-w-[80vw] max-h-[80vh] w-[80vw] h-[80vh] bg-white/95 backdrop-blur-sm overflow-auto">
                     <DialogHeader>
                       <DialogTitle className="text-title">Awards & Recognition</DialogTitle>
                     </DialogHeader>
