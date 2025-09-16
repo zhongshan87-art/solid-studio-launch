@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMediaOpen, setIsMediaOpen] = useState(false);
+  const [awards, setAwards] = useState("Outstanding Architecture Award 2023\nInnovative Design Recognition 2022\nSustainable Building Excellence 2023\nUrban Planning Achievement 2022");
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm">
@@ -25,9 +29,15 @@ export const Header = () => {
                 <a href="#works" className="block text-title hover:text-studio-gray-medium transition-colors" onClick={() => setIsMenuOpen(false)}>
                   Works
                 </a>
-                <a href="#about" className="block text-title hover:text-studio-gray-medium transition-colors" onClick={() => setIsMenuOpen(false)}>
-                  Studio
-                </a>
+                <button 
+                  className="block text-title hover:text-studio-gray-medium transition-colors" 
+                  onClick={() => {
+                    setIsMediaOpen(true);
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  Media
+                </button>
               </div>
               <Button
                 variant="ghost"
@@ -39,6 +49,22 @@ export const Header = () => {
             </div>
           </nav>
         )}
+
+        <Dialog open={isMediaOpen} onOpenChange={setIsMediaOpen}>
+          <DialogContent className="w-[80vw] max-w-none h-[80vh] max-h-none">
+            <DialogHeader>
+              <DialogTitle>Awards & Recognition</DialogTitle>
+            </DialogHeader>
+            <div className="flex-1 overflow-auto">
+              <Textarea
+                value={awards}
+                onChange={(e) => setAwards(e.target.value)}
+                className="min-h-[60vh] resize-none text-base leading-relaxed"
+                placeholder="Enter awards and recognition..."
+              />
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </header>
   );
