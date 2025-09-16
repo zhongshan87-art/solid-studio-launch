@@ -37,12 +37,9 @@ export const Header = () => {
               <DialogTitle>Awards & Recognition</DialogTitle>
             </DialogHeader>
             <div className="flex-1 overflow-auto">
-              <Textarea
-                value={awards}
-                onChange={(e) => setAwards(e.target.value)}
-                className="min-h-[60vh] resize-none text-base leading-relaxed"
-                placeholder="Enter awards and recognition..."
-              />
+              <div className="text-base leading-relaxed whitespace-pre-line p-4">
+                {awards}
+              </div>
             </div>
           </DialogContent>
         </Dialog>
