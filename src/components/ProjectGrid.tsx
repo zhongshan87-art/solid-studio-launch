@@ -11,8 +11,8 @@ const projects = [
   },
   {
     id: 2,
-    title: "Residential Complex",
-    location: "Barcelona, Spain",
+    title: "金塘水獭馆 Otter Exhibition",
+    location: "浙江 Zhejiang",
     image: project2,
   },
   {
