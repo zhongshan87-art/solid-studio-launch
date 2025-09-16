@@ -1,8 +1,21 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [awards, setAwards] = useState([
+    "2024 Architecture Excellence Award",
+    "2023 Design Innovation Prize",
+    "2022 Urban Planning Recognition",
+    "2021 Sustainable Building Award"
+  ]);
+
+  const handleAwardEdit = (index: number, newText: string) => {
+    const updatedAwards = [...awards];
+    updatedAwards[index] = newText;
+    setAwards(updatedAwards);
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm">
@@ -16,7 +29,7 @@ export const Header = () => {
         </Button>
 
         {isMenuOpen && (
-          <nav className="fixed inset-0 bg-background/95 backdrop-blur-md flex items-center justify-center z-40">
+          <nav className="fixed inset-0 bg-white/20 backdrop-blur-md flex items-center justify-center z-40">
             <div className="text-center space-y-8 mt-20">
               <div className="space-y-8">
                 <a href="#studio" className="block text-title hover:text-studio-gray-medium transition-colors" onClick={() => setIsMenuOpen(false)}>
@@ -25,6 +38,30 @@ export const Header = () => {
                 <a href="#works" className="block text-title hover:text-studio-gray-medium transition-colors" onClick={() => setIsMenuOpen(false)}>
                   Works
                 </a>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button className="block text-title hover:text-studio-gray-medium transition-colors">
+                      Media
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-md bg-white/95 backdrop-blur-sm">
+                    <DialogHeader>
+                      <DialogTitle className="text-title">Awards & Recognition</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-4 py-4">
+                      {awards.map((award, index) => (
+                        <div key={index} className="group">
+                          <input
+                            type="text"
+                            value={award}
+                            onChange={(e) => handleAwardEdit(index, e.target.value)}
+                            className="w-full bg-transparent border-none text-body focus:outline-none focus:ring-2 focus:ring-primary/20 rounded px-2 py-1"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </DialogContent>
+                </Dialog>
                 <a href="#about" className="block text-title hover:text-studio-gray-medium transition-colors" onClick={() => setIsMenuOpen(false)}>
                   Studio
                 </a>
