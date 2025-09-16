@@ -128,11 +128,11 @@ export const ProjectGrid = () => {
                   !isLastInRowLg ? 'lg:border-r' : ''
                 } md:[&:nth-child(even)]:border-r-0 lg:[&:nth-child(3n)]:border-r-0`}
               >
-                <div className="w-full overflow-hidden">
+                <div className="w-full overflow-hidden aspect-[4/3]">
                   <img 
                     src={project.image} 
                     alt={project.title}
-                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     onClick={() => handleImageClick(project)}
                   />
                 </div>
