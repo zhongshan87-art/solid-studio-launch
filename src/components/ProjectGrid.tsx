@@ -114,27 +114,39 @@ export const ProjectGrid = () => {
   return (
     <section id="works" className="py-8">
       <div className="w-full px-0">
-        <div className="grid grid-cols-3 gap-0">
-          {projects.map((project, index) => (
-            <article key={project.id} className={`group cursor-pointer border-b border-gray-200 ${(index + 1) % 3 !== 0 ? 'border-r' : ''}`}>
-              <div className="aspect-[4/3] overflow-hidden">
-                <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  onClick={() => handleImageClick(project)}
-                />
-              </div>
-              <div className="p-4">
-                <h2 className="text-base font-medium text-foreground mb-1 leading-tight">
-                  {project.title}
-                </h2>
-                <p className="text-sm text-muted-foreground">
-                  {project.location}
-                </p>
-              </div>
-            </article>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
+          {projects.map((project, index) => {
+            const isLastInRowMd = (index + 1) % 2 === 0;
+            const isLastInRowLg = (index + 1) % 3 === 0;
+            
+            return (
+              <article 
+                key={project.id} 
+                className={`group cursor-pointer border-b border-gray-200 ${
+                  !isLastInRowMd ? 'md:border-r' : ''
+                } ${
+                  !isLastInRowLg ? 'lg:border-r' : ''
+                } md:[&:nth-child(even)]:border-r-0 lg:[&:nth-child(3n)]:border-r-0`}
+              >
+                <div className="w-full overflow-hidden">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                    onClick={() => handleImageClick(project)}
+                  />
+                </div>
+                <div className="p-6">
+                  <h2 className="text-lg md:text-xl lg:text-2xl font-medium text-foreground mb-2 leading-tight">
+                    {project.title}
+                  </h2>
+                  <p className="text-base md:text-lg text-muted-foreground">
+                    {project.location}
+                  </p>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
 
