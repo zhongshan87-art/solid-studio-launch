@@ -50,13 +50,10 @@ export const Header = () => {
             <DialogHeader>
               <DialogTitle>Studio Introduction</DialogTitle>
             </DialogHeader>
-            <div className="flex-1 overflow-auto">
-              <Textarea
-                value={studioIntro}
-                onChange={(e) => setStudioIntro(e.target.value)}
-                className="min-h-[60vh] resize-none text-base leading-relaxed"
-                placeholder="Enter studio introduction..."
-              />
+            <div className="flex-1 overflow-auto p-4">
+              <div className="text-base leading-relaxed whitespace-pre-line">
+                {studioIntro}
+              </div>
             </div>
           </DialogContent>
         </Dialog>
