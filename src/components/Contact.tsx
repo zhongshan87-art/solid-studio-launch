@@ -1,6 +1,6 @@
 export const Contact = () => {
   return (
-    <section id="contact" className="section-padding">
+    <section id="about" className="section-padding">
       <div className="container-studio">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>

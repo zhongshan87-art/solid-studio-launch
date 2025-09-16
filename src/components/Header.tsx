@@ -6,11 +6,7 @@ export const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm">
-      <div className="container-studio flex justify-between items-center py-6">
-        <div className="text-title font-black tracking-tighter">
-          STUDIO
-        </div>
-        
+      <div className="container-studio flex justify-end items-center py-6">
         <Button
           variant="ghost"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -23,14 +19,14 @@ export const Header = () => {
           <nav className="fixed inset-0 bg-background/95 backdrop-blur-md flex items-center justify-center z-40">
             <div className="text-center space-y-8">
               <div className="space-y-6">
-                <a href="#work" className="block text-title hover:text-studio-gray-medium transition-colors" onClick={() => setIsMenuOpen(false)}>
-                  Work
+                <a href="#studio" className="block text-title hover:text-studio-gray-medium transition-colors" onClick={() => setIsMenuOpen(false)}>
+                  Studio
+                </a>
+                <a href="#works" className="block text-title hover:text-studio-gray-medium transition-colors" onClick={() => setIsMenuOpen(false)}>
+                  Works
                 </a>
                 <a href="#about" className="block text-title hover:text-studio-gray-medium transition-colors" onClick={() => setIsMenuOpen(false)}>
                   About
-                </a>
-                <a href="#contact" className="block text-title hover:text-studio-gray-medium transition-colors" onClick={() => setIsMenuOpen(false)}>
-                  Contact
                 </a>
               </div>
               <Button

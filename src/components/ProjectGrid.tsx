@@ -5,62 +5,54 @@ import project3 from "@/assets/project-3.jpg";
 const projects = [
   {
     id: 1,
-    title: "Modern Office Complex",
-    location: "San Francisco, USA",
+    title: "Cultural Center",
+    location: "New York, USA",
     image: project1,
-    description: "A contemporary workspace design focused on collaboration and natural light."
   },
   {
     id: 2,
-    title: "Residential Villa",
+    title: "Residential Complex",
     location: "Barcelona, Spain",
     image: project2,
-    description: "Minimalist residential design that harmonizes with the natural landscape."
   },
   {
     id: 3,
-    title: "Art Gallery",
+    title: "Art Museum",
     location: "Tokyo, Japan",
     image: project3,
-    description: "A cultural space designed to showcase contemporary art in pure, geometric forms."
   }
 ];
 
 export const ProjectGrid = () => {
   return (
-    <section id="work" className="section-padding">
-      <div className="container-studio">
-        <h2 className="text-title mb-16">
-          Selected Works
-        </h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-          {projects.map((project, index) => (
-            <article key={project.id} className="group hover-lift cursor-pointer">
-              <div className="aspect-[4/3] overflow-hidden mb-6">
-                <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-              
-              <div className="space-y-3">
-                <h3 className="text-subtitle font-medium">
-                  {project.title}
-                </h3>
+    <section id="works" className="py-0">
+      <div className="space-y-0">
+        {projects.map((project, index) => (
+          <article key={project.id} className="group cursor-pointer border-b border-studio-gray-light">
+            <div className="container-studio py-16 md:py-24">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div className="order-2 lg:order-1">
+                  <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-4">
+                    {project.title.toUpperCase()}
+                  </h2>
+                  <p className="text-xl md:text-2xl text-studio-gray-medium">
+                    {project.location}
+                  </p>
+                </div>
                 
-                <p className="text-caption text-studio-gray-medium">
-                  {project.location}
-                </p>
-                
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {project.description}
-                </p>
+                <div className="order-1 lg:order-2">
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  </div>
+                </div>
               </div>
-            </article>
-          ))}
-        </div>
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   );
