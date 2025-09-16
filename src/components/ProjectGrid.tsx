@@ -1,9 +1,5 @@
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
@@ -32,30 +28,17 @@ const projects = [
 export const ProjectGrid = () => {
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editedProject, setEditedProject] = useState<any>(null);
 
   const handleImageClick = (project: any) => {
     setSelectedProject(project);
-    setEditedProject({
-      ...project,
-      description: `Project Description for ${project.title}\n\nThis is a detailed description of the ${project.title} project located in ${project.location}. The project showcases innovative architectural design and sustainable building practices.\n\nKey Features:\n- Modern architectural design\n- Sustainable materials\n- Integration with natural environment\n- Innovative spatial solutions`
-    });
     setIsModalOpen(true);
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setEditedProject(prev => ({
-          ...prev,
-          image: e.target?.result as string
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // Sample project images (using the same image for demo purposes)
+  const projectImages = [
+    project1, project2, project3, project1, project2
+  ];
+
   return (
     <section id="works" className="py-0">
       <div className="space-y-0">
@@ -91,59 +74,38 @@ export const ProjectGrid = () => {
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="w-[90vw] max-w-none h-[90vh] max-h-none">
           <DialogHeader>
-            <DialogTitle>Project Details</DialogTitle>
+            <DialogTitle>{selectedProject?.title}</DialogTitle>
           </DialogHeader>
-          {editedProject && (
+          {selectedProject && (
             <div className="flex-1 overflow-auto p-4">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="project-title">Project Title</Label>
-                    <Input
-                      id="project-title"
-                      value={editedProject.title}
-                      onChange={(e) => setEditedProject(prev => ({ ...prev, title: e.target.value }))}
-                      className="text-lg font-semibold"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="project-location">Location</Label>
-                    <Input
-                      id="project-location"
-                      value={editedProject.location}
-                      onChange={(e) => setEditedProject(prev => ({ ...prev, location: e.target.value }))}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="project-description">Description</Label>
-                    <Textarea
-                      id="project-description"
-                      value={editedProject.description}
-                      onChange={(e) => setEditedProject(prev => ({ ...prev, description: e.target.value }))}
-                      className="min-h-[300px] resize-none"
-                      placeholder="Enter project description..."
-                    />
-                  </div>
+              {/* Text section at the top */}
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
+                <p className="text-lg text-studio-gray-medium mb-4">{selectedProject.location}</p>
+                <div className="text-base leading-relaxed">
+                  <p>This is a detailed description of the {selectedProject.title} project located in {selectedProject.location}. The project showcases innovative architectural design and sustainable building practices.</p>
+                  <br />
+                  <p><strong>Key Features:</strong></p>
+                  <ul className="list-disc list-inside mt-2 space-y-1">
+                    <li>Modern architectural design</li>
+                    <li>Sustainable materials</li>
+                    <li>Integration with natural environment</li>
+                    <li>Innovative spatial solutions</li>
+                  </ul>
                 </div>
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="project-image">Project Image</Label>
-                    <Input
-                      id="project-image"
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                      className="mb-4"
-                    />
-                  </div>
-                  <div className="aspect-[4/3] overflow-hidden rounded-lg border">
+              </div>
+              
+              {/* Images section - 5 images each 90% width */}
+              <div className="flex flex-col items-center space-y-6">
+                {projectImages.map((image, index) => (
+                  <div key={index} className="w-[90%]">
                     <img 
-                      src={editedProject.image} 
-                      alt={editedProject.title}
-                      className="w-full h-full object-cover"
+                      src={image} 
+                      alt={`${selectedProject.title} - Image ${index + 1}`}
+                      className="w-full h-auto object-cover rounded-lg"
                     />
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           )}
