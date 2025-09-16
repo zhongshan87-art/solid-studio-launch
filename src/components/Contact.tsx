@@ -1,6 +1,5 @@
 export const Contact = () => {
-  return (
-    <section id="about" className="section-padding">
+  return <section id="about" className="section-padding">
       <div className="container-studio">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
@@ -43,9 +42,7 @@ export const Contact = () => {
                   Social
                 </h3>
                 <div className="space-y-2 text-lg">
-                  <a href="#" className="block hover:text-studio-gray-medium transition-colors">
-                    Instagram
-                  </a>
+                  <a href="#" className="block hover:text-studio-gray-medium transition-colors">Instagram</a>
                   <a href="#" className="block hover:text-studio-gray-medium transition-colors">
                     Behance  
                   </a>
@@ -65,6 +62,5 @@ export const Contact = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
