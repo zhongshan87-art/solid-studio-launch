@@ -41,30 +41,24 @@ export const ProjectGrid = () => {
 
   return (
     <section id="works" className="py-0">
-      <div className="space-y-0">
+      <div className="space-y-1">
         {projects.map((project, index) => (
-          <article key={project.id} className="group cursor-pointer border-b border-studio-gray-light">
-            <div className="container-studio py-16 md:py-24">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div className="order-2 lg:order-1">
-                  <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-4">
-                    {project.title.toUpperCase()}
-                  </h2>
-                  <p className="text-xl md:text-2xl text-studio-gray-medium">
-                    {project.location}
-                  </p>
-                </div>
-                
-                <div className="order-1 lg:order-2">
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      onClick={() => handleImageClick(project)}
-                    />
-                  </div>
-                </div>
+          <article key={project.id} className="group cursor-pointer relative">
+            <div className="relative aspect-[16/10] overflow-hidden">
+              <img 
+                src={project.image} 
+                alt={project.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                onClick={() => handleImageClick(project)}
+              />
+              {/* Overlay text */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                <h2 className="text-xl md:text-2xl font-bold text-white mb-1">
+                  {project.title}
+                </h2>
+                <p className="text-sm md:text-base text-white/80">
+                  {project.location}
+                </p>
               </div>
             </div>
           </article>
