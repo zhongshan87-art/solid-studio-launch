@@ -54,27 +54,16 @@ export const Header = () => {
             </DialogHeader>
             <div className="flex-1 overflow-auto p-4">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
-                {/* Left column - Editable text */}
+                {/* Left column - Display text */}
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-lg font-semibold">Studio Text</h3>
-                  <Textarea
-                    value={studioIntro}
-                    onChange={(e) => setStudioIntro(e.target.value)}
-                    className="flex-1 min-h-[50vh] resize-none text-sm leading-relaxed"
-                    placeholder="Enter studio introduction..."
-                  />
+                  <div className="text-sm leading-relaxed whitespace-pre-line">
+                    {studioIntro}
+                  </div>
                 </div>
                 
-                {/* Right column - Editable image */}
+                {/* Right column - Display image */}
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-lg font-semibold">Studio Image</h3>
-                  <Input
-                    value={studioImage}
-                    onChange={(e) => setStudioImage(e.target.value)}
-                    placeholder="Enter image URL..."
-                    className="text-sm"
-                  />
-                  <div className="flex-1 border border-input rounded-md overflow-hidden bg-muted/20">
+                  <div className="flex-1 rounded-md overflow-hidden">
                     <img 
                       src={studioImage} 
                       alt="Studio" 
