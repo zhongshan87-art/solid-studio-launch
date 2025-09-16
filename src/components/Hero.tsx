@@ -4,7 +4,7 @@ export const Hero = () => {
         <div className="relative">
           <h1 className="text-8xl md:text-[12rem] lg:text-[16rem] font-black tracking-tighter leading-none">尺度森林S.F.A</h1>
           <div className="absolute top-0 right-0 text-right">
-            <p className="text-lg md:text-xl text-studio-gray-medium">ARCHITECTURE + EXHIBITION</p>
+            <p className="text-lg md:text-xl text-studio-gray-medium">有温度且灵动的设计表达</p>
           </div>
         </div>
       </div>
