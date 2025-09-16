@@ -17,8 +17,8 @@ export const Header = () => {
 
         {isMenuOpen && (
           <nav className="fixed inset-0 bg-background/95 backdrop-blur-md flex items-center justify-center z-40">
-            <div className="text-center space-y-8">
-              <div className="space-y-6">
+            <div className="text-center space-y-8 mt-20">
+              <div className="space-y-8">
                 <a href="#studio" className="block text-title hover:text-studio-gray-medium transition-colors" onClick={() => setIsMenuOpen(false)}>
                   Studio
                 </a>
@@ -26,7 +26,7 @@ export const Header = () => {
                   Works
                 </a>
                 <a href="#about" className="block text-title hover:text-studio-gray-medium transition-colors" onClick={() => setIsMenuOpen(false)}>
-                  About
+                  Studio
                 </a>
               </div>
               <Button
