@@ -29,13 +29,8 @@ export const ProjectGrid = () => {
     if (!selectedProject || projects.length === 0) return;
     const updated = projects.find(p => p.id === selectedProject.id);
     if (!updated) return;
-
-    const imagesChanged = updated.images.length !== selectedProject.images.length
-      || updated.images.some((img, idx) => img.id !== selectedProject.images[idx]?.id);
-    const metaChanged = updated.title !== selectedProject.title 
-      || updated.location !== selectedProject.location 
-      || updated.description !== selectedProject.description;
-
+    const imagesChanged = updated.images.length !== selectedProject.images.length || updated.images.some((img, idx) => img.id !== selectedProject.images[idx]?.id);
+    const metaChanged = updated.title !== selectedProject.title || updated.location !== selectedProject.location || updated.description !== selectedProject.description;
     if (imagesChanged || metaChanged) {
       console.log('Detected project updates, syncing selectedProject.');
       setSelectedProject(updated);
@@ -98,23 +93,21 @@ export const ProjectGrid = () => {
     caption?: string;
   }) => {
     if (selectedProject) {
-      console.log('Adding image to project:', selectedProject.id, { 
-        imageSize: image.url.length, 
+      console.log('Adding image to project:', selectedProject.id, {
+        imageSize: image.url.length,
         alt: image.alt,
-        caption: image.caption 
+        caption: image.caption
       });
-      
       try {
         // Persist and get the actual new image object (with final ID)
         const persistedImage = addImageToProject(selectedProject.id, image);
         if (!persistedImage) return;
-        
+
         // Update local selected project to reflect persisted state
         const updatedProject = {
           ...selectedProject,
           images: [...selectedProject.images, persistedImage]
         };
-        
         setSelectedProject(updatedProject);
         console.log('Successfully added image with ID:', persistedImage.id);
         console.log('Updated project now has', updatedProject.images.length, 'images');
@@ -174,14 +167,7 @@ export const ProjectGrid = () => {
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="w-[90vw] max-w-none h-[90vh] max-h-none">
-          <DialogHeader>
-            <DialogTitle>
-              {selectedProject ? selectedProject.title : 'Project Details'}
-            </DialogTitle>
-            <DialogDescription>
-              {selectedProject ? `Located in ${selectedProject.location}` : 'Project information'}
-            </DialogDescription>
-          </DialogHeader>
+          
           {selectedProject ? <div className="flex-1 overflow-auto">
               {isEditMode ? <Tabs defaultValue="content" className="w-full">
                   <TabsList className="grid w-full grid-cols-2">
@@ -205,15 +191,10 @@ export const ProjectGrid = () => {
                             {selectedProject.images.map(image => <CarouselItem key={image.id}>
                                 <div className="flex flex-col items-center space-y-4">
                                   <div className="w-full flex justify-center">
-                                   <img 
-                                     src={image.url} 
-                                     alt={image.alt} 
-                                     className="max-h-[60vh] w-auto object-contain rounded-lg" 
-                                     onError={(e) => {
-                                       console.error('Failed to load image:', image.url.substring(0, 50) + '...');
-                                       e.currentTarget.src = '/placeholder.svg';
-                                     }}
-                                   />
+                                   <img src={image.url} alt={image.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" onError={e => {
+                              console.error('Failed to load image:', image.url.substring(0, 50) + '...');
+                              e.currentTarget.src = '/placeholder.svg';
+                            }} />
                                   </div>
                                 </div>
                               </CarouselItem>)}
@@ -244,15 +225,10 @@ export const ProjectGrid = () => {
                           {selectedProject.images.map(image => <CarouselItem key={image.id}>
                               <div className="flex flex-col items-center space-y-4">
                                 <div className="w-full flex justify-center">
-                                 <img 
-                                   src={image.url} 
-                                   alt={image.alt} 
-                                   className="max-h-[60vh] w-auto object-contain rounded-lg" 
-                                   onError={(e) => {
-                                     console.error('Failed to load image:', image.url.substring(0, 50) + '...');
-                                     e.currentTarget.src = '/placeholder.svg';
-                                   }}
-                                 />
+                                 <img src={image.url} alt={image.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" onError={e => {
+                            console.error('Failed to load image:', image.url.substring(0, 50) + '...');
+                            e.currentTarget.src = '/placeholder.svg';
+                          }} />
                                 </div>
                                 
                               </div>
