@@ -51,7 +51,17 @@ export const Header = () => {
     ];
   });
   
-  const [studioIntro, setStudioIntro] = useState("Our Studio\n\nFounded in 2010, our architectural studio specializes in innovative and sustainable design solutions. We believe in creating spaces that harmonize with their environment while pushing the boundaries of contemporary architecture.\n\nOur Philosophy:\n- Sustainable design practices\n- Integration with natural landscapes\n- User-centered spatial experiences\n- Innovative material applications\n\nServices:\n- Architectural Design\n- Interior Design\n- Urban Planning\n- Consultation Services");
+  const [studioIntro, setStudioIntro] = useState(() => {
+    const saved = localStorage.getItem('studioIntro');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error('Failed to parse saved studio intro:', e);
+      }
+    }
+    return "Our Studio\n\nFounded in 2010, our architectural studio specializes in innovative and sustainable design solutions. We believe in creating spaces that harmonize with their environment while pushing the boundaries of contemporary architecture.\n\nOur Philosophy:\n- Sustainable design practices\n- Integration with natural landscapes\n- User-centered spatial experiences\n- Innovative material applications\n\nServices:\n- Architectural Design\n- Interior Design\n- Urban Planning\n- Consultation Services";
+  });
   const [studioImage, setStudioImage] = useState("/src/assets/hero-architecture.jpg");
   const [uploading, setUploading] = useState(false);
   const [editingCardId, setEditingCardId] = useState<string | null>(null);
@@ -61,6 +71,11 @@ export const Header = () => {
   useEffect(() => {
     localStorage.setItem('mediaCards', JSON.stringify(mediaCards));
   }, [mediaCards]);
+
+  // Save studio intro to localStorage
+  useEffect(() => {
+    localStorage.setItem('studioIntro', JSON.stringify(studioIntro));
+  }, [studioIntro]);
 
   // Handle file upload for media cards
   const handleCardImageUpload = async (event: React.ChangeEvent<HTMLInputElement>, cardId: string) => {
