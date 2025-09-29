@@ -96,7 +96,7 @@ export const ProjectGrid = () => {
           const isLastInRowLg = (index + 1) % 3 === 0;
           return <article key={project.id} className={`group cursor-pointer border-b border-gray-200 ${!isLastInRowMd ? 'md:border-r' : ''} ${!isLastInRowLg ? 'lg:border-r' : ''} md:[&:nth-child(even)]:border-r-0 lg:[&:nth-child(3n)]:border-r-0`}>
                 <div className="w-full overflow-hidden aspect-[4/3]">
-                  <img src={project.mainImage} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onClick={() => handleImageClick(project)} />
+                  <img src={project.images[0]?.url || project.mainImage} alt={project.images[0]?.alt || project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onClick={() => handleImageClick(project)} />
                 </div>
                 <div className="p-6">
                   <h2 className="text-lg md:text-xl lg:text-2xl font-medium text-foreground mb-2 leading-tight">
