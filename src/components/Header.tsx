@@ -227,7 +227,7 @@ export const Header = () => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
-  return <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+  return <header className="fixed top-0 left-0 right-0 z-50 bg-background shadow-sm">
       <div className="container-studio flex justify-end items-center py-6 gap-8">
         <nav className="flex items-center gap-8">
           <a href="#works" className="text-caption font-medium hover:text-primary transition-colors">
