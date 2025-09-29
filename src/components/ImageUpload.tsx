@@ -33,30 +33,48 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ onImageAdd, className 
         return;
       }
 
-      // Validate file size (max 10MB)
-      if (file.size > 10 * 1024 * 1024) {
+      // Validate file size (max 5MB for better performance)
+      if (file.size > 5 * 1024 * 1024) {
         toast({
           title: "File too large",
-          description: "Please select an image smaller than 10MB.",
+          description: "Please select an image smaller than 5MB.",
           variant: "destructive",
         });
         return;
       }
 
-      // Create URL for the uploaded image
-      const imageUrl = URL.createObjectURL(file);
+      // Convert file to Base64 DataURL for persistence
+      const reader = new FileReader();
       
-      // Add image to project
-      onImageAdd({
-        url: imageUrl,
-        alt: file.name.split('.')[0],
-        caption: file.name,
-      });
+      reader.onload = () => {
+        const dataUrl = reader.result as string;
+        
+        // Add image to project with persistent DataURL
+        onImageAdd({
+          url: dataUrl,
+          alt: file.name.split('.')[0],
+          caption: file.name,
+        });
 
-      toast({
-        title: "Image uploaded",
-        description: "Image has been added to the project.",
-      });
+        toast({
+          title: "Image uploaded",
+          description: "Image has been added to the project.",
+        });
+
+        setUploading(false);
+      };
+
+      reader.onerror = () => {
+        toast({
+          title: "Upload failed",
+          description: "Failed to read image file. Please try again.",
+          variant: "destructive",
+        });
+        setUploading(false);
+      };
+
+      // Read file as DataURL (Base64)
+      reader.readAsDataURL(file);
 
       // Reset input
       if (fileInputRef.current) {
@@ -69,7 +87,6 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ onImageAdd, className 
         description: "Failed to upload image. Please try again.",
         variant: "destructive",
       });
-    } finally {
       setUploading(false);
     }
   };
