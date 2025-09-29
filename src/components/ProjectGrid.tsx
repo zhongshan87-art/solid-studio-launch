@@ -31,10 +31,14 @@ export const ProjectGrid = () => {
           // Save the description and title when exiting edit mode
           updateProjectDescription(selectedProject.id, projectDescription);
           if (projectTitle !== selectedProject.title) {
-            updateProject(selectedProject.id, { title: projectTitle });
+            updateProject(selectedProject.id, {
+              title: projectTitle
+            });
           }
           if (projectLocation !== selectedProject.location) {
-            updateProject(selectedProject.id, { location: projectLocation });
+            updateProject(selectedProject.id, {
+              location: projectLocation
+            });
           }
         }
         setIsEditMode(prev => !prev);
@@ -109,14 +113,7 @@ export const ProjectGrid = () => {
                 <div className="w-full overflow-hidden aspect-[4/3]">
                   <img src={project.images[0]?.url || project.mainImage} alt={project.images[0]?.alt || project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onClick={() => handleImageClick(project)} />
                 </div>
-                <div className="p-6">
-                  <h2 className="text-lg md:text-xl lg:text-2xl font-medium text-foreground mb-2 leading-tight">
-                    {project.title}
-                  </h2>
-                  <p className="text-base md:text-lg text-muted-foreground">
-                    {project.location}
-                  </p>
-                </div>
+                
               </article>;
         })}
         </div>
@@ -128,8 +125,7 @@ export const ProjectGrid = () => {
             
           </DialogHeader>
           {selectedProject && <div className="flex-1 overflow-auto">
-              {isEditMode ? (
-                <Tabs defaultValue="content" className="w-full">
+              {isEditMode ? <Tabs defaultValue="content" className="w-full">
                   <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="content">Content</TabsTrigger>
                     <TabsTrigger value="images">Images</TabsTrigger>
@@ -138,18 +134,8 @@ export const ProjectGrid = () => {
                   <TabsContent value="content" className="p-4">
                     <div className="space-y-6">
                       <div>
-                        <Input 
-                          value={projectTitle} 
-                          onChange={(e) => setProjectTitle(e.target.value)}
-                          className="text-2xl font-bold mb-4 border-0 bg-transparent px-0 focus-visible:ring-0"
-                          placeholder="Project title..."
-                        />
-                        <Input 
-                          value={projectLocation} 
-                          onChange={(e) => setProjectLocation(e.target.value)}
-                          className="text-lg text-muted-foreground mb-4 border-0 bg-transparent px-0 focus-visible:ring-0"
-                          placeholder="Project location..."
-                        />
+                        <Input value={projectTitle} onChange={e => setProjectTitle(e.target.value)} className="text-2xl font-bold mb-4 border-0 bg-transparent px-0 focus-visible:ring-0" placeholder="Project title..." />
+                        <Input value={projectLocation} onChange={e => setProjectLocation(e.target.value)} className="text-lg text-muted-foreground mb-4 border-0 bg-transparent px-0 focus-visible:ring-0" placeholder="Project location..." />
                         <div className="text-base leading-relaxed w-full">
                           <Textarea value={projectDescription} onChange={e => setProjectDescription(e.target.value)} className="min-h-[100px] mb-4 w-full" placeholder="Enter project description..." />
                         </div>
@@ -179,9 +165,7 @@ export const ProjectGrid = () => {
                   <TabsContent value="images" className="p-4">
                     <ProjectImageManager images={selectedProject.images} onImageAdd={handleImageAdd} onImageRemove={handleImageRemove} onImageUpdate={handleImageUpdate} />
                   </TabsContent>
-                </Tabs>
-              ) : (
-                <div className="p-4">
+                </Tabs> : <div className="p-4">
                   <div className="space-y-6">
                     <div>
                       <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
@@ -210,8 +194,7 @@ export const ProjectGrid = () => {
                       </Carousel>
                     </div>
                   </div>
-                </div>
-              )}
+                </div>}
             </div>}
         </DialogContent>
       </Dialog>
