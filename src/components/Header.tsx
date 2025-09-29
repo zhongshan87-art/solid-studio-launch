@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Upload, Plus, Trash2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
@@ -11,6 +12,7 @@ interface MediaCard {
   id: string;
   image: string;
   text: string;
+  objectFit?: 'cover' | 'contain' | 'fill';
 }
 export const Header = () => {
   const [isMediaOpen, setIsMediaOpen] = useState(false);
@@ -31,17 +33,20 @@ export const Header = () => {
       {
         id: "1",
         image: "/src/assets/project-1.jpg",
-        text: "Outstanding Architecture Award 2023\nRecognized for innovative sustainable design practices and exceptional integration with natural landscapes."
+        text: "Outstanding Architecture Award 2023\nRecognized for innovative sustainable design practices and exceptional integration with natural landscapes.",
+        objectFit: 'cover' as const
       },
       {
         id: "2", 
         image: "/src/assets/project-2.jpg",
-        text: "Innovative Design Recognition 2022\nAwarded for pushing boundaries in contemporary architecture while maintaining user-centered spatial experiences."
+        text: "Innovative Design Recognition 2022\nAwarded for pushing boundaries in contemporary architecture while maintaining user-centered spatial experiences.",
+        objectFit: 'cover' as const
       },
       {
         id: "3",
         image: "/src/assets/project-3.jpg", 
-        text: "Sustainable Building Excellence 2023\nHonored for pioneering sustainable building practices and innovative material applications."
+        text: "Sustainable Building Excellence 2023\nHonored for pioneering sustainable building practices and innovative material applications.",
+        objectFit: 'cover' as const
       }
     ];
   });
@@ -121,7 +126,8 @@ export const Header = () => {
     const newCard: MediaCard = {
       id: Date.now().toString(),
       image: "/placeholder.svg",
-      text: "New card description..."
+      text: "New card description...",
+      objectFit: 'cover'
     };
     setMediaCards(prev => [...prev, newCard]);
   };
@@ -135,6 +141,13 @@ export const Header = () => {
   const updateCardText = (cardId: string, text: string) => {
     setMediaCards(prev => prev.map(card => 
       card.id === cardId ? { ...card, text } : card
+    ));
+  };
+
+  // Update card object fit
+  const updateCardObjectFit = (cardId: string, objectFit: 'cover' | 'contain' | 'fill') => {
+    setMediaCards(prev => prev.map(card => 
+      card.id === cardId ? { ...card, objectFit } : card
     ));
   };
 
@@ -237,38 +250,53 @@ export const Header = () => {
                           <img 
                             src={card.image} 
                             alt="Media card" 
-                            className="w-full aspect-[3/4] object-cover"
+                            className={`w-full aspect-[3/4] object-${card.objectFit || 'cover'}`}
                             onError={(e) => {
                               e.currentTarget.src = '/placeholder.svg';
                             }}
                           />
                           
                           {isEditMode && (
-                            <div className="absolute top-2 right-2 flex gap-2">
-                              <input
-                                ref={(el) => fileInputRefs.current[card.id] = el}
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => handleCardImageUpload(e, card.id)}
-                                className="hidden"
-                              />
-                              <Button
-                                size="sm"
-                                variant="secondary"
-                                onClick={() => fileInputRefs.current[card.id]?.click()}
-                                disabled={uploading}
-                                className="h-8 w-8 p-0"
+                            <div className="absolute top-2 left-2 right-2 flex flex-col gap-2">
+                              <div className="flex gap-2 justify-end">
+                                <input
+                                  ref={(el) => fileInputRefs.current[card.id] = el}
+                                  type="file"
+                                  accept="image/*"
+                                  onChange={(e) => handleCardImageUpload(e, card.id)}
+                                  className="hidden"
+                                />
+                                <Button
+                                  size="sm"
+                                  variant="secondary"
+                                  onClick={() => fileInputRefs.current[card.id]?.click()}
+                                  disabled={uploading}
+                                  className="h-8 w-8 p-0"
+                                >
+                                  <Upload className="w-4 h-4" />
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  variant="destructive"
+                                  onClick={() => removeMediaCard(card.id)}
+                                  className="h-8 w-8 p-0"
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              </div>
+                              <Select
+                                value={card.objectFit || 'cover'}
+                                onValueChange={(value: 'cover' | 'contain' | 'fill') => updateCardObjectFit(card.id, value)}
                               >
-                                <Upload className="w-4 h-4" />
-                              </Button>
-                              <Button
-                                size="sm"
-                                variant="destructive"
-                                onClick={() => removeMediaCard(card.id)}
-                                className="h-8 w-8 p-0"
-                              >
-                                <Trash2 className="w-4 h-4" />
-                              </Button>
+                                <SelectTrigger className="w-24 h-6 text-xs bg-white/90">
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="cover">裁切</SelectItem>
+                                  <SelectItem value="contain">适应</SelectItem>
+                                  <SelectItem value="fill">拉伸</SelectItem>
+                                </SelectContent>
+                              </Select>
                             </div>
                           )}
                         </div>
