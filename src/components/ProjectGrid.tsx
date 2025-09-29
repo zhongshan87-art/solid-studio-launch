@@ -148,7 +148,7 @@ export const ProjectGrid = () => {
   }
   return <section id="works" className="py-8">
       <div className="w-full px-0">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[5px]">
           {projects.map((project, index) => {
           const isLastInRowMd = (index + 1) % 2 === 0;
           const isLastInRowLg = (index + 1) % 3 === 0;
