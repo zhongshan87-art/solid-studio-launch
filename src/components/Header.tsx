@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Upload } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 export const Header = () => {
   const [isMediaOpen, setIsMediaOpen] = useState(false);
   const [isStudioOpen, setIsStudioOpen] = useState(false);
@@ -9,6 +12,63 @@ export const Header = () => {
   const [awards, setAwards] = useState("Outstanding Architecture Award 2023\nInnovative Design Recognition 2022\nSustainable Building Excellence 2023\nUrban Planning Achievement 2022");
   const [studioIntro, setStudioIntro] = useState("Our Studio\n\nFounded in 2010, our architectural studio specializes in innovative and sustainable design solutions. We believe in creating spaces that harmonize with their environment while pushing the boundaries of contemporary architecture.\n\nOur Philosophy:\n- Sustainable design practices\n- Integration with natural landscapes\n- User-centered spatial experiences\n- Innovative material applications\n\nServices:\n- Architectural Design\n- Interior Design\n- Urban Planning\n- Consultation Services");
   const [studioImage, setStudioImage] = useState("/src/assets/hero-architecture.jpg");
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Handle file upload
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (!files || files.length === 0) return;
+
+    setUploading(true);
+    
+    try {
+      const file = files[0];
+      
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        toast({
+          title: "Invalid file type",
+          description: "Please select an image file.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Validate file size (max 10MB)
+      if (file.size > 10 * 1024 * 1024) {
+        toast({
+          title: "File too large",
+          description: "Please select an image smaller than 10MB.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Create URL for the uploaded image
+      const imageUrl = URL.createObjectURL(file);
+      setStudioImage(imageUrl);
+
+      toast({
+        title: "Image uploaded",
+        description: "Studio image has been updated.",
+      });
+
+      // Reset input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      toast({
+        title: "Upload failed",
+        description: "Failed to upload image. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
 
   // Toggle edit mode with Ctrl+E
   useEffect(() => {
@@ -65,12 +125,34 @@ export const Header = () => {
                 {/* Right column - Display image */}
                 <div className="flex flex-col gap-4">
                   {isEditMode && (
-                    <Input 
-                      value={studioImage} 
-                      onChange={e => setStudioImage(e.target.value)} 
-                      placeholder="Image URL..." 
-                      className="text-sm"
-                    />
+                    <div className="flex flex-col gap-2">
+                      <Input 
+                        value={studioImage} 
+                        onChange={e => setStudioImage(e.target.value)} 
+                        placeholder="Image URL..." 
+                        className="text-sm"
+                      />
+                      <div className="flex gap-2">
+                        <Input
+                          ref={fileInputRef}
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFileUpload}
+                          className="hidden"
+                        />
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => fileInputRef.current?.click()}
+                          disabled={uploading}
+                          className="flex-1"
+                        >
+                          <Upload className="w-4 h-4 mr-2" />
+                          {uploading ? "Uploading..." : "Upload Image"}
+                        </Button>
+                      </div>
+                    </div>
                   )}
                   <div className="flex-1 rounded-md overflow-hidden">
                     <img src={studioImage} alt="Studio" className="w-full h-full object-cover" onError={e => {
