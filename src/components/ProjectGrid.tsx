@@ -103,22 +103,31 @@ export const ProjectGrid = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [projectDescription, setProjectDescription] = useState<string>("");
+  const [savedDescriptions, setSavedDescriptions] = useState<{[key: number]: string}>({});
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.ctrlKey && event.key === 'e') {
         event.preventDefault();
+        if (isEditMode && selectedProject) {
+          // Save the description when exiting edit mode
+          setSavedDescriptions(prev => ({
+            ...prev,
+            [selectedProject.id]: projectDescription
+          }));
+        }
         setIsEditMode(prev => !prev);
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [isEditMode, selectedProject, projectDescription]);
 
   const handleImageClick = (project: any) => {
     setSelectedProject(project);
-    setProjectDescription(`This is a detailed description of the ${project.title} project located in ${project.location}. The project showcases innovative architectural design and sustainable building practices.`);
+    const defaultDescription = `This is a detailed description of the ${project.title} project located in ${project.location}. The project showcases innovative architectural design and sustainable building practices.`;
+    setProjectDescription(savedDescriptions[project.id] || defaultDescription);
     setIsModalOpen(true);
   };
 
