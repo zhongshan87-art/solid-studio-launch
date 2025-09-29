@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Upload, Plus, Trash2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
-import { getMediaCards, setMediaCards, getStudioData, setStudioData } from "@/lib/storage";
+import { getMediaCards as getMediaCardsStore, setMediaCards as setMediaCardsStore, getStudioData as getStudioDataStore, setStudioData as setStudioDataStore } from "@/lib/storage";
 
 interface MediaCard {
   id: string;
@@ -34,7 +34,7 @@ export const Header = () => {
     const loadData = async () => {
       try {
         // Load media cards
-        let cards = await getMediaCards();
+        let cards = await getMediaCardsStore();
         if (!cards || cards.length === 0) {
           // Try localStorage fallback
           const saved = localStorage.getItem('mediaCards');
@@ -43,7 +43,7 @@ export const Header = () => {
               cards = JSON.parse(saved);
               // Migrate to IndexedDB
               if (cards && cards.length > 0) {
-                await setMediaCards(cards);
+                await setMediaCardsStore(cards);
                 localStorage.removeItem('mediaCards');
               }
             } catch (e) {
@@ -75,12 +75,12 @@ export const Header = () => {
             }
           ];
           // Save default data to IndexedDB
-          await setMediaCards(cards);
+          await setMediaCardsStore(cards);
         }
         setMediaCards(cards);
 
         // Load studio data
-        let studioData = await getStudioData();
+        let studioData = await getStudioDataStore();
         if (!studioData) {
           // Try localStorage fallback
           const savedIntro = localStorage.getItem('studioIntro');
@@ -91,7 +91,7 @@ export const Header = () => {
           
           studioData = { intro, image };
           // Migrate to IndexedDB
-          await setStudioData(studioData);
+          await setStudioDataStore(studioData);
           localStorage.removeItem('studioIntro');
           localStorage.removeItem('studioImage');
         }
@@ -113,7 +113,7 @@ export const Header = () => {
   useEffect(() => {
     (async () => {
       try {
-        await setMediaCards(mediaCards);
+        await setMediaCardsStore(mediaCards);
       } catch (error) {
         console.error('Failed to save media cards:', error);
         toast({
@@ -130,7 +130,7 @@ export const Header = () => {
     if (studioIntro !== "" || studioImage !== "") {
       (async () => {
         try {
-          await setStudioData({ intro: studioIntro, image: studioImage });
+          await setStudioDataStore({ intro: studioIntro, image: studioImage });
         } catch (error) {
           console.error('Failed to save studio data:', error);
           toast({
