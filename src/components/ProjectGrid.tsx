@@ -73,16 +73,28 @@ export const ProjectGrid = () => {
     caption?: string;
   }) => {
     if (selectedProject) {
-      addImageToProject(selectedProject.id, image);
-      // Update local selected project
-      const updatedProject = {
-        ...selectedProject,
-        images: [...selectedProject.images, {
-          id: `${selectedProject.id}-${Date.now()}`,
-          ...image
-        }]
-      };
-      setSelectedProject(updatedProject);
+      console.log('Adding image to project:', selectedProject.id, { 
+        imageSize: image.url.length, 
+        alt: image.alt,
+        caption: image.caption 
+      });
+      
+      try {
+        addImageToProject(selectedProject.id, image);
+        // Update local selected project
+        const newImageId = `${selectedProject.id}-${Date.now()}`;
+        const updatedProject = {
+          ...selectedProject,
+          images: [...selectedProject.images, {
+            id: newImageId,
+            ...image
+          }]
+        };
+        setSelectedProject(updatedProject);
+        console.log('Successfully added image with ID:', newImageId);
+      } catch (error) {
+        console.error('Failed to add image:', error);
+      }
     }
   };
   const handleImageRemove = (imageId: string) => {
@@ -137,7 +149,9 @@ export const ProjectGrid = () => {
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="w-[90vw] max-w-none h-[90vh] max-h-none">
           <DialogHeader>
-            
+            <DialogTitle>
+              {selectedProject ? selectedProject.title : 'Project Details'}
+            </DialogTitle>
           </DialogHeader>
           {selectedProject ? <div className="flex-1 overflow-auto">
               {isEditMode ? <Tabs defaultValue="content" className="w-full">
@@ -162,7 +176,15 @@ export const ProjectGrid = () => {
                             {selectedProject.images.map(image => <CarouselItem key={image.id}>
                                 <div className="flex flex-col items-center space-y-4">
                                   <div className="w-full flex justify-center">
-                                    <img src={image.url} alt={image.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" />
+                                   <img 
+                                     src={image.url} 
+                                     alt={image.alt} 
+                                     className="max-h-[60vh] w-auto object-contain rounded-lg" 
+                                     onError={(e) => {
+                                       console.error('Failed to load image:', image.url.substring(0, 50) + '...');
+                                       e.currentTarget.src = '/placeholder.svg';
+                                     }}
+                                   />
                                   </div>
                                 </div>
                               </CarouselItem>)}
@@ -193,7 +215,15 @@ export const ProjectGrid = () => {
                           {selectedProject.images.map(image => <CarouselItem key={image.id}>
                               <div className="flex flex-col items-center space-y-4">
                                 <div className="w-full flex justify-center">
-                                  <img src={image.url} alt={image.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" />
+                                 <img 
+                                   src={image.url} 
+                                   alt={image.alt} 
+                                   className="max-h-[60vh] w-auto object-contain rounded-lg" 
+                                   onError={(e) => {
+                                     console.error('Failed to load image:', image.url.substring(0, 50) + '...');
+                                     e.currentTarget.src = '/placeholder.svg';
+                                   }}
+                                 />
                                 </div>
                                 
                               </div>

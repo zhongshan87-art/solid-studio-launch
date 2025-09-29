@@ -53,6 +53,10 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
                 src={image.url}
                 alt={image.alt}
                 className="w-full h-full object-cover rounded"
+                onError={(e) => {
+                  console.error('Failed to load thumbnail:', image.url.substring(0, 50) + '...');
+                  e.currentTarget.src = '/placeholder.svg';
+                }}
               />
             </div>
             

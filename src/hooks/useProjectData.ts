@@ -184,10 +184,24 @@ export const useProjectData = () => {
         projects: updatedProjects,
         lastUpdated: new Date().toISOString(),
       };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      
+      // Check localStorage space before saving
+      const dataString = JSON.stringify(data);
+      const sizeInBytes = new Blob([dataString]).size;
+      console.log('Saving projects data size:', (sizeInBytes / 1024 / 1024).toFixed(2), 'MB');
+      
+      if (sizeInBytes > 4.5 * 1024 * 1024) { // 4.5MB limit for safety
+        console.warn('Data size approaching localStorage limit');
+      }
+      
+      localStorage.setItem(STORAGE_KEY, dataString);
       setProjects(updatedProjects);
+      console.log('Successfully saved projects to localStorage');
     } catch (error) {
       console.error('Failed to save projects:', error);
+      if (error instanceof Error && error.name === 'QuotaExceededError') {
+        console.error('localStorage quota exceeded - consider image compression');
+      }
     }
   };
 
@@ -200,14 +214,20 @@ export const useProjectData = () => {
 
   const addImageToProject = (projectId: number, image: { url: string; alt: string; caption?: string }) => {
     const project = projects.find(p => p.id === projectId);
-    if (!project) return;
+    if (!project) {
+      console.error('Project not found:', projectId);
+      return;
+    }
 
     const newImage = {
       id: `${projectId}-${Date.now()}`,
       ...image,
     };
 
+    console.log('Creating new image for project:', projectId, 'with ID:', newImage.id);
     const updatedImages = [...project.images, newImage];
+    console.log('Updated images count:', updatedImages.length);
+    
     updateProject(projectId, { images: updatedImages });
   };
 
