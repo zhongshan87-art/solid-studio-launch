@@ -1,109 +1,26 @@
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
-import project1 from "@/assets/project-1.jpg";
-import project2 from "@/assets/project-2.jpg";
-import project3 from "@/assets/project-3.jpg";
-
-const projects = [
-  {
-    id: 1,
-    title: "一室亦园 One Room One Garden",
-    location: "南京 Nanjing",
-    image: project1,
-  },
-  {
-    id: 2,
-    title: "金塘水獭馆 Otter Exhibition",
-    location: "浙江 Zhejiang",
-    image: project2,
-  },
-  {
-    id: 3,
-    title: "Art Museum",
-    location: "Tokyo, Japan",
-    image: project3,
-  },
-  {
-    id: 4,
-    title: "城市更新项目 Urban Renewal",
-    location: "北京 Beijing",
-    image: project1,
-  },
-  {
-    id: 5,
-    title: "文化中心 Cultural Center",
-    location: "上海 Shanghai",
-    image: project2,
-  },
-  {
-    id: 6,
-    title: "住宅综合体 Residential Complex",
-    location: "深圳 Shenzhen",
-    image: project3,
-  },
-  {
-    id: 7,
-    title: "商业广场 Commercial Plaza",
-    location: "广州 Guangzhou",
-    image: project1,
-  },
-  {
-    id: 8,
-    title: "学校设计 School Design",
-    location: "杭州 Hangzhou",
-    image: project2,
-  },
-  {
-    id: 9,
-    title: "办公大楼 Office Building",
-    location: "成都 Chengdu",
-    image: project3,
-  },
-  {
-    id: 10,
-    title: "公园景观 Park Landscape",
-    location: "武汉 Wuhan",
-    image: project1,
-  },
-  {
-    id: 11,
-    title: "酒店设计 Hotel Design",
-    location: "西安 Xi'an",
-    image: project2,
-  },
-  {
-    id: 12,
-    title: "体育馆 Sports Center",
-    location: "重庆 Chongqing",
-    image: project3,
-  },
-  {
-    id: 13,
-    title: "图书馆 Library",
-    location: "天津 Tianjin",
-    image: project1,
-  },
-  {
-    id: 14,
-    title: "医院建筑 Hospital Building",
-    location: "南昌 Nanchang",
-    image: project2,
-  },
-  {
-    id: 15,
-    title: "交通枢纽 Transport Hub",
-    location: "长沙 Changsha",
-    image: project3,
-  }
-];
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useProjectData } from "@/hooks/useProjectData";
+import { ProjectImageManager } from "./ProjectImageManager";
+import { Project } from "@/types/project";
 
 export const ProjectGrid = () => {
-  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const {
+    projects,
+    isLoading,
+    updateProjectDescription,
+    addImageToProject,
+    removeImageFromProject,
+    updateProject,
+  } = useProjectData();
+  
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [projectDescription, setProjectDescription] = useState<string>("");
-  const [savedDescriptions, setSavedDescriptions] = useState<{[key: number]: string}>({});
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -111,10 +28,7 @@ export const ProjectGrid = () => {
         event.preventDefault();
         if (isEditMode && selectedProject) {
           // Save the description when exiting edit mode
-          setSavedDescriptions(prev => ({
-            ...prev,
-            [selectedProject.id]: projectDescription
-          }));
+          updateProjectDescription(selectedProject.id, projectDescription);
         }
         setIsEditMode(prev => !prev);
       }
@@ -122,19 +36,53 @@ export const ProjectGrid = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isEditMode, selectedProject, projectDescription]);
+  }, [isEditMode, selectedProject, projectDescription, updateProjectDescription]);
 
-  const handleImageClick = (project: any) => {
+  const handleImageClick = (project: Project) => {
     setSelectedProject(project);
     const defaultDescription = `This is a detailed description of the ${project.title} project located in ${project.location}. The project showcases innovative architectural design and sustainable building practices.`;
-    setProjectDescription(savedDescriptions[project.id] || defaultDescription);
+    setProjectDescription(project.description || defaultDescription);
     setIsModalOpen(true);
   };
 
-  // Sample project images (using the same image for demo purposes)
-  const projectImages = [
-    project1, project2, project3, project1, project2
-  ];
+  const handleImageAdd = (image: { url: string; alt: string; caption?: string }) => {
+    if (selectedProject) {
+      addImageToProject(selectedProject.id, image);
+      // Update local selected project
+      const updatedProject = {
+        ...selectedProject,
+        images: [...selectedProject.images, { id: `${selectedProject.id}-${Date.now()}`, ...image }]
+      };
+      setSelectedProject(updatedProject);
+    }
+  };
+
+  const handleImageRemove = (imageId: string) => {
+    if (selectedProject) {
+      removeImageFromProject(selectedProject.id, imageId);
+      // Update local selected project
+      const updatedProject = {
+        ...selectedProject,
+        images: selectedProject.images.filter(img => img.id !== imageId)
+      };
+      setSelectedProject(updatedProject);
+    }
+  };
+
+  const handleImageUpdate = (imageId: string, updates: any) => {
+    if (selectedProject) {
+      const updatedImages = selectedProject.images.map(img =>
+        img.id === imageId ? { ...img, ...updates } : img
+      );
+      const updatedProject = { ...selectedProject, images: updatedImages };
+      updateProject(selectedProject.id, { images: updatedImages });
+      setSelectedProject(updatedProject);
+    }
+  };
+
+  if (isLoading) {
+    return <div className="py-8 text-center">Loading projects...</div>;
+  }
 
   return (
     <section id="works" className="py-8">
@@ -155,7 +103,7 @@ export const ProjectGrid = () => {
               >
                 <div className="w-full overflow-hidden aspect-[4/3]">
                   <img 
-                    src={project.image} 
+                    src={project.mainImage} 
                     alt={project.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     onClick={() => handleImageClick(project)}
@@ -178,40 +126,85 @@ export const ProjectGrid = () => {
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="w-[90vw] max-w-none h-[90vh] max-h-none">
           <DialogHeader>
-            <DialogTitle>{selectedProject?.title}</DialogTitle>
+            <DialogTitle className="flex items-center justify-between">
+              {selectedProject?.title}
+              {isEditMode && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setIsEditMode(false)}
+                >
+                  Exit Edit Mode (Ctrl+E)
+                </Button>
+              )}
+            </DialogTitle>
           </DialogHeader>
           {selectedProject && (
-            <div className="flex-1 overflow-auto p-4">
-              {/* Text section at the top */}
-              <div className="mb-8">
-                <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
-                <p className="text-lg text-studio-gray-medium mb-4">{selectedProject.location}</p>
-                <div className="text-base leading-relaxed">
+            <div className="flex-1 overflow-auto">
+              <Tabs defaultValue="content" className="w-full">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="content">Content</TabsTrigger>
+                  <TabsTrigger value="images">Images</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="content" className="p-4">
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
+                      <p className="text-lg text-muted-foreground mb-4">{selectedProject.location}</p>
+                      <div className="text-base leading-relaxed">
+                        {isEditMode ? (
+                          <Textarea
+                            value={projectDescription}
+                            onChange={(e) => setProjectDescription(e.target.value)}
+                            className="min-h-[100px] mb-4"
+                            placeholder="Enter project description..."
+                          />
+                        ) : (
+                          <p>{projectDescription}</p>
+                        )}
+                      </div>
+                    </div>
+                    
+                    <div className="flex flex-col items-center space-y-6">
+                      {selectedProject.images.map((image) => (
+                        <div key={image.id} className="w-[90%]">
+                          <img 
+                            src={image.url} 
+                            alt={image.alt}
+                            className="w-full h-auto object-cover rounded-lg"
+                          />
+                          {image.caption && (
+                            <p className="text-sm text-muted-foreground mt-2 text-center">
+                              {image.caption}
+                            </p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </TabsContent>
+                
+                <TabsContent value="images" className="p-4">
                   {isEditMode ? (
-                    <Textarea
-                      value={projectDescription}
-                      onChange={(e) => setProjectDescription(e.target.value)}
-                      className="min-h-[100px] mb-4"
-                      placeholder="Enter project description..."
+                    <ProjectImageManager
+                      images={selectedProject.images}
+                      onImageAdd={handleImageAdd}
+                      onImageRemove={handleImageRemove}
+                      onImageUpdate={handleImageUpdate}
                     />
                   ) : (
-                    <p>{projectDescription}</p>
+                    <div className="text-center py-8">
+                      <p className="text-muted-foreground mb-4">
+                        Press Ctrl+E to enter edit mode and manage images
+                      </p>
+                      <Button onClick={() => setIsEditMode(true)}>
+                        Enter Edit Mode
+                      </Button>
+                    </div>
                   )}
-                </div>
-              </div>
-              
-              {/* Images section - 5 images each 90% width */}
-              <div className="flex flex-col items-center space-y-6">
-                {projectImages.map((image, index) => (
-                  <div key={index} className="w-[90%]">
-                    <img 
-                      src={image} 
-                      alt={`${selectedProject.title} - Image ${index + 1}`}
-                      className="w-full h-auto object-cover rounded-lg"
-                    />
-                  </div>
-                ))}
-              </div>
+                </TabsContent>
+              </Tabs>
             </div>
           )}
         </DialogContent>
