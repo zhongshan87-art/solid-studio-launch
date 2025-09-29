@@ -47,6 +47,7 @@ export const useProjectData = () => {
   }, []);
 
   const saveProjects = (updatedProjects: Project[]) => {
+    let persisted = false;
     try {
       const data: ProjectData = {
         projects: updatedProjects,
@@ -63,12 +64,18 @@ export const useProjectData = () => {
       }
       
       localStorage.setItem(STORAGE_KEY, dataString);
-      setProjects(updatedProjects);
+      persisted = true;
       console.log('Successfully saved projects to localStorage');
     } catch (error) {
       console.error('Failed to save projects:', error);
       if (error instanceof Error && error.name === 'QuotaExceededError') {
-        console.error('localStorage quota exceeded - consider image compression');
+        console.error('localStorage quota exceeded - using in-memory state only');
+      }
+    } finally {
+      // Always update in-memory state so UI reflects latest changes
+      setProjects(updatedProjects);
+      if (!persisted) {
+        console.warn('Projects not persisted to localStorage. Changes will be lost on reload.');
       }
     }
   };

@@ -200,7 +200,7 @@ export const ProjectGrid = () => {
                       </div>
                       
                       <div className="relative">
-                        <Carousel className="w-full">
+                         <Carousel key={(selectedProject?.images || []).map(i => i.id).join('|') || 'empty'} className="w-full">
                           <CarouselContent>
                             {selectedProject.images.map(image => <CarouselItem key={image.id}>
                                 <div className="flex flex-col items-center space-y-4">
@@ -239,7 +239,7 @@ export const ProjectGrid = () => {
                     </div>
                     
                     <div className="relative">
-                      <Carousel className="w-full">
+                      <Carousel key={(selectedProject?.images || []).map(i => i.id).join('|') || 'empty'} className="w-full">
                         <CarouselContent>
                           {selectedProject.images.map(image => <CarouselItem key={image.id}>
                               <div className="flex flex-col items-center space-y-4">
