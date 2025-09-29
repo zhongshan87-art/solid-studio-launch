@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+
 import { useProjectData } from "@/hooks/useProjectData";
 import { ProjectImageManager } from "./ProjectImageManager";
 import { Project } from "@/types/project";
@@ -153,45 +153,37 @@ export const ProjectGrid = () => {
                     <div>
                       <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
                       <p className="text-lg text-muted-foreground mb-4">{selectedProject.location}</p>
-                      <div className="text-base leading-relaxed">
+                      <div className="text-base leading-relaxed w-full">
                         {isEditMode ? (
                           <Textarea
                             value={projectDescription}
                             onChange={(e) => setProjectDescription(e.target.value)}
-                            className="min-h-[100px] mb-4"
+                            className="min-h-[100px] mb-4 w-full"
                             placeholder="Enter project description..."
                           />
                         ) : (
-                          <p>{projectDescription}</p>
+                          <p className="w-full break-words">{projectDescription}</p>
                         )}
                       </div>
                     </div>
                     
-                    <div className="relative">
-                      <Carousel className="w-full">
-                        <CarouselContent>
-                          {selectedProject.images.map((image) => (
-                            <CarouselItem key={image.id}>
-                              <div className="flex flex-col items-center space-y-4">
-                                <div className="w-full flex justify-center">
-                                  <img 
-                                    src={image.url} 
-                                    alt={image.alt}
-                                    className="max-h-[60vh] w-auto object-contain rounded-lg"
-                                  />
-                                </div>
-                                {image.caption && (
-                                  <p className="text-sm text-muted-foreground text-center">
-                                    {image.caption}
-                                  </p>
-                                )}
-                              </div>
-                            </CarouselItem>
-                          ))}
-                        </CarouselContent>
-                        <CarouselPrevious />
-                        <CarouselNext />
-                      </Carousel>
+                    <div className="space-y-6">
+                      {selectedProject.images.map((image) => (
+                        <div key={image.id} className="flex flex-col items-center space-y-4">
+                          <div className="w-full flex justify-center">
+                            <img 
+                              src={image.url} 
+                              alt={image.alt}
+                              className="max-h-[60vh] w-auto object-contain rounded-lg"
+                            />
+                          </div>
+                          {image.caption && (
+                            <p className="text-sm text-muted-foreground text-center max-w-full">
+                              {image.caption}
+                            </p>
+                          )}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </TabsContent>
