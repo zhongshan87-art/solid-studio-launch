@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-
 export const Header = () => {
   const [isMediaOpen, setIsMediaOpen] = useState(false);
   const [isStudioOpen, setIsStudioOpen] = useState(false);
@@ -19,28 +18,19 @@ export const Header = () => {
         setIsEditMode(prev => !prev);
       }
     };
-
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
-
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+  return <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
       <div className="container-studio flex justify-end items-center py-6 gap-8">
         <nav className="flex items-center gap-8">
           <a href="#works" className="text-caption font-medium hover:text-primary transition-colors">
             Works
           </a>
-          <button 
-            className="text-caption font-medium hover:text-primary transition-colors" 
-            onClick={() => setIsMediaOpen(true)}
-          >
+          <button className="text-caption font-medium hover:text-primary transition-colors" onClick={() => setIsMediaOpen(true)}>
             Media
           </button>
-          <button 
-            className="text-caption font-medium hover:text-primary transition-colors" 
-            onClick={() => setIsStudioOpen(true)}
-          >
+          <button className="text-caption font-medium hover:text-primary transition-colors" onClick={() => setIsStudioOpen(true)}>
             Studio
           </button>
         </nav>
@@ -48,7 +38,7 @@ export const Header = () => {
         <Dialog open={isMediaOpen} onOpenChange={setIsMediaOpen}>
           <DialogContent className="w-[80vw] max-w-none h-[80vh] max-h-none">
             <DialogHeader>
-              <DialogTitle>Awards & Recognition</DialogTitle>
+              <DialogTitle>奖项和媒体 Awards & Media</DialogTitle>
             </DialogHeader>
             <div className="flex-1 overflow-auto">
               <div className="text-base leading-relaxed whitespace-pre-line p-4">
@@ -67,31 +57,17 @@ export const Header = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
                 {/* Left column - Display text */}
                 <div className="flex flex-col gap-4">
-                  {isEditMode ? (
-                    <Textarea
-                      value={studioIntro}
-                      onChange={(e) => setStudioIntro(e.target.value)}
-                      className="min-h-[300px] text-sm leading-relaxed resize-none"
-                      placeholder="Studio introduction..."
-                    />
-                  ) : (
-                    <div className="text-sm leading-relaxed whitespace-pre-line">
+                  {isEditMode ? <Textarea value={studioIntro} onChange={e => setStudioIntro(e.target.value)} className="min-h-[300px] text-sm leading-relaxed resize-none" placeholder="Studio introduction..." /> : <div className="text-sm leading-relaxed whitespace-pre-line">
                       {studioIntro}
-                    </div>
-                  )}
+                    </div>}
                 </div>
                 
                 {/* Right column - Display image */}
                 <div className="flex flex-col gap-4">
                   <div className="flex-1 rounded-md overflow-hidden">
-                    <img 
-                      src={studioImage} 
-                      alt="Studio" 
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.currentTarget.src = '/placeholder.svg';
-                      }}
-                    />
+                    <img src={studioImage} alt="Studio" className="w-full h-full object-cover" onError={e => {
+                    e.currentTarget.src = '/placeholder.svg';
+                  }} />
                   </div>
                 </div>
               </div>
@@ -99,6 +75,5 @@ export const Header = () => {
           </DialogContent>
         </Dialog>
       </div>
-    </header>
-  );
+    </header>;
 };
