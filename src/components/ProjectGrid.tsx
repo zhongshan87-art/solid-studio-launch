@@ -216,7 +216,7 @@ export const ProjectGrid = () => {
                   <div className="space-y-6">
                     <div className="text-slate-50">
                       <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
-                      <p className="text-lg text-muted-foreground mb-4">{selectedProject.location}</p>
+                      <p className="text-lg mb-4 text-slate-50">{selectedProject.location}</p>
                       <div className="text-base leading-relaxed w-full">
                         <p className="w-full break-words whitespace-pre-wrap">{projectDescription}</p>
                       </div>
