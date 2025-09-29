@@ -237,7 +237,7 @@ export const Header = () => {
                           <img 
                             src={card.image} 
                             alt="Media card" 
-                            className="w-full h-48 object-cover"
+                            className="w-full aspect-[3/4] object-cover"
                             onError={(e) => {
                               e.currentTarget.src = '/placeholder.svg';
                             }}
