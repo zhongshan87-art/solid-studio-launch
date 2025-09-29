@@ -41,9 +41,18 @@ export const Header = () => {
               <DialogTitle>奖项和媒体 Awards & Media</DialogTitle>
             </DialogHeader>
             <div className="flex-1 overflow-auto">
-              <div className="text-base leading-relaxed whitespace-pre-line p-4">
-                {awards}
-              </div>
+              {isEditMode ? (
+                <Textarea 
+                  value={awards} 
+                  onChange={e => setAwards(e.target.value)} 
+                  className="min-h-[300px] text-base leading-relaxed resize-none m-4" 
+                  placeholder="Awards and media..." 
+                />
+              ) : (
+                <div className="text-base leading-relaxed whitespace-pre-line p-4">
+                  {awards}
+                </div>
+              )}
             </div>
           </DialogContent>
         </Dialog>
