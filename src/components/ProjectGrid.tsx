@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -20,13 +21,17 @@ export const ProjectGrid = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [projectDescription, setProjectDescription] = useState<string>("");
+  const [projectTitle, setProjectTitle] = useState<string>("");
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.ctrlKey && event.key === 'e') {
         event.preventDefault();
         if (isEditMode && selectedProject) {
-          // Save the description when exiting edit mode
+          // Save the description and title when exiting edit mode
           updateProjectDescription(selectedProject.id, projectDescription);
+          if (projectTitle !== selectedProject.title) {
+            updateProject(selectedProject.id, { title: projectTitle });
+          }
         }
         setIsEditMode(prev => !prev);
       }
@@ -38,6 +43,7 @@ export const ProjectGrid = () => {
     setSelectedProject(project);
     const defaultDescription = `This is a detailed description of the ${project.title} project located in ${project.location}. The project showcases innovative architectural design and sustainable building practices.`;
     setProjectDescription(project.description || defaultDescription);
+    setProjectTitle(project.title);
     setIsModalOpen(true);
   };
   const handleImageAdd = (image: {
@@ -127,7 +133,12 @@ export const ProjectGrid = () => {
                   <TabsContent value="content" className="p-4">
                     <div className="space-y-6">
                       <div>
-                        <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
+                        <Input 
+                          value={projectTitle} 
+                          onChange={(e) => setProjectTitle(e.target.value)}
+                          className="text-2xl font-bold mb-4 border-0 bg-transparent px-0 focus-visible:ring-0"
+                          placeholder="Project title..."
+                        />
                         <p className="text-lg text-muted-foreground mb-4">{selectedProject.location}</p>
                         <div className="text-base leading-relaxed w-full">
                           <Textarea value={projectDescription} onChange={e => setProjectDescription(e.target.value)} className="min-h-[100px] mb-4 w-full" placeholder="Enter project description..." />
