@@ -164,9 +164,6 @@ export const ProjectGrid = () => {
                                   <div className="w-full flex justify-center">
                                     <img src={image.url} alt={image.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" />
                                   </div>
-                                  {image.caption && <p className="text-sm text-muted-foreground text-center max-w-full">
-                                      {image.caption}
-                                    </p>}
                                 </div>
                               </CarouselItem>)}
                           </CarouselContent>
@@ -198,7 +195,7 @@ export const ProjectGrid = () => {
                                 <div className="w-full flex justify-center">
                                   <img src={image.url} alt={image.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" />
                                 </div>
-                                {image.caption}
+                                
                               </div>
                             </CarouselItem>)}
                         </CarouselContent>
