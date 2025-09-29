@@ -109,25 +109,23 @@ export const Header = () => {
 
   // Save media cards to IndexedDB
   useEffect(() => {
-    if (mediaCards.length > 0) {
-      (async () => {
-        try {
-          await setMediaCards(mediaCards);
-        } catch (error) {
-          console.error('Failed to save media cards:', error);
-          toast({
-            title: "Save failed",
-            description: "Failed to save media cards.",
-            variant: "destructive",
-          });
-        }
-      })();
-    }
+    (async () => {
+      try {
+        await setMediaCards(mediaCards);
+      } catch (error) {
+        console.error('Failed to save media cards:', error);
+        toast({
+          title: "Save failed",
+          description: "Failed to save media cards.",
+          variant: "destructive",
+        });
+      }
+    })();
   }, [mediaCards]);
 
   // Save studio data to IndexedDB
   useEffect(() => {
-    if (studioIntro || studioImage) {
+    if (studioIntro !== "" || studioImage !== "") {
       (async () => {
         try {
           await setStudioData({ intro: studioIntro, image: studioImage });
