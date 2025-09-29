@@ -22,6 +22,7 @@ export const ProjectGrid = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [projectDescription, setProjectDescription] = useState<string>("");
   const [projectTitle, setProjectTitle] = useState<string>("");
+  const [projectLocation, setProjectLocation] = useState<string>("");
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.ctrlKey && event.key === 'e') {
@@ -31,6 +32,9 @@ export const ProjectGrid = () => {
           updateProjectDescription(selectedProject.id, projectDescription);
           if (projectTitle !== selectedProject.title) {
             updateProject(selectedProject.id, { title: projectTitle });
+          }
+          if (projectLocation !== selectedProject.location) {
+            updateProject(selectedProject.id, { location: projectLocation });
           }
         }
         setIsEditMode(prev => !prev);
@@ -44,6 +48,7 @@ export const ProjectGrid = () => {
     const defaultDescription = `This is a detailed description of the ${project.title} project located in ${project.location}. The project showcases innovative architectural design and sustainable building practices.`;
     setProjectDescription(project.description || defaultDescription);
     setProjectTitle(project.title);
+    setProjectLocation(project.location);
     setIsModalOpen(true);
   };
   const handleImageAdd = (image: {
@@ -139,7 +144,12 @@ export const ProjectGrid = () => {
                           className="text-2xl font-bold mb-4 border-0 bg-transparent px-0 focus-visible:ring-0"
                           placeholder="Project title..."
                         />
-                        <p className="text-lg text-muted-foreground mb-4">{selectedProject.location}</p>
+                        <Input 
+                          value={projectLocation} 
+                          onChange={(e) => setProjectLocation(e.target.value)}
+                          className="text-lg text-muted-foreground mb-4 border-0 bg-transparent px-0 focus-visible:ring-0"
+                          placeholder="Project location..."
+                        />
                         <div className="text-base leading-relaxed w-full">
                           <Textarea value={projectDescription} onChange={e => setProjectDescription(e.target.value)} className="min-h-[100px] mb-4 w-full" placeholder="Enter project description..." />
                         </div>
