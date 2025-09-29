@@ -117,19 +117,56 @@ export const ProjectGrid = () => {
             
           </DialogHeader>
           {selectedProject && <div className="flex-1 overflow-auto">
-              <Tabs defaultValue="content" className="w-full">
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="content">Content</TabsTrigger>
-                  <TabsTrigger value="images">Images</TabsTrigger>
-                </TabsList>
-                
-                <TabsContent value="content" className="p-4">
+              {isEditMode ? (
+                <Tabs defaultValue="content" className="w-full">
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="content">Content</TabsTrigger>
+                    <TabsTrigger value="images">Images</TabsTrigger>
+                  </TabsList>
+                  
+                  <TabsContent value="content" className="p-4">
+                    <div className="space-y-6">
+                      <div>
+                        <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
+                        <p className="text-lg text-muted-foreground mb-4">{selectedProject.location}</p>
+                        <div className="text-base leading-relaxed w-full">
+                          <Textarea value={projectDescription} onChange={e => setProjectDescription(e.target.value)} className="min-h-[100px] mb-4 w-full" placeholder="Enter project description..." />
+                        </div>
+                      </div>
+                      
+                      <div className="relative">
+                        <Carousel className="w-full">
+                          <CarouselContent>
+                            {selectedProject.images.map(image => <CarouselItem key={image.id}>
+                                <div className="flex flex-col items-center space-y-4">
+                                  <div className="w-full flex justify-center">
+                                    <img src={image.url} alt={image.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" />
+                                  </div>
+                                  {image.caption && <p className="text-sm text-muted-foreground text-center max-w-full">
+                                      {image.caption}
+                                    </p>}
+                                </div>
+                              </CarouselItem>)}
+                          </CarouselContent>
+                          <CarouselPrevious className="left-4 h-12 w-12 bg-background/80 hover:bg-background border-2 shadow-lg" />
+                          <CarouselNext className="right-4 h-12 w-12 bg-background/80 hover:bg-background border-2 shadow-lg" />
+                        </Carousel>
+                      </div>
+                    </div>
+                  </TabsContent>
+                  
+                  <TabsContent value="images" className="p-4">
+                    <ProjectImageManager images={selectedProject.images} onImageAdd={handleImageAdd} onImageRemove={handleImageRemove} onImageUpdate={handleImageUpdate} />
+                  </TabsContent>
+                </Tabs>
+              ) : (
+                <div className="p-4">
                   <div className="space-y-6">
                     <div>
                       <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
                       <p className="text-lg text-muted-foreground mb-4">{selectedProject.location}</p>
                       <div className="text-base leading-relaxed w-full">
-                        {isEditMode ? <Textarea value={projectDescription} onChange={e => setProjectDescription(e.target.value)} className="min-h-[100px] mb-4 w-full" placeholder="Enter project description..." /> : <p className="w-full break-words">{projectDescription}</p>}
+                        <p className="w-full break-words">{projectDescription}</p>
                       </div>
                     </div>
                     
@@ -152,19 +189,8 @@ export const ProjectGrid = () => {
                       </Carousel>
                     </div>
                   </div>
-                </TabsContent>
-                
-                <TabsContent value="images" className="p-4">
-                  {isEditMode ? <ProjectImageManager images={selectedProject.images} onImageAdd={handleImageAdd} onImageRemove={handleImageRemove} onImageUpdate={handleImageUpdate} /> : <div className="text-center py-8">
-                      <p className="text-muted-foreground mb-4">
-                        Press Ctrl+E to enter edit mode and manage images
-                      </p>
-                      <Button onClick={() => setIsEditMode(true)}>
-                        Enter Edit Mode
-                      </Button>
-                    </div>}
-                </TabsContent>
-              </Tabs>
+                </div>
+              )}
             </div>}
         </DialogContent>
       </Dialog>
