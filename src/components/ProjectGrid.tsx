@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
@@ -100,9 +101,24 @@ const projects = [
 export const ProjectGrid = () => {
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [projectDescription, setProjectDescription] = useState<string>("");
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.ctrlKey && event.key === 'e') {
+        event.preventDefault();
+        setIsEditMode(prev => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const handleImageClick = (project: any) => {
     setSelectedProject(project);
+    setProjectDescription(`This is a detailed description of the ${project.title} project located in ${project.location}. The project showcases innovative architectural design and sustainable building practices.`);
     setIsModalOpen(true);
   };
 
@@ -162,7 +178,16 @@ export const ProjectGrid = () => {
                 <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
                 <p className="text-lg text-studio-gray-medium mb-4">{selectedProject.location}</p>
                 <div className="text-base leading-relaxed">
-                  <p>This is a detailed description of the {selectedProject.title} project located in {selectedProject.location}. The project showcases innovative architectural design and sustainable building practices.</p>
+                  {isEditMode ? (
+                    <Textarea
+                      value={projectDescription}
+                      onChange={(e) => setProjectDescription(e.target.value)}
+                      className="min-h-[100px] mb-4"
+                      placeholder="Enter project description..."
+                    />
+                  ) : (
+                    <p>{projectDescription}</p>
+                  )}
                   <br />
                   <p><strong>Key Features:</strong></p>
                   <ul className="list-disc list-inside mt-2 space-y-1">
