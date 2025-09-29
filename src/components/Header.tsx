@@ -3,20 +3,143 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Upload } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Upload, Plus, Trash2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+
+interface MediaCard {
+  id: string;
+  image: string;
+  text: string;
+}
 export const Header = () => {
   const [isMediaOpen, setIsMediaOpen] = useState(false);
   const [isStudioOpen, setIsStudioOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [awards, setAwards] = useState("Outstanding Architecture Award 2023\nInnovative Design Recognition 2022\nSustainable Building Excellence 2023\nUrban Planning Achievement 2022");
+  
+  // Initialize media cards from localStorage or default data
+  const [mediaCards, setMediaCards] = useState<MediaCard[]>(() => {
+    const saved = localStorage.getItem('mediaCards');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error('Failed to parse saved media cards:', e);
+      }
+    }
+    return [
+      {
+        id: "1",
+        image: "/src/assets/project-1.jpg",
+        text: "Outstanding Architecture Award 2023\nRecognized for innovative sustainable design practices and exceptional integration with natural landscapes."
+      },
+      {
+        id: "2", 
+        image: "/src/assets/project-2.jpg",
+        text: "Innovative Design Recognition 2022\nAwarded for pushing boundaries in contemporary architecture while maintaining user-centered spatial experiences."
+      },
+      {
+        id: "3",
+        image: "/src/assets/project-3.jpg", 
+        text: "Sustainable Building Excellence 2023\nHonored for pioneering sustainable building practices and innovative material applications."
+      }
+    ];
+  });
+  
   const [studioIntro, setStudioIntro] = useState("Our Studio\n\nFounded in 2010, our architectural studio specializes in innovative and sustainable design solutions. We believe in creating spaces that harmonize with their environment while pushing the boundaries of contemporary architecture.\n\nOur Philosophy:\n- Sustainable design practices\n- Integration with natural landscapes\n- User-centered spatial experiences\n- Innovative material applications\n\nServices:\n- Architectural Design\n- Interior Design\n- Urban Planning\n- Consultation Services");
   const [studioImage, setStudioImage] = useState("/src/assets/hero-architecture.jpg");
   const [uploading, setUploading] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [editingCardId, setEditingCardId] = useState<string | null>(null);
+  const fileInputRefs = useRef<{[key: string]: HTMLInputElement | null}>({});
 
-  // Handle file upload
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  // Save media cards to localStorage
+  useEffect(() => {
+    localStorage.setItem('mediaCards', JSON.stringify(mediaCards));
+  }, [mediaCards]);
+
+  // Handle file upload for media cards
+  const handleCardImageUpload = async (event: React.ChangeEvent<HTMLInputElement>, cardId: string) => {
+    const files = event.target.files;
+    if (!files || files.length === 0) return;
+
+    setUploading(true);
+    
+    try {
+      const file = files[0];
+      
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        toast({
+          title: "Invalid file type",
+          description: "Please select an image file.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Validate file size (max 10MB)
+      if (file.size > 10 * 1024 * 1024) {
+        toast({
+          title: "File too large",
+          description: "Please select an image smaller than 10MB.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Create URL for the uploaded image
+      const imageUrl = URL.createObjectURL(file);
+      
+      // Update the specific card
+      setMediaCards(prev => prev.map(card => 
+        card.id === cardId ? { ...card, image: imageUrl } : card
+      ));
+
+      toast({
+        title: "Image uploaded",
+        description: "Card image has been updated.",
+      });
+
+      // Reset input
+      if (fileInputRefs.current[cardId]) {
+        fileInputRefs.current[cardId]!.value = '';
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      toast({
+        title: "Upload failed",
+        description: "Failed to upload image. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  // Add new media card
+  const addMediaCard = () => {
+    const newCard: MediaCard = {
+      id: Date.now().toString(),
+      image: "/placeholder.svg",
+      text: "New card description..."
+    };
+    setMediaCards(prev => [...prev, newCard]);
+  };
+
+  // Remove media card
+  const removeMediaCard = (cardId: string) => {
+    setMediaCards(prev => prev.filter(card => card.id !== cardId));
+  };
+
+  // Update card text
+  const updateCardText = (cardId: string, text: string) => {
+    setMediaCards(prev => prev.map(card => 
+      card.id === cardId ? { ...card, text } : card
+    ));
+  };
+
+  // Handle studio file upload
+  const handleStudioFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (!files || files.length === 0) return;
 
@@ -53,11 +176,6 @@ export const Header = () => {
         title: "Image uploaded",
         description: "Studio image has been updated.",
       });
-
-      // Reset input
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
     } catch (error) {
       console.error('Upload error:', error);
       toast({
@@ -101,9 +219,79 @@ export const Header = () => {
               <DialogTitle>奖项和媒体 Awards & Media</DialogTitle>
             </DialogHeader>
             <div className="flex-1 overflow-auto">
-              {isEditMode ? <Textarea value={awards} onChange={e => setAwards(e.target.value)} className="min-h-[300px] text-base leading-relaxed resize-none m-4" placeholder="Awards and media..." /> : <div className="text-base leading-relaxed whitespace-pre-line p-4">
-                  {awards}
-                </div>}
+              <div className="p-4">
+                {isEditMode && (
+                  <div className="mb-4">
+                    <Button onClick={addMediaCard} className="gap-2">
+                      <Plus className="w-4 h-4" />
+                      Add Card
+                    </Button>
+                  </div>
+                )}
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {mediaCards.map((card) => (
+                    <Card key={card.id} className="overflow-hidden">
+                      <CardContent className="p-0">
+                        <div className="relative">
+                          <img 
+                            src={card.image} 
+                            alt="Media card" 
+                            className="w-full h-48 object-cover"
+                            onError={(e) => {
+                              e.currentTarget.src = '/placeholder.svg';
+                            }}
+                          />
+                          
+                          {isEditMode && (
+                            <div className="absolute top-2 right-2 flex gap-2">
+                              <input
+                                ref={(el) => fileInputRefs.current[card.id] = el}
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => handleCardImageUpload(e, card.id)}
+                                className="hidden"
+                              />
+                              <Button
+                                size="sm"
+                                variant="secondary"
+                                onClick={() => fileInputRefs.current[card.id]?.click()}
+                                disabled={uploading}
+                                className="h-8 w-8 p-0"
+                              >
+                                <Upload className="w-4 h-4" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="destructive"
+                                onClick={() => removeMediaCard(card.id)}
+                                className="h-8 w-8 p-0"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          )}
+                        </div>
+                        
+                        <div className="p-4">
+                          {isEditMode ? (
+                            <Textarea
+                              value={card.text}
+                              onChange={(e) => updateCardText(card.id, e.target.value)}
+                              className="min-h-[80px] text-sm resize-none border-0 bg-transparent p-0 focus-visible:ring-0"
+                              placeholder="Enter card description..."
+                            />
+                          ) : (
+                            <p className="text-sm leading-relaxed whitespace-pre-line">
+                              {card.text}
+                            </p>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
             </div>
           </DialogContent>
         </Dialog>
@@ -134,17 +322,17 @@ export const Header = () => {
                       />
                       <div className="flex gap-2">
                         <Input
-                          ref={fileInputRef}
                           type="file"
                           accept="image/*"
-                          onChange={handleFileUpload}
+                          onChange={handleStudioFileUpload}
                           className="hidden"
+                          id="studio-file-input"
                         />
                         <Button
                           type="button"
                           variant="outline"
                           size="sm"
-                          onClick={() => fileInputRef.current?.click()}
+                          onClick={() => document.getElementById('studio-file-input')?.click()}
                           disabled={uploading}
                           className="flex-1"
                         >
