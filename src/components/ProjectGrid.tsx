@@ -109,11 +109,14 @@ export const ProjectGrid = () => {
           {projects.map((project, index) => {
           const isLastInRowMd = (index + 1) % 2 === 0;
           const isLastInRowLg = (index + 1) % 3 === 0;
-          return <article key={project.id} className={`group cursor-pointer border-b border-gray-200 ${!isLastInRowMd ? 'md:border-r' : ''} ${!isLastInRowLg ? 'lg:border-r' : ''} md:[&:nth-child(even)]:border-r-0 lg:[&:nth-child(3n)]:border-r-0`}>
+              return <article key={project.id} className={`group cursor-pointer border-b border-gray-200 ${!isLastInRowMd ? 'md:border-r' : ''} ${!isLastInRowLg ? 'lg:border-r' : ''} md:[&:nth-child(even)]:border-r-0 lg:[&:nth-child(3n)]:border-r-0`}>
                 <div className="w-full overflow-hidden aspect-[4/3]">
                   <img src={project.images[0]?.url || project.mainImage} alt={project.images[0]?.alt || project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onClick={() => handleImageClick(project)} />
                 </div>
-                
+                <div className="p-4">
+                  <h3 className="font-semibold text-lg mb-1">{project.title}</h3>
+                  <p className="text-muted-foreground text-sm">{project.location}</p>
+                </div>
               </article>;
         })}
         </div>
