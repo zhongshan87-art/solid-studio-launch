@@ -116,7 +116,7 @@ export const Header = () => {
             <div className="flex-1 overflow-auto p-4">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
                 {/* Left column - Display text */}
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 items-center">
                   {isEditMode ? <Textarea value={studioIntro} onChange={e => setStudioIntro(e.target.value)} className="min-h-[300px] text-sm leading-relaxed resize-none w-[60%]" placeholder="Studio introduction..." /> : <div className="text-sm leading-relaxed whitespace-pre-line w-[60%]">
                       {studioIntro}
                     </div>}
