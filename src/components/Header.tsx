@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Upload, Plus, Trash2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { getMediaCards, setMediaCards, getStudioData, setStudioData } from "@/lib/storage";
 
 interface MediaCard {
   id: string;
@@ -19,71 +20,128 @@ export const Header = () => {
   const [isStudioOpen, setIsStudioOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   
-  // Initialize media cards from localStorage or default data
-  const [mediaCards, setMediaCards] = useState<MediaCard[]>(() => {
-    const saved = localStorage.getItem('mediaCards');
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {
-        console.error('Failed to parse saved media cards:', e);
-      }
-    }
-    return [
-      {
-        id: "1",
-        image: "/src/assets/project-1.jpg",
-        text: "Outstanding Architecture Award 2023\nRecognized for innovative sustainable design practices and exceptional integration with natural landscapes.",
-        objectFit: 'cover' as const
-      },
-      {
-        id: "2", 
-        image: "/src/assets/project-2.jpg",
-        text: "Innovative Design Recognition 2022\nAwarded for pushing boundaries in contemporary architecture while maintaining user-centered spatial experiences.",
-        objectFit: 'cover' as const
-      },
-      {
-        id: "3",
-        image: "/src/assets/project-3.jpg", 
-        text: "Sustainable Building Excellence 2023\nHonored for pioneering sustainable building practices and innovative material applications.",
-        objectFit: 'cover' as const
-      }
-    ];
-  });
+  // Initialize media cards from IndexedDB with fallback to localStorage
+  const [mediaCards, setMediaCards] = useState<MediaCard[]>([]);
   
-  const [studioIntro, setStudioIntro] = useState(() => {
-    const saved = localStorage.getItem('studioIntro');
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {
-        console.error('Failed to parse saved studio intro:', e);
-      }
-    }
-    return "Our Studio\n\nFounded in 2010, our architectural studio specializes in innovative and sustainable design solutions. We believe in creating spaces that harmonize with their environment while pushing the boundaries of contemporary architecture.\n\nOur Philosophy:\n- Sustainable design practices\n- Integration with natural landscapes\n- User-centered spatial experiences\n- Innovative material applications\n\nServices:\n- Architectural Design\n- Interior Design\n- Urban Planning\n- Consultation Services";
-  });
-  const [studioImage, setStudioImage] = useState(() => {
-    const saved = localStorage.getItem('studioImage');
-    return saved || "/src/assets/hero-architecture.jpg";
-  });
+  const [studioIntro, setStudioIntro] = useState("");
+  const [studioImage, setStudioImage] = useState("/src/assets/hero-architecture.jpg");
   const [uploading, setUploading] = useState(false);
   const [editingCardId, setEditingCardId] = useState<string | null>(null);
   const fileInputRefs = useRef<{[key: string]: HTMLInputElement | null}>({});
 
-  // Save media cards to localStorage
+  // Load data from IndexedDB on mount
   useEffect(() => {
-    localStorage.setItem('mediaCards', JSON.stringify(mediaCards));
+    const loadData = async () => {
+      try {
+        // Load media cards
+        let cards = await getMediaCards();
+        if (!cards) {
+          // Try localStorage fallback
+          const saved = localStorage.getItem('mediaCards');
+          if (saved) {
+            try {
+              cards = JSON.parse(saved);
+              // Migrate to IndexedDB
+              if (cards) {
+                await setMediaCards(cards);
+                localStorage.removeItem('mediaCards');
+              }
+            } catch (e) {
+              console.error('Failed to parse saved media cards:', e);
+            }
+          }
+        }
+        
+        if (!cards) {
+          // Use default data
+          cards = [
+            {
+              id: "1",
+              image: "/src/assets/project-1.jpg",
+              text: "Outstanding Architecture Award 2023\nRecognized for innovative sustainable design practices and exceptional integration with natural landscapes.",
+              objectFit: 'cover' as const
+            },
+            {
+              id: "2", 
+              image: "/src/assets/project-2.jpg",
+              text: "Innovative Design Recognition 2022\nAwarded for pushing boundaries in contemporary architecture while maintaining user-centered spatial experiences.",
+              objectFit: 'cover' as const
+            },
+            {
+              id: "3",
+              image: "/src/assets/project-3.jpg", 
+              text: "Sustainable Building Excellence 2023\nHonored for pioneering sustainable building practices and innovative material applications.",
+              objectFit: 'cover' as const
+            }
+          ];
+        }
+        setMediaCards(cards);
+
+        // Load studio data
+        let studioData = await getStudioData();
+        if (!studioData) {
+          // Try localStorage fallback
+          const savedIntro = localStorage.getItem('studioIntro');
+          const savedImage = localStorage.getItem('studioImage');
+          
+          const intro = savedIntro ? JSON.parse(savedIntro) : "Our Studio\n\nFounded in 2010, our architectural studio specializes in innovative and sustainable design solutions. We believe in creating spaces that harmonize with their environment while pushing the boundaries of contemporary architecture.\n\nOur Philosophy:\n- Sustainable design practices\n- Integration with natural landscapes\n- User-centered spatial experiences\n- Innovative material applications\n\nServices:\n- Architectural Design\n- Interior Design\n- Urban Planning\n- Consultation Services";
+          const image = savedImage || "/src/assets/hero-architecture.jpg";
+          
+          studioData = { intro, image };
+          // Migrate to IndexedDB
+          await setStudioData(studioData);
+          localStorage.removeItem('studioIntro');
+          localStorage.removeItem('studioImage');
+        }
+        
+        setStudioIntro(studioData.intro);
+        setStudioImage(studioData.image);
+        
+      } catch (error) {
+        console.error('Failed to load data:', error);
+        // Use defaults on error
+        setStudioIntro("Our Studio\n\nFounded in 2010, our architectural studio specializes in innovative and sustainable design solutions. We believe in creating spaces that harmonize with their environment while pushing the boundaries of contemporary architecture.\n\nOur Philosophy:\n- Sustainable design practices\n- Integration with natural landscapes\n- User-centered spatial experiences\n- Innovative material applications\n\nServices:\n- Architectural Design\n- Interior Design\n- Urban Planning\n- Consultation Services");
+      }
+    };
+
+    loadData();
+  }, []);
+
+  // Save media cards to IndexedDB
+  useEffect(() => {
+    if (mediaCards.length > 0) {
+      (async () => {
+        try {
+          await setMediaCards(mediaCards);
+        } catch (error) {
+          console.error('Failed to save media cards:', error);
+          toast({
+            title: "Save failed",
+            description: "Failed to save media cards.",
+            variant: "destructive",
+          });
+        }
+      })();
+    }
   }, [mediaCards]);
 
-  // Save studio intro to localStorage
+  // Save studio data to IndexedDB
   useEffect(() => {
-    localStorage.setItem('studioIntro', JSON.stringify(studioIntro));
-  }, [studioIntro]);
-
-  // Save studio image to localStorage
-  useEffect(() => {
-    localStorage.setItem('studioImage', studioImage);
-  }, [studioImage]);
+    if (studioIntro || studioImage) {
+      (async () => {
+        try {
+          await setStudioData({ intro: studioIntro, image: studioImage });
+        } catch (error) {
+          console.error('Failed to save studio data:', error);
+          toast({
+            title: "Save failed", 
+            description: "Failed to save studio information.",
+            variant: "destructive",
+          });
+        }
+      })();
+    }
+  }, [studioIntro, studioImage]);
 
   // Handle file upload for media cards
   const handleCardImageUpload = async (event: React.ChangeEvent<HTMLInputElement>, cardId: string) => {
