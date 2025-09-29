@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,22 @@ export const ProjectGrid = () => {
   const [projectDescription, setProjectDescription] = useState<string>("");
   const [projectTitle, setProjectTitle] = useState<string>("");
   const [projectLocation, setProjectLocation] = useState<string>("");
+
+  // Sync selectedProject with updated projects data
+  useEffect(() => {
+    if (selectedProject && projects.length > 0) {
+      const updatedProject = projects.find(p => p.id === selectedProject.id);
+      if (updatedProject && updatedProject.images.length !== selectedProject.images.length) {
+        console.log('Syncing selectedProject with updated data. Images count:', updatedProject.images.length);
+        setSelectedProject(updatedProject);
+        // Update local state as well
+        const defaultDescription = `This is a detailed description of the ${updatedProject.title} project located in ${updatedProject.location}. The project showcases innovative architectural design and sustainable building practices.`;
+        setProjectDescription(updatedProject.description || defaultDescription);
+        setProjectTitle(updatedProject.title);
+        setProjectLocation(updatedProject.location);
+      }
+    }
+  }, [projects, selectedProject]);
 
   // Sync local state when selectedProject changes
   useEffect(() => {
@@ -58,14 +74,17 @@ export const ProjectGrid = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isEditMode, selectedProject, projectDescription, projectTitle, projectLocation, updateProjectDescription, updateProject]);
   const handleImageClick = (project: Project) => {
-    setSelectedProject(project);
-    const defaultDescription = `This is a detailed description of the ${project.title} project located in ${project.location}. The project showcases innovative architectural design and sustainable building practices.`;
-    setProjectDescription(project.description || defaultDescription);
-    setProjectTitle(project.title);
-    setProjectLocation(project.location);
+    // Find the most up-to-date project data from the projects array
+    const currentProject = projects.find(p => p.id === project.id) || project;
+    setSelectedProject(currentProject);
+    const defaultDescription = `This is a detailed description of the ${currentProject.title} project located in ${currentProject.location}. The project showcases innovative architectural design and sustainable building practices.`;
+    setProjectDescription(currentProject.description || defaultDescription);
+    setProjectTitle(currentProject.title);
+    setProjectLocation(currentProject.location);
     setIsModalOpen(true);
     // Reset edit mode when opening modal to prevent conflicts
     setIsEditMode(false);
+    console.log('Opening modal for project:', currentProject.id, 'with', currentProject.images.length, 'images');
   };
   const handleImageAdd = (image: {
     url: string;
@@ -80,18 +99,24 @@ export const ProjectGrid = () => {
       });
       
       try {
+        // Add image to the project data first
         addImageToProject(selectedProject.id, image);
-        // Update local selected project
+        
+        // Then update the local selected project with the new image
         const newImageId = `${selectedProject.id}-${Date.now()}`;
+        const newImage = {
+          id: newImageId,
+          ...image
+        };
+        
         const updatedProject = {
           ...selectedProject,
-          images: [...selectedProject.images, {
-            id: newImageId,
-            ...image
-          }]
+          images: [...selectedProject.images, newImage]
         };
+        
         setSelectedProject(updatedProject);
         console.log('Successfully added image with ID:', newImageId);
+        console.log('Updated project now has', updatedProject.images.length, 'images');
       } catch (error) {
         console.error('Failed to add image:', error);
       }
@@ -152,6 +177,9 @@ export const ProjectGrid = () => {
             <DialogTitle>
               {selectedProject ? selectedProject.title : 'Project Details'}
             </DialogTitle>
+            <DialogDescription>
+              {selectedProject ? `Located in ${selectedProject.location}` : 'Project information'}
+            </DialogDescription>
           </DialogHeader>
           {selectedProject ? <div className="flex-1 overflow-auto">
               {isEditMode ? <Tabs defaultValue="content" className="w-full">
