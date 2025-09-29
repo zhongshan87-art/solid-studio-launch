@@ -8,6 +8,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Upload, Plus, Trash2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { getMediaCards as getMediaCardsStore, setMediaCards as setMediaCardsStore, getStudioData as getStudioDataStore, setStudioData as setStudioDataStore } from "@/lib/storage";
+import heroImage from "@/assets/hero-architecture.jpg";
+import project1 from "@/assets/project-1.jpg";
+import project2 from "@/assets/project-2.jpg";
+import project3 from "@/assets/project-3.jpg";
 
 interface MediaCard {
   id: string;
@@ -24,7 +28,7 @@ export const Header = () => {
   const [mediaCards, setMediaCards] = useState<MediaCard[]>([]);
   
   const [studioIntro, setStudioIntro] = useState("");
-  const [studioImage, setStudioImage] = useState("/src/assets/hero-architecture.jpg");
+  const [studioImage, setStudioImage] = useState(heroImage);
   const [uploading, setUploading] = useState(false);
   const [editingCardId, setEditingCardId] = useState<string | null>(null);
   const fileInputRefs = useRef<{[key: string]: HTMLInputElement | null}>({});
@@ -57,19 +61,19 @@ export const Header = () => {
           cards = [
             {
               id: "1",
-              image: "/src/assets/project-1.jpg",
+              image: project1,
               text: "Outstanding Architecture Award 2023\nRecognized for innovative sustainable design practices and exceptional integration with natural landscapes.",
               objectFit: 'cover' as const
             },
             {
               id: "2", 
-              image: "/src/assets/project-2.jpg",
+              image: project2,
               text: "Innovative Design Recognition 2022\nAwarded for pushing boundaries in contemporary architecture while maintaining user-centered spatial experiences.",
               objectFit: 'cover' as const
             },
             {
               id: "3",
-              image: "/src/assets/project-3.jpg", 
+              image: project3, 
               text: "Sustainable Building Excellence 2023\nHonored for pioneering sustainable building practices and innovative material applications.",
               objectFit: 'cover' as const
             }
@@ -87,7 +91,7 @@ export const Header = () => {
           const savedImage = localStorage.getItem('studioImage');
           
           const intro = savedIntro ? JSON.parse(savedIntro) : "Our Studio\n\nFounded in 2010, our architectural studio specializes in innovative and sustainable design solutions. We believe in creating spaces that harmonize with their environment while pushing the boundaries of contemporary architecture.\n\nOur Philosophy:\n- Sustainable design practices\n- Integration with natural landscapes\n- User-centered spatial experiences\n- Innovative material applications\n\nServices:\n- Architectural Design\n- Interior Design\n- Urban Planning\n- Consultation Services";
-          const image = savedImage || "/src/assets/hero-architecture.jpg";
+          const image = savedImage || heroImage;
           
           studioData = { intro, image };
           // Migrate to IndexedDB
