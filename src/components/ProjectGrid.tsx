@@ -23,7 +23,7 @@ export const ProjectGrid = () => {
   const [projectDescription, setProjectDescription] = useState<string>("");
   const [projectTitle, setProjectTitle] = useState<string>("");
   const [projectLocation, setProjectLocation] = useState<string>("");
-  
+
   // Sync local state when selectedProject changes
   useEffect(() => {
     if (selectedProject) {
@@ -121,7 +121,7 @@ export const ProjectGrid = () => {
           {projects.map((project, index) => {
           const isLastInRowMd = (index + 1) % 2 === 0;
           const isLastInRowLg = (index + 1) % 3 === 0;
-              return <article key={project.id} className={`group cursor-pointer border-b border-gray-200 ${!isLastInRowMd ? 'md:border-r' : ''} ${!isLastInRowLg ? 'lg:border-r' : ''} md:[&:nth-child(even)]:border-r-0 lg:[&:nth-child(3n)]:border-r-0`}>
+          return <article key={project.id} className={`group cursor-pointer border-b border-gray-200 ${!isLastInRowMd ? 'md:border-r' : ''} ${!isLastInRowLg ? 'lg:border-r' : ''} md:[&:nth-child(even)]:border-r-0 lg:[&:nth-child(3n)]:border-r-0`}>
                 <div className="w-full overflow-hidden aspect-[4/3]">
                   <img src={project.images[0]?.url || project.mainImage} alt={project.images[0]?.alt || project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onClick={() => handleImageClick(project)} />
                 </div>
@@ -137,9 +137,7 @@ export const ProjectGrid = () => {
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="w-[90vw] max-w-none h-[90vh] max-h-none">
           <DialogHeader>
-            <DialogTitle>
-              {selectedProject ? selectedProject.title : "Project Details"}
-            </DialogTitle>
+            
           </DialogHeader>
           {selectedProject ? <div className="flex-1 overflow-auto">
               {isEditMode ? <Tabs defaultValue="content" className="w-full">
@@ -212,11 +210,9 @@ export const ProjectGrid = () => {
                     </div>
                   </div>
                 </div>}
-            </div> : (
-              <div className="flex-1 flex items-center justify-center text-muted-foreground">
+            </div> : <div className="flex-1 flex items-center justify-center text-muted-foreground">
                 No project selected
-              </div>
-            )}
+              </div>}
         </DialogContent>
       </Dialog>
     </section>;
