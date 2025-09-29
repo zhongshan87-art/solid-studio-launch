@@ -167,7 +167,10 @@ export const ProjectGrid = () => {
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="w-[90vw] max-w-none h-[90vh] max-h-none">
-          
+          <DialogHeader>
+            <DialogTitle>项目详情</DialogTitle>
+            <DialogDescription>查看与编辑项目信息与图片</DialogDescription>
+          </DialogHeader>
           {selectedProject ? <div className="flex-1 overflow-auto">
               {isEditMode ? <Tabs defaultValue="content" className="w-full">
                   <TabsList className="grid w-full grid-cols-2">

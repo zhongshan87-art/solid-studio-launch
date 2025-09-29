@@ -3,6 +3,7 @@ import { Project, ProjectData } from '@/types/project';
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
+import { getProjectsData, setProjectsData } from '@/lib/storage';
 
 const STORAGE_KEY = 'lovable-projects-data';
 
@@ -26,14 +27,28 @@ export const useProjectData = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadProjects = () => {
+    const loadProjects = async () => {
       try {
+        // Prefer IndexedDB (localforage)
+        const storedDb = await getProjectsData();
+        if (storedDb && Array.isArray(storedDb.projects) && storedDb.projects.length > 0) {
+          setProjects(storedDb.projects);
+          return;
+        }
+
+        // Migrate from localStorage if present
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
           const data: ProjectData = JSON.parse(stored);
           setProjects(data.projects);
+          // Migrate to IndexedDB for durability
+          await setProjectsData(data);
         } else {
           setProjects(defaultProjects);
+          await setProjectsData({
+            projects: defaultProjects,
+            lastUpdated: new Date().toISOString(),
+          });
         }
       } catch (error) {
         console.error('Failed to load projects:', error);
@@ -46,36 +61,43 @@ export const useProjectData = () => {
     loadProjects();
   }, []);
 
-  const saveProjects = (updatedProjects: Project[]) => {
+  const saveProjects = async (updatedProjects: Project[]) => {
     let persisted = false;
+    const data: ProjectData = {
+      projects: updatedProjects,
+      lastUpdated: new Date().toISOString(),
+    };
+
     try {
-      const data: ProjectData = {
-        projects: updatedProjects,
-        lastUpdated: new Date().toISOString(),
-      };
-      
-      // Check localStorage space before saving
-      const dataString = JSON.stringify(data);
-      const sizeInBytes = new Blob([dataString]).size;
-      console.log('Saving projects data size:', (sizeInBytes / 1024 / 1024).toFixed(2), 'MB');
-      
-      if (sizeInBytes > 4.5 * 1024 * 1024) { // 4.5MB limit for safety
-        console.warn('Data size approaching localStorage limit');
-      }
-      
-      localStorage.setItem(STORAGE_KEY, dataString);
+      // Primary: IndexedDB via localforage (handles larger data than localStorage)
+      await setProjectsData(data);
       persisted = true;
-      console.log('Successfully saved projects to localStorage');
+      console.log('Successfully saved projects to IndexedDB');
     } catch (error) {
-      console.error('Failed to save projects:', error);
-      if (error instanceof Error && error.name === 'QuotaExceededError') {
-        console.error('localStorage quota exceeded - using in-memory state only');
+      console.error('Failed to save to IndexedDB. Attempting localStorage fallback:', error);
+      try {
+        const dataString = JSON.stringify(data);
+        const sizeInBytes = new Blob([dataString]).size;
+        console.log('Saving projects data size:', (sizeInBytes / 1024 / 1024).toFixed(2), 'MB');
+
+        if (sizeInBytes > 4.5 * 1024 * 1024) {
+          console.warn('Data size approaching localStorage limit');
+        }
+
+        localStorage.setItem(STORAGE_KEY, dataString);
+        persisted = true;
+        console.log('Successfully saved projects to localStorage');
+      } catch (lsError) {
+        console.error('Failed to save projects to localStorage:', lsError);
+        if (lsError instanceof Error && lsError.name === 'QuotaExceededError') {
+          console.error('localStorage quota exceeded - using in-memory state only');
+        }
       }
     } finally {
       // Always update in-memory state so UI reflects latest changes
       setProjects(updatedProjects);
       if (!persisted) {
-        console.warn('Projects not persisted to localStorage. Changes will be lost on reload.');
+        console.warn('Projects not persisted to durable storage. Changes will be lost on reload.');
       }
     }
   };
