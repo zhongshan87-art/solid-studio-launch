@@ -84,7 +84,7 @@ export const useProjectData = () => {
     const project = projects.find(p => p.id === projectId);
     if (!project) {
       console.error('Project not found:', projectId);
-      return;
+      return undefined;
     }
 
     const newImage = {
@@ -97,6 +97,7 @@ export const useProjectData = () => {
     console.log('Updated images count:', updatedImages.length);
     
     updateProject(projectId, { images: updatedImages });
+    return newImage;
   };
 
   const removeImageFromProject = (projectId: number, imageId: string) => {

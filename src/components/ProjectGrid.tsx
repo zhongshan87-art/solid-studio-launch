@@ -24,19 +24,25 @@ export const ProjectGrid = () => {
   const [projectTitle, setProjectTitle] = useState<string>("");
   const [projectLocation, setProjectLocation] = useState<string>("");
 
-  // Sync selectedProject with updated projects data
+  // Sync selectedProject with updated projects data fully
   useEffect(() => {
-    if (selectedProject && projects.length > 0) {
-      const updatedProject = projects.find(p => p.id === selectedProject.id);
-      if (updatedProject && updatedProject.images.length !== selectedProject.images.length) {
-        console.log('Syncing selectedProject with updated data. Images count:', updatedProject.images.length);
-        setSelectedProject(updatedProject);
-        // Update local state as well
-        const defaultDescription = `This is a detailed description of the ${updatedProject.title} project located in ${updatedProject.location}. The project showcases innovative architectural design and sustainable building practices.`;
-        setProjectDescription(updatedProject.description || defaultDescription);
-        setProjectTitle(updatedProject.title);
-        setProjectLocation(updatedProject.location);
-      }
+    if (!selectedProject || projects.length === 0) return;
+    const updated = projects.find(p => p.id === selectedProject.id);
+    if (!updated) return;
+
+    const imagesChanged = updated.images.length !== selectedProject.images.length
+      || updated.images.some((img, idx) => img.id !== selectedProject.images[idx]?.id);
+    const metaChanged = updated.title !== selectedProject.title 
+      || updated.location !== selectedProject.location 
+      || updated.description !== selectedProject.description;
+
+    if (imagesChanged || metaChanged) {
+      console.log('Detected project updates, syncing selectedProject.');
+      setSelectedProject(updated);
+      const defaultDescription = `This is a detailed description of the ${updated.title} project located in ${updated.location}. The project showcases innovative architectural design and sustainable building practices.`;
+      setProjectDescription(updated.description || defaultDescription);
+      setProjectTitle(updated.title);
+      setProjectLocation(updated.location);
     }
   }, [projects, selectedProject]);
 
@@ -99,23 +105,18 @@ export const ProjectGrid = () => {
       });
       
       try {
-        // Add image to the project data first
-        addImageToProject(selectedProject.id, image);
+        // Persist and get the actual new image object (with final ID)
+        const persistedImage = addImageToProject(selectedProject.id, image);
+        if (!persistedImage) return;
         
-        // Then update the local selected project with the new image
-        const newImageId = `${selectedProject.id}-${Date.now()}`;
-        const newImage = {
-          id: newImageId,
-          ...image
-        };
-        
+        // Update local selected project to reflect persisted state
         const updatedProject = {
           ...selectedProject,
-          images: [...selectedProject.images, newImage]
+          images: [...selectedProject.images, persistedImage]
         };
         
         setSelectedProject(updatedProject);
-        console.log('Successfully added image with ID:', newImageId);
+        console.log('Successfully added image with ID:', persistedImage.id);
         console.log('Updated project now has', updatedProject.images.length, 'images');
       } catch (error) {
         console.error('Failed to add image:', error);
