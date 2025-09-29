@@ -167,7 +167,7 @@ export const ProjectGrid = () => {
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="w-[90vw] max-w-none h-[90vh] max-h-none">
-          <DialogHeader>
+          <DialogHeader className="sr-only">
             <DialogTitle>项目详情</DialogTitle>
             <DialogDescription>查看与编辑项目信息与图片</DialogDescription>
           </DialogHeader>
