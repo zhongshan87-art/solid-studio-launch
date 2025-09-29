@@ -51,7 +51,7 @@ export const Header = () => {
         <Dialog open={isStudioOpen} onOpenChange={setIsStudioOpen}>
           <DialogContent className="w-[80vw] max-w-none h-[80vh] max-h-none">
             <DialogHeader>
-              <DialogTitle>关于尺度森林</DialogTitle>
+              <DialogTitle>尺度森林S.F.A</DialogTitle>
             </DialogHeader>
             <div className="flex-1 overflow-auto p-4">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
