@@ -64,6 +64,14 @@ export const Header = () => {
                 
                 {/* Right column - Display image */}
                 <div className="flex flex-col gap-4">
+                  {isEditMode && (
+                    <Input 
+                      value={studioImage} 
+                      onChange={e => setStudioImage(e.target.value)} 
+                      placeholder="Image URL..." 
+                      className="text-sm"
+                    />
+                  )}
                   <div className="flex-1 rounded-md overflow-hidden">
                     <img src={studioImage} alt="Studio" className="w-full h-full object-cover" onError={e => {
                     e.currentTarget.src = '/placeholder.svg';
