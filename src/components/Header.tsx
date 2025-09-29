@@ -341,7 +341,7 @@ export const Header = () => {
                               placeholder="Enter card description..."
                             />
                           ) : (
-                            <p className="text-lg leading-relaxed whitespace-pre-line text-black font-bold">
+                            <p className="text-lg leading-relaxed whitespace-pre-line text-foreground font-bold">
                               {card.text}
                             </p>
                           )}
