@@ -23,6 +23,16 @@ export const ProjectGrid = () => {
   const [projectDescription, setProjectDescription] = useState<string>("");
   const [projectTitle, setProjectTitle] = useState<string>("");
   const [projectLocation, setProjectLocation] = useState<string>("");
+  
+  // Sync local state when selectedProject changes
+  useEffect(() => {
+    if (selectedProject) {
+      const defaultDescription = `This is a detailed description of the ${selectedProject.title} project located in ${selectedProject.location}. The project showcases innovative architectural design and sustainable building practices.`;
+      setProjectDescription(selectedProject.description || defaultDescription);
+      setProjectTitle(selectedProject.title);
+      setProjectLocation(selectedProject.location);
+    }
+  }, [selectedProject]);
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.ctrlKey && event.key === 'e') {
@@ -46,7 +56,7 @@ export const ProjectGrid = () => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isEditMode, selectedProject, projectDescription, updateProjectDescription]);
+  }, [isEditMode, selectedProject, projectDescription, projectTitle, projectLocation, updateProjectDescription, updateProject]);
   const handleImageClick = (project: Project) => {
     setSelectedProject(project);
     const defaultDescription = `This is a detailed description of the ${project.title} project located in ${project.location}. The project showcases innovative architectural design and sustainable building practices.`;
@@ -54,6 +64,8 @@ export const ProjectGrid = () => {
     setProjectTitle(project.title);
     setProjectLocation(project.location);
     setIsModalOpen(true);
+    // Reset edit mode when opening modal to prevent conflicts
+    setIsEditMode(false);
   };
   const handleImageAdd = (image: {
     url: string;
@@ -125,9 +137,11 @@ export const ProjectGrid = () => {
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="w-[90vw] max-w-none h-[90vh] max-h-none">
           <DialogHeader>
-            
+            <DialogTitle>
+              {selectedProject ? selectedProject.title : "Project Details"}
+            </DialogTitle>
           </DialogHeader>
-          {selectedProject && <div className="flex-1 overflow-auto">
+          {selectedProject ? <div className="flex-1 overflow-auto">
               {isEditMode ? <Tabs defaultValue="content" className="w-full">
                   <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="content">Content</TabsTrigger>
@@ -198,7 +212,11 @@ export const ProjectGrid = () => {
                     </div>
                   </div>
                 </div>}
-            </div>}
+            </div> : (
+              <div className="flex-1 flex items-center justify-center text-muted-foreground">
+                No project selected
+              </div>
+            )}
         </DialogContent>
       </Dialog>
     </section>;
