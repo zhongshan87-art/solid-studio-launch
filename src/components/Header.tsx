@@ -41,18 +41,9 @@ export const Header = () => {
               <DialogTitle>奖项和媒体 Awards & Media</DialogTitle>
             </DialogHeader>
             <div className="flex-1 overflow-auto">
-              {isEditMode ? (
-                <Textarea 
-                  value={awards} 
-                  onChange={e => setAwards(e.target.value)} 
-                  className="min-h-[300px] text-base leading-relaxed resize-none m-4" 
-                  placeholder="Awards and media..." 
-                />
-              ) : (
-                <div className="text-base leading-relaxed whitespace-pre-line p-4">
+              {isEditMode ? <Textarea value={awards} onChange={e => setAwards(e.target.value)} className="min-h-[300px] text-base leading-relaxed resize-none m-4" placeholder="Awards and media..." /> : <div className="text-base leading-relaxed whitespace-pre-line p-4">
                   {awards}
-                </div>
-              )}
+                </div>}
             </div>
           </DialogContent>
         </Dialog>
@@ -60,24 +51,15 @@ export const Header = () => {
         <Dialog open={isStudioOpen} onOpenChange={setIsStudioOpen}>
           <DialogContent className="w-[80vw] max-w-none h-[80vh] max-h-none">
             <DialogHeader>
-              <DialogTitle>Studio Introduction</DialogTitle>
+              <DialogTitle>关于尺度森林</DialogTitle>
             </DialogHeader>
             <div className="flex-1 overflow-auto p-4">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
                 {/* Left column - Display text */}
                 <div className="flex flex-col gap-4">
-                  {isEditMode ? (
-                    <Textarea 
-                      value={studioIntro} 
-                      onChange={e => setStudioIntro(e.target.value)} 
-                      className="min-h-[300px] text-sm leading-relaxed resize-none" 
-                      placeholder="Studio introduction..." 
-                    />
-                  ) : (
-                    <div className="text-sm leading-relaxed whitespace-pre-line">
+                  {isEditMode ? <Textarea value={studioIntro} onChange={e => setStudioIntro(e.target.value)} className="min-h-[300px] text-sm leading-relaxed resize-none" placeholder="Studio introduction..." /> : <div className="text-sm leading-relaxed whitespace-pre-line">
                       {studioIntro}
-                    </div>
-                  )}
+                    </div>}
                 </div>
                 
                 {/* Right column - Display image */}
