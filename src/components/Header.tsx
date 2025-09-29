@@ -5,81 +5,15 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
-
-// Default content constants
-const DEFAULT_AWARDS = "Outstanding Architecture Award 2023\nInnovative Design Recognition 2022\nSustainable Building Excellence 2023\nUrban Planning Achievement 2022";
-const DEFAULT_STUDIO_INTRO = "Our Studio\n\nFounded in 2010, our architectural studio specializes in innovative and sustainable design solutions. We believe in creating spaces that harmonize with their environment while pushing the boundaries of contemporary architecture.\n\nOur Philosophy:\n- Sustainable design practices\n- Integration with natural landscapes\n- User-centered spatial experiences\n- Innovative material applications\n\nServices:\n- Architectural Design\n- Interior Design\n- Urban Planning\n- Consultation Services";
-const DEFAULT_STUDIO_IMAGE = "/src/assets/hero-architecture.jpg";
-
-// Storage keys
-const STORAGE_KEYS = {
-  awards: 'header-awards',
-  studioIntro: 'header-studio-intro',
-  studioImage: 'header-studio-image'
-};
 export const Header = () => {
   const [isMediaOpen, setIsMediaOpen] = useState(false);
   const [isStudioOpen, setIsStudioOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
-  
-  // Initialize state with localStorage or defaults
-  const [awards, setAwards] = useState(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEYS.awards);
-      return saved || DEFAULT_AWARDS;
-    } catch (error) {
-      console.error('Failed to load awards from localStorage:', error);
-      return DEFAULT_AWARDS;
-    }
-  });
-  
-  const [studioIntro, setStudioIntro] = useState(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEYS.studioIntro);
-      return saved || DEFAULT_STUDIO_INTRO;
-    } catch (error) {
-      console.error('Failed to load studio intro from localStorage:', error);
-      return DEFAULT_STUDIO_INTRO;
-    }
-  });
-  
-  const [studioImage, setStudioImage] = useState(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEYS.studioImage);
-      return saved || DEFAULT_STUDIO_IMAGE;
-    } catch (error) {
-      console.error('Failed to load studio image from localStorage:', error);
-      return DEFAULT_STUDIO_IMAGE;
-    }
-  });
-  
+  const [awards, setAwards] = useState("Outstanding Architecture Award 2023\nInnovative Design Recognition 2022\nSustainable Building Excellence 2023\nUrban Planning Achievement 2022");
+  const [studioIntro, setStudioIntro] = useState("Our Studio\n\nFounded in 2010, our architectural studio specializes in innovative and sustainable design solutions. We believe in creating spaces that harmonize with their environment while pushing the boundaries of contemporary architecture.\n\nOur Philosophy:\n- Sustainable design practices\n- Integration with natural landscapes\n- User-centered spatial experiences\n- Innovative material applications\n\nServices:\n- Architectural Design\n- Interior Design\n- Urban Planning\n- Consultation Services");
+  const [studioImage, setStudioImage] = useState("/src/assets/hero-architecture.jpg");
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // Save to localStorage when content changes
-  useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEYS.awards, awards);
-    } catch (error) {
-      console.error('Failed to save awards to localStorage:', error);
-    }
-  }, [awards]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEYS.studioIntro, studioIntro);
-    } catch (error) {
-      console.error('Failed to save studio intro to localStorage:', error);
-    }
-  }, [studioIntro]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEYS.studioImage, studioImage);
-    } catch (error) {
-      console.error('Failed to save studio image to localStorage:', error);
-    }
-  }, [studioImage]);
 
   // Handle file upload
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
