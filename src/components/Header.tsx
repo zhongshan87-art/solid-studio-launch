@@ -62,7 +62,10 @@ export const Header = () => {
     }
     return "Our Studio\n\nFounded in 2010, our architectural studio specializes in innovative and sustainable design solutions. We believe in creating spaces that harmonize with their environment while pushing the boundaries of contemporary architecture.\n\nOur Philosophy:\n- Sustainable design practices\n- Integration with natural landscapes\n- User-centered spatial experiences\n- Innovative material applications\n\nServices:\n- Architectural Design\n- Interior Design\n- Urban Planning\n- Consultation Services";
   });
-  const [studioImage, setStudioImage] = useState("/src/assets/hero-architecture.jpg");
+  const [studioImage, setStudioImage] = useState(() => {
+    const saved = localStorage.getItem('studioImage');
+    return saved || "/src/assets/hero-architecture.jpg";
+  });
   const [uploading, setUploading] = useState(false);
   const [editingCardId, setEditingCardId] = useState<string | null>(null);
   const fileInputRefs = useRef<{[key: string]: HTMLInputElement | null}>({});
@@ -76,6 +79,11 @@ export const Header = () => {
   useEffect(() => {
     localStorage.setItem('studioIntro', JSON.stringify(studioIntro));
   }, [studioIntro]);
+
+  // Save studio image to localStorage
+  useEffect(() => {
+    localStorage.setItem('studioImage', studioImage);
+  }, [studioImage]);
 
   // Handle file upload for media cards
   const handleCardImageUpload = async (event: React.ChangeEvent<HTMLInputElement>, cardId: string) => {
@@ -107,13 +115,17 @@ export const Header = () => {
         return;
       }
 
-      // Create URL for the uploaded image
-      const imageUrl = URL.createObjectURL(file);
-      
-      // Update the specific card
-      setMediaCards(prev => prev.map(card => 
-        card.id === cardId ? { ...card, image: imageUrl } : card
-      ));
+      // Convert file to base64 data URL for persistence
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imageUrl = e.target?.result as string;
+        
+        // Update the specific card
+        setMediaCards(prev => prev.map(card => 
+          card.id === cardId ? { ...card, image: imageUrl } : card
+        ));
+      };
+      reader.readAsDataURL(file);
 
       toast({
         title: "Image uploaded",
@@ -196,9 +208,13 @@ export const Header = () => {
         return;
       }
 
-      // Create URL for the uploaded image
-      const imageUrl = URL.createObjectURL(file);
-      setStudioImage(imageUrl);
+      // Convert file to base64 data URL for persistence
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imageUrl = e.target?.result as string;
+        setStudioImage(imageUrl);
+      };
+      reader.readAsDataURL(file);
 
       toast({
         title: "Image uploaded",
