@@ -3,6 +3,7 @@ export interface ProjectImage {
   url: string;
   alt: string;
   caption?: string;
+  text?: string; // Card text content
 }
 
 export interface Project {

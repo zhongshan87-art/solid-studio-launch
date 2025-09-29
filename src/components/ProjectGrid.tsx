@@ -4,7 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Card } from "@/components/ui/card";
 import { useProjectData } from "@/hooks/useProjectData";
 import { ProjectImageManager } from "./ProjectImageManager";
 import { Project } from "@/types/project";
@@ -23,6 +23,8 @@ export const ProjectGrid = () => {
   const [projectDescription, setProjectDescription] = useState<string>("");
   const [projectTitle, setProjectTitle] = useState<string>("");
   const [projectLocation, setProjectLocation] = useState<string>("");
+  const [editingImageId, setEditingImageId] = useState<string | null>(null);
+  const [editingImageText, setEditingImageText] = useState<string>("");
 
   // Sync selectedProject with updated projects data fully
   useEffect(() => {
@@ -188,26 +190,75 @@ export const ProjectGrid = () => {
                         </div>
                       </div>
                       
-                      <div className="relative">
-                         <Carousel key={(selectedProject?.images || []).map(i => i.id).join('|') || 'empty'} className="w-full">
-                          <CarouselContent>
-                            {selectedProject.images.map(image => <CarouselItem key={image.id}>
-                                <div className="flex flex-col items-center space-y-4">
-                                  <div className="w-full flex justify-center">
-                                   <img src={image.url} alt={image.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" onError={e => {
-                              console.error('Failed to load image:', image.url.substring(0, 50) + '...');
-                              e.currentTarget.src = '/placeholder.svg';
-                            }} />
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {selectedProject.images.map(image => (
+                          <div key={image.id} className="bg-card rounded-lg border shadow-sm overflow-hidden">
+                            <div className="aspect-[4/3] overflow-hidden">
+                              <img 
+                                src={image.url} 
+                                alt={image.alt} 
+                                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" 
+                                onError={e => {
+                                  console.error('Failed to load image:', image.url.substring(0, 50) + '...');
+                                  e.currentTarget.src = '/placeholder.svg';
+                                }} 
+                              />
+                            </div>
+                            <div className="p-4">
+                              {editingImageId === image.id ? (
+                                <div className="space-y-2">
+                                  <Textarea 
+                                    value={editingImageText}
+                                    onChange={(e) => setEditingImageText(e.target.value)}
+                                    className="min-h-[80px] resize-none"
+                                    placeholder="Enter text for this card..."
+                                  />
+                                  <div className="flex gap-2">
+                                    <Button 
+                                      size="sm" 
+                                      onClick={() => {
+                                        handleImageUpdate(image.id, { text: editingImageText });
+                                        setEditingImageId(null);
+                                        setEditingImageText("");
+                                      }}
+                                    >
+                                      Save
+                                    </Button>
+                                    <Button 
+                                      size="sm" 
+                                      variant="outline" 
+                                      onClick={() => {
+                                        setEditingImageId(null);
+                                        setEditingImageText("");
+                                      }}
+                                    >
+                                      Cancel
+                                    </Button>
                                   </div>
                                 </div>
-                              </CarouselItem>)}
-                          </CarouselContent>
-                          <CarouselPrevious className="left-4 h-12 w-12 bg-background/80 hover:bg-background border-2 shadow-lg" />
-                          <CarouselNext className="right-4 h-12 w-12 bg-background/80 hover:bg-background border-2 shadow-lg" />
-                        </Carousel>
-                      </div>
-                    </div>
-                  </TabsContent>
+                              ) : (
+                                <div className="space-y-2">
+                                  <p className="text-sm text-muted-foreground leading-relaxed">
+                                    {image.text || "Click edit to add text for this card..."}
+                                  </p>
+                                  <Button 
+                                    size="sm" 
+                                    variant="ghost" 
+                                    onClick={() => {
+                                      setEditingImageId(image.id);
+                                      setEditingImageText(image.text || "");
+                                    }}
+                                  >
+                                    Edit Text
+                                  </Button>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                       </div>
+                     </div>
+                   </TabsContent>
                   
                   <TabsContent value="images" className="p-4">
                     <ProjectImageManager images={selectedProject.images} onImageAdd={handleImageAdd} onImageRemove={handleImageRemove} onImageUpdate={handleImageUpdate} />
@@ -222,24 +273,27 @@ export const ProjectGrid = () => {
                       </div>
                     </div>
                     
-                    <div className="relative">
-                      <Carousel key={(selectedProject?.images || []).map(i => i.id).join('|') || 'empty'} className="w-full">
-                        <CarouselContent>
-                          {selectedProject.images.map(image => <CarouselItem key={image.id}>
-                              <div className="flex flex-col items-center space-y-4">
-                                <div className="w-full flex justify-center">
-                                 <img src={image.url} alt={image.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" onError={e => {
-                            console.error('Failed to load image:', image.url.substring(0, 50) + '...');
-                            e.currentTarget.src = '/placeholder.svg';
-                          }} />
-                                </div>
-                                
-                              </div>
-                            </CarouselItem>)}
-                        </CarouselContent>
-                        <CarouselPrevious className="left-4 h-12 w-12 bg-background/80 hover:bg-background border-2 shadow-lg" />
-                        <CarouselNext className="right-4 h-12 w-12 bg-background/80 hover:bg-background border-2 shadow-lg" />
-                      </Carousel>
+                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {selectedProject.images.map(image => (
+                        <div key={image.id} className="bg-card rounded-lg border shadow-sm overflow-hidden">
+                          <div className="aspect-[4/3] overflow-hidden">
+                            <img 
+                              src={image.url} 
+                              alt={image.alt} 
+                              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" 
+                              onError={e => {
+                                console.error('Failed to load image:', image.url.substring(0, 50) + '...');
+                                e.currentTarget.src = '/placeholder.svg';
+                              }} 
+                            />
+                          </div>
+                          <div className="p-4">
+                            <p className="text-sm text-muted-foreground leading-relaxed">
+                              {image.text || "No description available."}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>}
