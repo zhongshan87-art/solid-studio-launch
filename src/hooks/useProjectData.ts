@@ -20,7 +20,7 @@ const defaultProjects: Project[] = [
   },
   {
     id: 2,
-    title: "金塘水獭馆 Otter Exhibition",
+    title: "金塘水獭科普馆 Jintang Otter Center",
     location: "浙江 Zhejiang",
     mainImage: project2,
     images: [
