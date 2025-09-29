@@ -197,14 +197,6 @@ export const ProjectGrid = () => {
                   ) : (
                     <p>{projectDescription}</p>
                   )}
-                  <br />
-                  <p><strong>Key Features:</strong></p>
-                  <ul className="list-disc list-inside mt-2 space-y-1">
-                    <li>Modern architectural design</li>
-                    <li>Sustainable materials</li>
-                    <li>Integration with natural environment</li>
-                    <li>Innovative spatial solutions</li>
-                  </ul>
                 </div>
               </div>
               
