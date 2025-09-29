@@ -35,14 +35,14 @@ export const Header = () => {
       try {
         // Load media cards
         let cards = await getMediaCards();
-        if (!cards) {
+        if (!cards || cards.length === 0) {
           // Try localStorage fallback
           const saved = localStorage.getItem('mediaCards');
           if (saved) {
             try {
               cards = JSON.parse(saved);
               // Migrate to IndexedDB
-              if (cards) {
+              if (cards && cards.length > 0) {
                 await setMediaCards(cards);
                 localStorage.removeItem('mediaCards');
               }
@@ -52,7 +52,7 @@ export const Header = () => {
           }
         }
         
-        if (!cards) {
+        if (!cards || cards.length === 0) {
           // Use default data
           cards = [
             {
@@ -74,6 +74,8 @@ export const Header = () => {
               objectFit: 'cover' as const
             }
           ];
+          // Save default data to IndexedDB
+          await setMediaCards(cards);
         }
         setMediaCards(cards);
 
