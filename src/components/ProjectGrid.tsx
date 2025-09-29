@@ -158,7 +158,7 @@ export const ProjectGrid = () => {
                 </div>
                 <div className="p-4">
                   <h3 className="font-semibold text-lg mb-1">{project.title}</h3>
-                  <p className="text-muted-foreground text-sm">{project.location}</p>
+                  <p className="text-foreground text-sm">{project.location}</p>
                 </div>
               </article>;
         })}
