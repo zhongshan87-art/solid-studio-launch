@@ -195,7 +195,7 @@ export const ProjectGrid = () => {
         type: media.type,
       });
       
-      addImageToProject(selectedProject.id, media);
+      addImageToProject(selectedProject.id, media.url, media.alt, media.caption || '');
     }
   };
   const handleImageRemove = (imageId: string) => {
