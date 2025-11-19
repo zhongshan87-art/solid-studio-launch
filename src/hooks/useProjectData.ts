@@ -189,6 +189,18 @@ const defaultProjects: Project[] = [
     ],
     description: "采用参数化设计的当代艺术博物馆，有机流动的建筑形态突破传统空间限制，配备智能照明和气候控制系统，为当代艺术提供理想的展示平台。",
   },
+  {
+    id: 16,
+    title: "湖心亭 Lake Pavilion",
+    location: "扬州 Yangzhou",
+    mainImage: project3,
+    images: [
+      { id: '16-1', url: project3, alt: "Lake Pavilion - Main view" },
+      { id: '16-2', url: project1, alt: "Lake Pavilion - Bridge view" },
+      { id: '16-3', url: project2, alt: "Lake Pavilion - Interior" },
+    ],
+    description: "扬州瘦西湖畔的新建景观建筑，采用传统亭台楼阁的空间布局，结合现代建造工艺，通过曲折的游廊与湖岸相连，呈现江南园林的诗意画境。",
+  },
 ];
 
 export const useProjectData = () => {
