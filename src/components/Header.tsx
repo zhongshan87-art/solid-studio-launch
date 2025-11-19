@@ -439,7 +439,7 @@ export const Header = () => {
                         // Check if paragraph contains Chinese characters
                         const hasChinese = /[\u4e00-\u9fa5]/.test(paragraph);
                         return (
-                          <p key={index} className={hasChinese ? 'font-bold' : 'font-light'}>
+                          <p key={index} className={hasChinese ? 'font-bold' : 'font-light'} style={hasChinese ? {} : { fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
                             {paragraph}
                           </p>
                         );
