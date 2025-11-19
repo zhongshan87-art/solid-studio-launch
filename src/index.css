@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: 120 100% 25%;
+    --background: 112 40% 56%;
     --foreground: 0 0% 98%;
 
     --card: 120 100% 25%;
@@ -124,7 +124,12 @@
 
   body {
     @apply bg-background text-foreground font-light antialiased;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family:
+      "Inter",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
     letter-spacing: -0.01em;
   }
 
