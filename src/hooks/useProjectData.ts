@@ -141,6 +141,17 @@ export const useProjectData = () => {
     updateProject(projectId, { description });
   };
 
+  const reorderProjectImages = (projectId: number, newOrder: string[]) => {
+    const project = projects.find(p => p.id === projectId);
+    if (!project) return;
+
+    const reorderedImages = newOrder
+      .map(id => project.images.find(img => img.id === id))
+      .filter((img): img is NonNullable<typeof img> => img !== undefined);
+
+    updateProject(projectId, { images: reorderedImages });
+  };
+
   return {
     projects,
     isLoading,
@@ -148,6 +159,7 @@ export const useProjectData = () => {
     addImageToProject,
     removeImageFromProject,
     updateProjectDescription,
+    reorderProjectImages,
     saveProjects,
   };
 };

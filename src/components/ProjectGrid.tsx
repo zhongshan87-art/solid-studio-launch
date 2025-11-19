@@ -15,7 +15,8 @@ export const ProjectGrid = () => {
     updateProjectDescription,
     addImageToProject,
     removeImageFromProject,
-    updateProject
+    updateProject,
+    reorderProjectImages,
   } = useProjectData();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -143,6 +144,12 @@ export const ProjectGrid = () => {
       setSelectedProject(updatedProject);
     }
   };
+
+  const handleReorder = (newOrder: string[]) => {
+    if (selectedProject) {
+      reorderProjectImages(selectedProject.id, newOrder);
+    }
+  };
   if (isLoading) {
     return <div className="py-8 text-center">Loading projects...</div>;
   }
@@ -213,7 +220,13 @@ export const ProjectGrid = () => {
                   </TabsContent>
                   
                   <TabsContent value="images" className="p-4">
-                    <ProjectImageManager images={selectedProject.images} onImageAdd={handleImageAdd} onImageRemove={handleImageRemove} onImageUpdate={handleImageUpdate} />
+                    <ProjectImageManager 
+                      images={selectedProject.images} 
+                      onImageAdd={handleImageAdd} 
+                      onImageRemove={handleImageRemove} 
+                      onImageUpdate={handleImageUpdate}
+                      onReorder={handleReorder}
+                    />
                   </TabsContent>
                 </Tabs> : <div className="p-4">
                   <div className="space-y-6">
