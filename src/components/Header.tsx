@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
@@ -316,9 +317,12 @@ export const Header = () => {
   return <header className="fixed top-0 left-0 right-0 z-50 bg-background shadow-sm">
       <div className="container-studio flex justify-end items-center py-6 gap-8">
         <nav className="flex items-center gap-8">
-          <a href="#works" className="text-caption font-medium hover:text-primary transition-colors">
+          <Link to="/" className="text-caption font-medium hover:text-primary transition-colors">
+            Forest
+          </Link>
+          <Link to="/works" className="text-caption font-medium hover:text-primary transition-colors">
             Works
-          </a>
+          </Link>
           <button className="text-caption font-medium hover:text-primary transition-colors" onClick={() => setIsMediaOpen(true)}>
             Media
           </button>
