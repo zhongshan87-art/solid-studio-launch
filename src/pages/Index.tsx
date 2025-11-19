@@ -4,7 +4,6 @@ import { ProjectGrid } from "@/components/ProjectGrid";
 import { About } from "@/components/About";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
-import { DataExporter } from "@/components/DataExporter";
 
 const Index = () => {
   return (
@@ -15,7 +14,6 @@ const Index = () => {
       <About />
       <Contact />
       <Footer />
-      <DataExporter />
     </main>
   );
 };
