@@ -50,12 +50,27 @@ const SortableProjectCard = ({ project, isGridEditMode, onClick }: SortableProje
         </div>
       )}
       <div className="w-full overflow-hidden aspect-[4/3]">
-        <img 
-          src={project.images[0]?.url || project.mainImage} 
-          alt={project.images[0]?.alt || project.title} 
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-          onClick={isGridEditMode ? undefined : onClick}
-        />
+        {project.images[0]?.type === 'video' && project.images[0]?.thumbnail ? (
+          <div className="relative w-full h-full" onClick={isGridEditMode ? undefined : onClick}>
+            <img 
+              src={project.images[0].thumbnail} 
+              alt={project.images[0].alt || project.title} 
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center">
+                <div className="w-0 h-0 border-l-[20px] border-l-white border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent ml-1"></div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <img 
+            src={project.images[0]?.url || project.mainImage} 
+            alt={project.images[0]?.alt || project.title} 
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+            onClick={isGridEditMode ? undefined : onClick}
+          />
+        )}
       </div>
       <div className="p-4">
         <h3 className="font-semibold text-lg mb-1">{project.title}</h3>
@@ -164,33 +179,23 @@ export const ProjectGrid = () => {
     setIsEditMode(false);
     console.log('Opening modal for project:', currentProject.id, 'with', currentProject.images.length, 'images');
   };
-  const handleImageAdd = (image: {
+  const handleImageAdd = (media: {
     url: string;
     alt: string;
     caption?: string;
+    type: 'image' | 'video';
+    thumbnail?: string;
   }) => {
     if (selectedProject) {
-      console.log('Adding image to project:', selectedProject.id, {
-        imageSize: image.url.length,
-        alt: image.alt,
-        caption: image.caption
+      const mediaSize = Math.round(media.url.length * 0.75);
+      console.info('Adding media to project:', selectedProject.id, { 
+        mediaSize, 
+        alt: media.alt, 
+        caption: media.caption,
+        type: media.type,
       });
-      try {
-        // Persist and get the actual new image object (with final ID)
-        const persistedImage = addImageToProject(selectedProject.id, image);
-        if (!persistedImage) return;
-
-        // Update local selected project to reflect persisted state
-        const updatedProject = {
-          ...selectedProject,
-          images: [...selectedProject.images, persistedImage]
-        };
-        setSelectedProject(updatedProject);
-        console.log('Successfully added image with ID:', persistedImage.id);
-        console.log('Updated project now has', updatedProject.images.length, 'images');
-      } catch (error) {
-        console.error('Failed to add image:', error);
-      }
+      
+      addImageToProject(selectedProject.id, media);
     }
   };
   const handleImageRemove = (imageId: string) => {
@@ -303,13 +308,26 @@ export const ProjectGrid = () => {
                         <div className="relative">
                            <Carousel key={(selectedProject?.images || []).map(i => i.id).join('|') || 'empty'} className="w-full">
                             <CarouselContent>
-                              {selectedProject.images.map(image => <CarouselItem key={image.id}>
+                                {selectedProject.images.map(media => <CarouselItem key={media.id}>
                                   <div className="flex flex-col items-center space-y-4">
                                     <div className="w-full flex justify-center">
-                                     <img src={image.url} alt={image.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" onError={e => {
-                                console.error('Failed to load image:', image.url.substring(0, 50) + '...');
-                                e.currentTarget.src = '/placeholder.svg';
-                              }} />
+                                      {media.type === 'video' ? (
+                                        <video 
+                                          src={media.url} 
+                                          controls 
+                                          className="max-h-[60vh] w-auto rounded-lg"
+                                          onError={(e) => {
+                                            console.error('Failed to load video:', media.url.substring(0, 50) + '...');
+                                          }}
+                                        >
+                                          Your browser does not support the video tag.
+                                        </video>
+                                      ) : (
+                                        <img src={media.url} alt={media.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" onError={e => {
+                                          console.error('Failed to load image:', media.url.substring(0, 50) + '...');
+                                          e.currentTarget.src = '/placeholder.svg';
+                                        }} />
+                                      )}
                                     </div>
                                   </div>
                                 </CarouselItem>)}
@@ -344,13 +362,26 @@ export const ProjectGrid = () => {
                     <div className="relative">
                       <Carousel key={(selectedProject?.images || []).map(i => i.id).join('|') || 'empty'} className="w-full">
                         <CarouselContent>
-                          {selectedProject.images.map(image => <CarouselItem key={image.id}>
+                          {selectedProject.images.map(media => <CarouselItem key={media.id}>
                               <div className="flex flex-col items-center space-y-4">
                                 <div className="w-full flex justify-center">
-                                 <img src={image.url} alt={image.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" onError={e => {
-                            console.error('Failed to load image:', image.url.substring(0, 50) + '...');
-                            e.currentTarget.src = '/placeholder.svg';
-                          }} />
+                                  {media.type === 'video' ? (
+                                    <video 
+                                      src={media.url} 
+                                      controls 
+                                      className="max-h-[60vh] w-auto rounded-lg"
+                                      onError={(e) => {
+                                        console.error('Failed to load video:', media.url.substring(0, 50) + '...');
+                                      }}
+                                    >
+                                      Your browser does not support the video tag.
+                                    </video>
+                                  ) : (
+                                    <img src={media.url} alt={media.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" onError={e => {
+                                      console.error('Failed to load image:', media.url.substring(0, 50) + '...');
+                                      e.currentTarget.src = '/placeholder.svg';
+                                    }} />
+                                  )}
                                 </div>
                                 
                               </div>

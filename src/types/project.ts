@@ -3,6 +3,8 @@ export interface ProjectImage {
   url: string;
   alt: string;
   caption?: string;
+  type?: 'image' | 'video';
+  thumbnail?: string;
 }
 
 export interface Project {

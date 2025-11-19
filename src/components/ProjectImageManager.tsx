@@ -4,7 +4,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { X, Edit3, GripVertical } from 'lucide-react';
 import { ProjectImage } from '@/types/project';
-import { ImageUpload } from './ImageUpload';
+import { MediaUpload } from './MediaUpload';
+import { FileVideo } from 'lucide-react';
 import {
   DndContext,
   closestCenter,
@@ -25,7 +26,13 @@ import { CSS } from '@dnd-kit/utilities';
 
 interface ProjectImageManagerProps {
   images: ProjectImage[];
-  onImageAdd: (image: { url: string; alt: string; caption?: string }) => void;
+  onImageAdd: (media: { 
+    url: string; 
+    alt: string; 
+    caption?: string;
+    type: 'image' | 'video';
+    thumbnail?: string;
+  }) => void;
   onImageRemove: (imageId: string) => void;
   onImageUpdate: (imageId: string, updates: Partial<ProjectImage>) => void;
   onReorder: (newOrder: string[]) => void;
@@ -81,16 +88,35 @@ const SortableImageItem: React.FC<SortableImageItemProps> = ({
         <GripVertical className="w-5 h-5 text-muted-foreground" />
       </div>
 
-      <div className="w-20 h-20 flex-shrink-0">
-        <img
-          src={image.url}
-          alt={image.alt}
-          className="w-full h-full object-cover rounded"
-          onError={(e) => {
-            console.error('Failed to load thumbnail:', image.url.substring(0, 50) + '...');
-            e.currentTarget.src = '/placeholder.svg';
-          }}
-        />
+      <div className="w-20 h-20 flex-shrink-0 relative">
+        {image.type === 'video' ? (
+          <>
+            {image.thumbnail ? (
+              <img
+                src={image.thumbnail}
+                alt={image.alt}
+                className="w-full h-full object-cover rounded"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-muted rounded">
+                <FileVideo className="w-8 h-8 text-muted-foreground" />
+              </div>
+            )}
+            <div className="absolute bottom-1 right-1 bg-black/70 px-1 py-0.5 rounded text-xs text-white">
+              VIDEO
+            </div>
+          </>
+        ) : (
+          <img
+            src={image.url}
+            alt={image.alt}
+            className="w-full h-full object-cover rounded"
+            onError={(e) => {
+              console.error('Failed to load thumbnail:', image.url.substring(0, 50) + '...');
+              e.currentTarget.src = '/placeholder.svg';
+            }}
+          />
+        )}
       </div>
 
       <div className="flex-1 space-y-2">
@@ -193,7 +219,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <h4 className="text-lg font-medium">Project Images</h4>
-        <ImageUpload onImageAdd={onImageAdd} />
+        <MediaUpload onMediaAdd={onImageAdd} />
       </div>
 
       <DndContext

@@ -109,7 +109,16 @@ export const useProjectData = () => {
     saveProjects(updatedProjects);
   };
 
-  const addImageToProject = (projectId: number, image: { url: string; alt: string; caption?: string }) => {
+  const addImageToProject = (
+    projectId: number, 
+    image: { 
+      url: string; 
+      alt: string; 
+      caption?: string;
+      type?: 'image' | 'video';
+      thumbnail?: string;
+    }
+  ) => {
     const project = projects.find(p => p.id === projectId);
     if (!project) {
       console.error('Project not found:', projectId);
@@ -119,9 +128,10 @@ export const useProjectData = () => {
     const newImage = {
       id: `${projectId}-${Date.now()}`,
       ...image,
+      type: image.type || 'image',
     };
 
-    console.log('Creating new image for project:', projectId, 'with ID:', newImage.id);
+    console.log('Creating new media for project:', projectId, 'with ID:', newImage.id, 'type:', newImage.type);
     const updatedImages = [...project.images, newImage];
     console.log('Updated images count:', updatedImages.length);
     
