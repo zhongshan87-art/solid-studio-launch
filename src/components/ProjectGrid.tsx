@@ -74,7 +74,7 @@ const SortableProjectCard = ({ project, isGridEditMode, onClick }: SortableProje
       </div>
       <div className="p-4">
         <h3 className="font-semibold text-lg mb-1">{project.title}</h3>
-        <p className="text-sm text-slate-50">{project.location}</p>
+        <p className="text-sm text-foreground">{project.location}</p>
       </div>
     </article>
   );
