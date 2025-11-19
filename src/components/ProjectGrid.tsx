@@ -182,53 +182,56 @@ export const ProjectGrid = () => {
             <DialogDescription>查看与编辑项目信息与图片</DialogDescription>
           </DialogHeader>
           {selectedProject ? <div className="flex-1 overflow-auto">
-              {isEditMode ? <Tabs defaultValue="content" className="w-full">
-                  <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="content">Content</TabsTrigger>
-                    <TabsTrigger value="images">Images</TabsTrigger>
-                  </TabsList>
+              {isEditMode ? <div className="p-4">
+                  <div className="space-y-4 mb-6 pb-6 border-b">
+                    <Input value={projectTitle} onChange={e => setProjectTitle(e.target.value)} className="text-2xl font-bold border-0 bg-transparent px-0 focus-visible:ring-0" placeholder="Project title..." />
+                    <Input value={projectLocation} onChange={e => setProjectLocation(e.target.value)} className="text-lg text-muted-foreground border-0 bg-transparent px-0 focus-visible:ring-0" placeholder="Project location..." />
+                  </div>
                   
-                  <TabsContent value="content" className="p-4">
-                    <div className="space-y-6">
-                      <div>
-                        <Input value={projectTitle} onChange={e => setProjectTitle(e.target.value)} className="text-2xl font-bold mb-4 border-0 bg-transparent px-0 focus-visible:ring-0" placeholder="Project title..." />
-                        <Input value={projectLocation} onChange={e => setProjectLocation(e.target.value)} className="text-lg text-muted-foreground mb-4 border-0 bg-transparent px-0 focus-visible:ring-0" placeholder="Project location..." />
+                  <Tabs defaultValue="content" className="w-full">
+                    <TabsList className="grid w-full grid-cols-2">
+                      <TabsTrigger value="content">Content</TabsTrigger>
+                      <TabsTrigger value="images">Images</TabsTrigger>
+                    </TabsList>
+                    
+                    <TabsContent value="content" className="p-4">
+                      <div className="space-y-6">
                         <div className="text-base leading-relaxed w-full">
                           <Textarea value={projectDescription} onChange={e => setProjectDescription(e.target.value)} className="min-h-[100px] mb-4 w-full" placeholder="Enter project description..." />
                         </div>
-                      </div>
-                      
-                      <div className="relative">
-                         <Carousel key={(selectedProject?.images || []).map(i => i.id).join('|') || 'empty'} className="w-full">
-                          <CarouselContent>
-                            {selectedProject.images.map(image => <CarouselItem key={image.id}>
-                                <div className="flex flex-col items-center space-y-4">
-                                  <div className="w-full flex justify-center">
-                                   <img src={image.url} alt={image.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" onError={e => {
-                              console.error('Failed to load image:', image.url.substring(0, 50) + '...');
-                              e.currentTarget.src = '/placeholder.svg';
-                            }} />
+                        
+                        <div className="relative">
+                           <Carousel key={(selectedProject?.images || []).map(i => i.id).join('|') || 'empty'} className="w-full">
+                            <CarouselContent>
+                              {selectedProject.images.map(image => <CarouselItem key={image.id}>
+                                  <div className="flex flex-col items-center space-y-4">
+                                    <div className="w-full flex justify-center">
+                                     <img src={image.url} alt={image.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" onError={e => {
+                                console.error('Failed to load image:', image.url.substring(0, 50) + '...');
+                                e.currentTarget.src = '/placeholder.svg';
+                              }} />
+                                    </div>
                                   </div>
-                                </div>
-                              </CarouselItem>)}
-                          </CarouselContent>
-                          <CarouselPrevious className="left-4 h-12 w-12 bg-background/80 hover:bg-background border-2 shadow-lg" />
-                          <CarouselNext className="right-4 h-12 w-12 bg-background/80 hover:bg-background border-2 shadow-lg" />
-                        </Carousel>
+                                </CarouselItem>)}
+                            </CarouselContent>
+                            <CarouselPrevious className="left-4 h-12 w-12 bg-background/80 hover:bg-background border-2 shadow-lg" />
+                            <CarouselNext className="right-4 h-12 w-12 bg-background/80 hover:bg-background border-2 shadow-lg" />
+                          </Carousel>
+                        </div>
                       </div>
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="images" className="p-4">
-                    <ProjectImageManager 
-                      images={selectedProject.images} 
-                      onImageAdd={handleImageAdd} 
-                      onImageRemove={handleImageRemove} 
-                      onImageUpdate={handleImageUpdate}
-                      onReorder={handleReorder}
-                    />
-                  </TabsContent>
-                </Tabs> : <div className="p-4">
+                    </TabsContent>
+                    
+                    <TabsContent value="images" className="p-4">
+                      <ProjectImageManager 
+                        images={selectedProject.images} 
+                        onImageAdd={handleImageAdd} 
+                        onImageRemove={handleImageRemove} 
+                        onImageUpdate={handleImageUpdate}
+                        onReorder={handleReorder}
+                      />
+                    </TabsContent>
+                  </Tabs>
+                </div> : <div className="p-4">
                   <div className="space-y-6">
                     <div className="text-slate-50">
                       <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
