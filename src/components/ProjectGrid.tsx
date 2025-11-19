@@ -266,7 +266,7 @@ export const ProjectGrid = () => {
             items={projects.map(p => p.id)}
             strategy={rectSortingStrategy}
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[10px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {projects.map((project) => (
                 <SortableProjectCard
                   key={project.id}
