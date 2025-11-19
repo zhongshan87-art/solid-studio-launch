@@ -8,6 +8,63 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { useProjectData } from "@/hooks/useProjectData";
 import { ProjectImageManager } from "./ProjectImageManager";
 import { Project } from "@/types/project";
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, rectSortingStrategy } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { GripVertical } from "lucide-react";
+interface SortableProjectCardProps {
+  project: Project;
+  isGridEditMode: boolean;
+  onClick: () => void;
+}
+
+const SortableProjectCard = ({ project, isGridEditMode, onClick }: SortableProjectCardProps) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: project.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <article 
+      ref={setNodeRef} 
+      style={style} 
+      className={`group cursor-pointer relative ${isGridEditMode ? 'ring-2 ring-primary/50' : ''}`}
+    >
+      {isGridEditMode && (
+        <div 
+          {...attributes} 
+          {...listeners}
+          className="absolute top-2 left-2 z-10 p-2 bg-background/80 rounded cursor-move hover:bg-background transition-colors"
+        >
+          <GripVertical className="h-5 w-5 text-foreground" />
+        </div>
+      )}
+      <div className="w-full overflow-hidden aspect-[4/3]">
+        <img 
+          src={project.images[0]?.url || project.mainImage} 
+          alt={project.images[0]?.alt || project.title} 
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+          onClick={isGridEditMode ? undefined : onClick}
+        />
+      </div>
+      <div className="p-4">
+        <h3 className="font-semibold text-lg mb-1">{project.title}</h3>
+        <p className="text-sm text-slate-50">{project.location}</p>
+      </div>
+    </article>
+  );
+};
+
 export const ProjectGrid = () => {
   const {
     projects,
@@ -17,13 +74,26 @@ export const ProjectGrid = () => {
     removeImageFromProject,
     updateProject,
     reorderProjectImages,
+    reorderProjects,
   } = useProjectData();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [isGridEditMode, setIsGridEditMode] = useState(false);
   const [projectDescription, setProjectDescription] = useState<string>("");
   const [projectTitle, setProjectTitle] = useState<string>("");
   const [projectLocation, setProjectLocation] = useState<string>("");
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   // Sync selectedProject with updated projects data fully
   useEffect(() => {
@@ -53,7 +123,8 @@ export const ProjectGrid = () => {
   }, [selectedProject]);
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.ctrlKey && event.key === 'e') {
+      // Ctrl+E for project detail edit mode
+      if (event.ctrlKey && event.key === 'e' && !event.shiftKey) {
         event.preventDefault();
         if (isEditMode && selectedProject) {
           // Save the description and title when exiting edit mode
@@ -70,6 +141,11 @@ export const ProjectGrid = () => {
           }
         }
         setIsEditMode(prev => !prev);
+      }
+      // Ctrl+Shift+E for grid edit mode
+      if (event.ctrlKey && event.shiftKey && event.key === 'E') {
+        event.preventDefault();
+        setIsGridEditMode(prev => !prev);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -150,29 +226,53 @@ export const ProjectGrid = () => {
       reorderProjectImages(selectedProject.id, newOrder);
     }
   };
+
+  const handleProjectDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      const oldIndex = projects.findIndex((p) => p.id === active.id);
+      const newIndex = projects.findIndex((p) => p.id === over.id);
+
+      const newOrder = arrayMove(projects, oldIndex, newIndex).map(p => p.id);
+      reorderProjects(newOrder);
+    }
+  };
+
   if (isLoading) {
     return <div className="py-8 text-center">Loading projects...</div>;
   }
+
   return <section id="works" className="py-8">
       <div className="w-full px-0">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[10px]">
-          {projects.map((project) => (
-            <article key={project.id} className="group cursor-pointer">
-              <div className="w-full overflow-hidden aspect-[4/3]">
-                <img 
-                  src={project.images[0]?.url || project.mainImage} 
-                  alt={project.images[0]?.alt || project.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                  onClick={() => handleImageClick(project)} 
+        {isGridEditMode && (
+          <div className="mb-4 p-3 bg-primary/10 border border-primary/20 rounded-lg text-center">
+            <p className="text-sm font-medium">
+              编辑模式 - 拖拽项目调整顺序，按 <kbd className="px-2 py-1 bg-background rounded text-xs">Ctrl+Shift+E</kbd> 退出
+            </p>
+          </div>
+        )}
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleProjectDragEnd}
+        >
+          <SortableContext
+            items={projects.map(p => p.id)}
+            strategy={rectSortingStrategy}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[10px]">
+              {projects.map((project) => (
+                <SortableProjectCard
+                  key={project.id}
+                  project={project}
+                  isGridEditMode={isGridEditMode}
+                  onClick={() => handleImageClick(project)}
                 />
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-lg mb-1">{project.title}</h3>
-                <p className="text-sm text-slate-50">{project.location}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
       </div>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>

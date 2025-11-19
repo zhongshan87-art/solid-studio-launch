@@ -152,6 +152,14 @@ export const useProjectData = () => {
     updateProject(projectId, { images: reorderedImages });
   };
 
+  const reorderProjects = (newOrder: number[]) => {
+    const reorderedProjects = newOrder
+      .map(id => projects.find(p => p.id === id))
+      .filter((p): p is Project => p !== undefined);
+    
+    saveProjects(reorderedProjects);
+  };
+
   return {
     projects,
     isLoading,
@@ -160,6 +168,7 @@ export const useProjectData = () => {
     removeImageFromProject,
     updateProjectDescription,
     reorderProjectImages,
+    reorderProjects,
     saveProjects,
   };
 };
