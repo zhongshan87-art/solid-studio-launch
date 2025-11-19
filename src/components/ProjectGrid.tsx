@@ -249,7 +249,7 @@ export const ProjectGrid = () => {
   }
 
   return <section id="works" className="py-8">
-      <div className="w-full px-0">
+      <div className="w-full px-[50px]">
         {isGridEditMode && (
           <div className="mb-4 p-3 bg-primary/10 border border-primary/20 rounded-lg text-center">
             <p className="text-sm font-medium">
