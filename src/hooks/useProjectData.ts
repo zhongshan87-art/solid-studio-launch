@@ -3,6 +3,7 @@ import { Project, ProjectData } from '@/types/project';
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
+import project4 from "@/assets/project-4.jpg";
 import { getProjectsData, setProjectsData } from '@/lib/storage';
 
 const STORAGE_KEY = 'lovable-projects-data';
@@ -19,6 +20,18 @@ const defaultProjects: Project[] = [
       { id: '1-3', url: project3, alt: "One Room One Garden - Interior" },
     ],
     description: "这是一个位于南京的一室亦园项目的详细描述。该项目展示了创新的建筑设计和可持续的建筑实践，将现代设计理念与传统园林文化完美融合。",
+  },
+  {
+    id: 2,
+    title: "山语禅居 Mountain Zen Residence",
+    location: "杭州 Hangzhou",
+    mainImage: project4,
+    images: [
+      { id: '2-1', url: project4, alt: "Mountain Zen Residence - Main view" },
+      { id: '2-2', url: project1, alt: "Mountain Zen Residence - Detail view" },
+      { id: '2-3', url: project2, alt: "Mountain Zen Residence - Interior" },
+    ],
+    description: "位于杭州的现代禅意建筑，融合自然山景与极简设计理念，营造宁静致远的居住空间。建筑采用清水混凝土与木质元素，体现东方美学的当代表达。",
   },
 ];
 
