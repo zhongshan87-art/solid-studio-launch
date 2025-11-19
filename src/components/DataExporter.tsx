@@ -30,36 +30,42 @@ export const DataExporter = () => {
 
       const projects = data.projects;
       
-      // 检测需要的图片imports
+      // 检测base64图片和需要处理的图片
       const imageImports = new Set<string>();
       const imageVarMap = new Map<string, string>();
+      let hasBase64Images = false;
+      let base64Count = 0;
       
-      projects.forEach((project: Project) => {
-        // 检查mainImage
-        if (project.mainImage && project.mainImage.includes('/assets/')) {
-          const match = project.mainImage.match(/\/assets\/(.+?\.(jpg|jpeg|png|webp|gif))/i);
+      // 辅助函数：检查是否为base64图片
+      const isBase64Image = (url: string) => url && url.startsWith('data:image');
+      
+      // 辅助函数：处理图片URL
+      const processImageUrl = (url: string): string => {
+        if (!url) return '""';
+        
+        // 跳过base64图片
+        if (isBase64Image(url)) {
+          hasBase64Images = true;
+          base64Count++;
+          return '"[BASE64_IMAGE_PLACEHOLDER]"';
+        }
+        
+        // 处理assets图片
+        if (url.includes('/assets/')) {
+          const match = url.match(/\/assets\/(.+?\.(jpg|jpeg|png|webp|gif))/i);
           if (match) {
             const imagePath = match[1];
             const varName = imagePath.replace(/[^a-zA-Z0-9]/g, '_').replace(/\.(jpg|jpeg|png|webp|gif)$/i, '');
             imageImports.add(`import ${varName} from "@/assets/${imagePath}";`);
-            imageVarMap.set(project.mainImage, varName);
+            imageVarMap.set(url, varName);
+            return varName;
           }
         }
         
-        // 检查images数组
-        project.images.forEach(img => {
-          if (img.url && img.url.includes('/assets/')) {
-            const match = img.url.match(/\/assets\/(.+?\.(jpg|jpeg|png|webp|gif))/i);
-            if (match) {
-              const imagePath = match[1];
-              const varName = imagePath.replace(/[^a-zA-Z0-9]/g, '_').replace(/\.(jpg|jpeg|png|webp|gif)$/i, '');
-              imageImports.add(`import ${varName} from "@/assets/${imagePath}";`);
-              imageVarMap.set(img.url, varName);
-            }
-          }
-        });
-      });
-
+        // 其他URL直接返回
+        return `"${url.replace(/"/g, '\\"')}"`;
+      };
+      
       // 生成代码字符串
       let code = `import type { Project } from "@/types/project";\n\n`;
       
@@ -71,7 +77,7 @@ export const DataExporter = () => {
       code += `const defaultProjects: Project[] = [\n`;
       
       projects.forEach((project: Project, index: number) => {
-        const mainImageRef = imageVarMap.get(project.mainImage) || `"${project.mainImage}"`;
+        const mainImageRef = processImageUrl(project.mainImage);
         
         code += `  {\n`;
         code += `    id: ${project.id},\n`;
@@ -81,11 +87,13 @@ export const DataExporter = () => {
         code += `    images: [\n`;
         
         project.images.forEach((img, imgIndex) => {
-          const imgUrl = imageVarMap.get(img.url) || `"${img.url}"`;
+          const imgUrl = processImageUrl(img.url);
           code += `      { id: '${img.id}', url: ${imgUrl}, alt: "${img.alt.replace(/"/g, '\\"')}"`;
           if (img.caption) code += `, caption: "${img.caption.replace(/"/g, '\\"')}"`;
           if (img.type) code += `, type: '${img.type}'`;
-          if (img.thumbnail) code += `, thumbnail: "${img.thumbnail}}"`;
+          if (img.thumbnail && !isBase64Image(img.thumbnail)) {
+            code += `, thumbnail: "${img.thumbnail.replace(/"/g, '\\"')}"`;
+          }
           code += ` }${imgIndex < project.images.length - 1 ? ',' : ''}\n`;
         });
         
@@ -101,7 +109,14 @@ export const DataExporter = () => {
       code += `];\n\nexport { defaultProjects };`;
       
       setExportedCode(code);
-      toast.success(`成功导出 ${projects.length} 个项目数据`);
+      
+      if (hasBase64Images) {
+        toast.warning(`成功导出 ${projects.length} 个项目，但跳过了 ${base64Count} 个base64图片`, {
+          duration: 6000
+        });
+      } else {
+        toast.success(`成功导出 ${projects.length} 个项目数据`);
+      }
     } catch (error) {
       console.error("导出数据失败:", error);
       toast.error("导出数据失败");
@@ -171,15 +186,24 @@ export const DataExporter = () => {
               </pre>
             </div>
             
-            <div className="mt-4 p-4 bg-muted rounded-lg text-sm">
-              <p className="font-semibold mb-2">📋 使用步骤：</p>
-              <ol className="list-decimal list-inside space-y-1 text-muted-foreground">
-                <li>点击"复制代码"按钮</li>
-                <li>打开 src/hooks/useProjectData.ts 文件</li>
-                <li>找到并替换 defaultProjects 常量（第11-204行左右）</li>
-                <li>保存文件后刷新页面验证</li>
-                <li>如果有base64图片，建议转换为实际图片文件并放入 src/assets/ 目录</li>
-              </ol>
+            <div className="mt-4 p-4 bg-muted rounded-lg text-sm space-y-3">
+              <div>
+                <p className="font-semibold mb-2">📋 使用步骤：</p>
+                <ol className="list-decimal list-inside space-y-1 text-muted-foreground">
+                  <li>点击"复制代码"按钮</li>
+                  <li>告诉我，我会帮你更新到 useProjectData.ts 文件中</li>
+                  <li>保存后刷新页面验证数据是否正确显示</li>
+                </ol>
+              </div>
+              
+              {exportedCode.includes('[BASE64_IMAGE_PLACEHOLDER]') && (
+                <div className="p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-md">
+                  <p className="font-semibold text-yellow-600 dark:text-yellow-400 mb-1">⚠️ 注意：检测到Base64图片</p>
+                  <p className="text-xs text-muted-foreground">
+                    您的项目包含base64编码的图片（已用占位符替换）。建议将这些图片保存为实际文件并上传到 src/assets/ 目录，然后在代码中使用import引用。
+                  </p>
+                </div>
+              )}
             </div>
           </>
         ) : (
