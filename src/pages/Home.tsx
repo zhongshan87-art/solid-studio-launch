@@ -9,40 +9,22 @@ const Home = () => {
   const { projects, isLoading } = useProjectData();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  // Define card size patterns (循环: 大-中-小-横向-中-大...)
-  const getSizeClass = (index: number) => {
-    const pattern = index % 6;
-    switch (pattern) {
-      case 0:
-        return "col-span-2 row-span-2"; // 大卡片
-      case 1:
-        return "col-span-1 row-span-1"; // 中卡片
-      case 2:
-        return "col-span-1 row-span-1"; // 小卡片
-      case 3:
-        return "col-span-2 row-span-1"; // 横向卡片
-      case 4:
-        return "col-span-1 row-span-1"; // 中卡片
-      case 5:
-        return "col-span-2 row-span-2"; // 大卡片
-      default:
-        return "col-span-1 row-span-1";
-    }
+  // Define card size patterns for single column layout
+  const getSizeClass = () => {
+    return "w-full"; // 单列全宽
   };
 
   const getHeightClass = (index: number) => {
-    const pattern = index % 6;
+    const pattern = index % 4;
     switch (pattern) {
       case 0:
-      case 5:
-        return "h-[800px]"; // 大卡片
-      case 3:
-        return "h-[500px]"; // 横向卡片
+        return "h-[700px]"; // 高卡片
       case 1:
-      case 4:
-        return "h-[600px]"; // 中卡片
+        return "h-[500px]"; // 中等卡片
       case 2:
-        return "h-[400px]"; // 小卡片
+        return "h-[600px]"; // 中高卡片
+      case 3:
+        return "h-[550px]"; // 中卡片
       default:
         return "h-[600px]";
     }
@@ -64,17 +46,17 @@ const Home = () => {
       <Header />
       
       {/* Main content area with vertical scrolling */}
-      <div className="pt-24 pb-16 px-4 md:px-8 lg:px-12">
-        {/* Grid layout for project cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-min max-w-[1600px] mx-auto">
+      <div className="pt-24 pb-16 px-4 md:px-8 lg:px-16">
+        {/* Single column layout for project cards */}
+        <div className="flex flex-col gap-8 max-w-[1400px] mx-auto">
           {projects.map((project, index) => {
-            const sizeClass = getSizeClass(index);
+            const sizeClass = getSizeClass();
             const heightClass = getHeightClass(index);
             
             return (
               <div
                 key={project.id}
-                className={`${sizeClass} ${heightClass} group cursor-pointer overflow-hidden rounded-lg`}
+                className={`${sizeClass} ${heightClass} group cursor-pointer overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300`}
                 onClick={() => setSelectedProject(project)}
               >
                 {/* Image container */}
