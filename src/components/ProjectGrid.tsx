@@ -49,7 +49,7 @@ const SortableProjectCard = ({ project, isGridEditMode, onClick }: SortableProje
           <GripVertical className="h-5 w-5 text-foreground" />
         </div>
       )}
-      <div className="w-full overflow-hidden aspect-square">
+      <div className="w-full overflow-hidden aspect-video">
         {project.images[0]?.type === 'video' && project.images[0]?.thumbnail ? (
           <div className="relative w-full h-full" onClick={isGridEditMode ? undefined : onClick}>
             <img 
