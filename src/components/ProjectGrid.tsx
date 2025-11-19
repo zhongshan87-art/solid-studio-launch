@@ -73,8 +73,8 @@ const SortableProjectCard = ({ project, isGridEditMode, onClick }: SortableProje
         )}
       </div>
       <div className="p-4">
-        <h3 className="font-semibold text-lg mb-1">{project.title}</h3>
-        <p className="text-sm text-foreground">{project.location}</p>
+        <h3 className="font-semibold text-lg mb-1 transition-colors group-hover:text-[hsl(0,0%,39%)]">{project.title}</h3>
+        <p className="text-sm text-foreground transition-colors group-hover:text-[hsl(0,0%,39%)]">{project.location}</p>
       </div>
     </article>
   );
