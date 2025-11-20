@@ -361,8 +361,33 @@ export const useProjectData = () => {
         console.log('存储的数据:', storedData);
         
         if (storedData && storedData.projects && storedData.projects.length > 0) {
-          console.log('使用存储的项目数据，数量:', storedData.projects.length);
-          setProjects(storedData.projects);
+          console.log('检测到存储的项目数据，数量:', storedData.projects.length);
+          
+          // 创建已存在项目ID的集合
+          const existingIds = new Set(storedData.projects.map(p => p.id));
+          
+          // 找出defaultProjects中不存在于存储数据中的新项目
+          const newDefaultProjects = defaultProjects.filter(p => !existingIds.has(p.id));
+          
+          if (newDefaultProjects.length > 0) {
+            console.log('发现新的默认项目，数量:', newDefaultProjects.length, '项目ID:', newDefaultProjects.map(p => p.id));
+            // 合并存储的项目和新的默认项目
+            const mergedProjects = [...storedData.projects, ...newDefaultProjects];
+            setProjects(mergedProjects);
+            
+            try {
+              await setProjectsData({ 
+                projects: mergedProjects, 
+                lastUpdated: new Date().toISOString() 
+              });
+              console.log('已保存合并后的项目数据');
+            } catch (saveError) {
+              console.error('保存合并数据失败:', saveError);
+            }
+          } else {
+            console.log('没有新的默认项目，使用存储的数据');
+            setProjects(storedData.projects);
+          }
         } else {
           console.log('使用默认项目数据');
           setProjects(defaultProjects);
