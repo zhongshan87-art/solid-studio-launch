@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useProjectData } from "@/hooks/useProjectData";
@@ -8,27 +8,44 @@ import { Project } from "@/types/project";
 const Home = () => {
   const { projects, isLoading } = useProjectData();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
 
-  // Define card size patterns for single column layout
-  const getSizeClass = () => {
-    return "w-full"; // 单列全宽
-  };
+  // Auto-scroll effect
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container || isPaused) return;
 
-  const getHeightClass = (index: number) => {
-    const pattern = index % 4;
-    switch (pattern) {
-      case 0:
-        return "h-[700px]"; // 高卡片
-      case 1:
-        return "h-[500px]"; // 中等卡片
-      case 2:
-        return "h-[600px]"; // 中高卡片
-      case 3:
-        return "h-[550px]"; // 中卡片
-      default:
-        return "h-[600px]";
-    }
-  };
+    let animationFrameId: number;
+    let lastTimestamp = 0;
+    const scrollSpeed = 0.5; // pixels per frame
+
+    const scroll = (timestamp: number) => {
+      if (lastTimestamp === 0) {
+        lastTimestamp = timestamp;
+      }
+
+      const delta = timestamp - lastTimestamp;
+      lastTimestamp = timestamp;
+
+      container.scrollTop += scrollSpeed * (delta / 16);
+
+      // Reset to top when reaching bottom for infinite loop
+      if (container.scrollTop >= container.scrollHeight - container.clientHeight) {
+        container.scrollTop = 0;
+      }
+
+      animationFrameId = requestAnimationFrame(scroll);
+    };
+
+    animationFrameId = requestAnimationFrame(scroll);
+
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, [isPaused]);
 
   if (isLoading) {
     return (
@@ -42,51 +59,51 @@ const Home = () => {
   }
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="relative min-h-screen bg-background overflow-hidden">
       <Header />
       
-      {/* Main content area with vertical scrolling */}
-      <div className="pt-24 pb-16 px-4 md:px-8 lg:px-16">
-        {/* Single column layout for project cards */}
-        <div className="flex flex-col gap-8 max-w-[1400px] mx-auto">
-          {projects.map((project, index) => {
-            const sizeClass = getSizeClass();
-            const heightClass = getHeightClass(index);
-            
-            return (
-              <div
-                key={project.id}
-                className={`${sizeClass} ${heightClass} group cursor-pointer overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300`}
-                onClick={() => setSelectedProject(project)}
-              >
-                {/* Image container */}
-                <div className="relative w-full h-full overflow-hidden bg-muted">
-                  <img
-                    src={project.mainImage}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  
-                  {/* Text overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                      <h3 className="text-title font-bold mb-2 leading-relaxed">
-                        {project.title}
-                      </h3>
-                      <p className="text-caption font-light leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-                        {project.location}
-                      </p>
-                      {project.description && (
-                        <p className="text-sm mt-2 font-light leading-relaxed line-clamp-2" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-                          {project.description.substring(0, 100)}...
-                        </p>
-                      )}
-                    </div>
-                  </div>
+      {/* Large title overlay */}
+      <div className="fixed inset-0 z-10 flex items-center justify-center pointer-events-none">
+        <h1 className="text-[12vw] md:text-[10vw] font-bold tracking-tight text-foreground mix-blend-difference">
+          FOREST DESIGN
+        </h1>
+      </div>
+
+      {/* Auto-scrolling image container */}
+      <div 
+        ref={scrollContainerRef}
+        className="fixed inset-0 overflow-y-scroll scrollbar-hide pt-16"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        {/* Duplicate projects for infinite scroll effect */}
+        <div className="flex flex-col">
+          {[...projects, ...projects].map((project, index) => (
+            <div
+              key={`${project.id}-${index}`}
+              className="w-full h-screen cursor-pointer group relative"
+              onClick={() => setSelectedProject(project)}
+            >
+              <img
+                src={project.mainImage}
+                alt={project.title}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              
+              {/* Project info overlay on hover */}
+              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="text-center text-white px-8">
+                  <h3 className="text-4xl md:text-5xl font-bold mb-4 leading-relaxed">
+                    {project.title}
+                  </h3>
+                  <p className="text-xl md:text-2xl font-light" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+                    {project.location}
+                  </p>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
 
