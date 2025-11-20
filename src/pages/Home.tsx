@@ -11,6 +11,12 @@ const Home = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
 
+  // Get varied height for each image
+  const getImageHeight = (index: number) => {
+    const heights = ['60vh', '75vh', '85vh', '70vh', '65vh', '80vh'];
+    return heights[index % heights.length];
+  };
+
   // Auto-scroll effect
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -78,11 +84,12 @@ const Home = () => {
         onMouseLeave={() => setIsPaused(false)}
       >
         {/* Duplicate projects for infinite scroll effect */}
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-8 px-4 md:px-8 lg:px-12 py-8">
           {[...projects, ...projects].map((project, index) => (
             <div
               key={`${project.id}-${index}`}
-              className="w-full h-screen cursor-pointer group relative"
+              className="w-full cursor-pointer group relative overflow-hidden"
+              style={{ height: getImageHeight(index) }}
               onClick={() => setSelectedProject(project)}
             >
               <img
