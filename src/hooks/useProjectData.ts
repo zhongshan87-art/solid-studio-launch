@@ -15,7 +15,7 @@ const defaultProjects: Project[] = [
     location: "展览 Exhibition",
     mainImage: project2,
     images: [
-      { id: '2-1763522475506', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "2", caption: "2.jpg" },
+      { id: '2-1763522475506', url: project2, alt: "2", caption: "2.jpg" },
       { id: '2-1763522687393', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" },
       { id: '2-1763522478189', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
       { id: '2-1763522480866', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3a", caption: "3a.jpg" },
@@ -49,7 +49,7 @@ const defaultProjects: Project[] = [
     location: "建筑 Architecture",
     mainImage: project1,
     images: [
-      { id: '4-1763530214541', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "6", caption: "6.jpg" },
+      { id: '4-1763530214541', url: project1, alt: "6", caption: "6.jpg" },
       { id: '4-1763529859576', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" },
       { id: '4-1763529915136', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "2", caption: "2.jpg" },
       { id: '4-1763529946282', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
@@ -106,7 +106,7 @@ const defaultProjects: Project[] = [
     location: "展览 Exhibition",
     mainImage: project4,
     images: [
-      { id: '3-1763530663830', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" },
+      { id: '3-1763530663830', url: project4, alt: "1", caption: "1.jpg" },
       { id: '3-1763530668278', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "2", caption: "2.jpg" },
       { id: '3-1763530673094', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
       { id: '3-1763530676246', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "4", caption: "4.jpg" },
@@ -139,7 +139,7 @@ const defaultProjects: Project[] = [
     location: "室内 Interior",
     mainImage: project1,
     images: [
-      { id: '1-1763530787054', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" },
+      { id: '1-1763530787054', url: project1, alt: "1", caption: "1.jpg" },
       { id: '1-1763530792726', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "2", caption: "2.jpg" },
       { id: '1-1763530797886', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
       { id: '1-1763530805470', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "4", caption: "4.jpg" },
@@ -170,7 +170,7 @@ const defaultProjects: Project[] = [
     location: "室内 Interior",
     mainImage: project2,
     images: [
-      { id: '5-1763530902974', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" },
+      { id: '5-1763530902974', url: project2, alt: "1", caption: "1.jpg" },
       { id: '5-1763530905774', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "2", caption: "2.jpg" },
       { id: '5-1763530908590', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
       { id: '5-1763530911870', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "4", caption: "4.jpg" },
@@ -197,7 +197,7 @@ const defaultProjects: Project[] = [
     location: "建筑 Architecture",
     mainImage: project3,
     images: [
-      { id: '7-1763530980542', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '7-1763530980542', url: project3, alt: "1", caption: "1.jpg" }
     ],
     description: `幼儿园项目描述待补充。
 
@@ -210,7 +210,7 @@ const defaultProjects: Project[] = [
     location: "建筑 Architecture",
     mainImage: project4,
     images: [
-      { id: '8-1763531000350', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '8-1763531000350', url: project4, alt: "1", caption: "1.jpg" }
     ],
     description: `篱笆项目描述待补充。
 
@@ -223,7 +223,7 @@ const defaultProjects: Project[] = [
     location: "建筑 Architecture",
     mainImage: project1,
     images: [
-      { id: '9-1763531018846', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '9-1763531018846', url: project1, alt: "1", caption: "1.jpg" }
     ],
     description: `手艺之家项目描述待补充。
 
@@ -236,7 +236,7 @@ const defaultProjects: Project[] = [
     location: "建筑 Architecture",
     mainImage: project2,
     images: [
-      { id: '10-1763531036622', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '10-1763531036622', url: project2, alt: "1", caption: "1.jpg" }
     ],
     description: `双棚项目描述待补充。
 
@@ -249,7 +249,7 @@ const defaultProjects: Project[] = [
     location: "室内 Interior",
     mainImage: project3,
     images: [
-      { id: '11-1763531052454', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '11-1763531052454', url: project3, alt: "1", caption: "1.jpg" }
     ],
     description: `柔和过渡项目描述待补充。
 
@@ -262,7 +262,7 @@ const defaultProjects: Project[] = [
     location: "建筑 Architecture",
     mainImage: project4,
     images: [
-      { id: '12-1763531070046', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '12-1763531070046', url: project4, alt: "1", caption: "1.jpg" }
     ],
     description: `青松住宅项目描述待补充。
 
@@ -275,7 +275,7 @@ const defaultProjects: Project[] = [
     location: "室内 Interior",
     mainImage: project1,
     images: [
-      { id: '13-1763531088430', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '13-1763531088430', url: project1, alt: "1", caption: "1.jpg" }
     ],
     description: `光影梧桐项目描述待补充。
 
@@ -288,7 +288,7 @@ const defaultProjects: Project[] = [
     location: "室内 Interior",
     mainImage: project2,
     images: [
-      { id: '14-1763531105838', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '14-1763531105838', url: project2, alt: "1", caption: "1.jpg" }
     ],
     description: `小花野美项目描述待补充。
 
@@ -301,7 +301,7 @@ const defaultProjects: Project[] = [
     location: "室内 Interior",
     mainImage: project3,
     images: [
-      { id: '15-1763531123998', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '15-1763531123998', url: project3, alt: "1", caption: "1.jpg" }
     ],
     description: `风栖·雪筑项目描述待补充。
 
