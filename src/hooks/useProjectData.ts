@@ -307,6 +307,45 @@ const defaultProjects: Project[] = [
 
 地点：待定
 完成时间：待定`,
+  },
+  {
+    id: 16,
+    title: "新项目一",
+    location: "建筑 Architecture",
+    mainImage: project4,
+    images: [
+      { id: '16-1763531200000', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+    ],
+    description: `新项目一描述待补充。
+
+地点：待定
+完成时间：待定`,
+  },
+  {
+    id: 17,
+    title: "新项目二",
+    location: "展览 Exhibition",
+    mainImage: project1,
+    images: [
+      { id: '17-1763531200001', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+    ],
+    description: `新项目二描述待补充。
+
+地点：待定
+完成时间：待定`,
+  },
+  {
+    id: 18,
+    title: "新项目三",
+    location: "室内 Interior",
+    mainImage: project2,
+    images: [
+      { id: '18-1763531200002', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+    ],
+    description: `新项目三描述待补充。
+
+地点：待定
+完成时间：待定`,
   }
 ];
 
