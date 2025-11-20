@@ -13,6 +13,11 @@ const Home = () => {
 
   // Get varied height for each image
   const getImageHeight = (index: number) => {
+    const widthPattern = index % 6;
+    // Full width images get 16:9 aspect ratio
+    if (widthPattern === 2 || widthPattern === 5) {
+      return '56.25vw'; // 16:9 ratio for full width
+    }
     const heights = ['24vh', '34vh', '42vh', '30vh', '26vh', '36vh'];
     return heights[index % heights.length];
   };
