@@ -1,552 +1,196 @@
-import { useState, useEffect } from 'react';
-import { Project, ProjectData } from '@/types/project';
-import project1 from "@/assets/project-1.jpg";
-import project2 from "@/assets/project-2.jpg";
-import project3 from "@/assets/project-3.jpg";
-import project4 from "@/assets/project-4.jpg";
-import { getProjectsData, setProjectsData } from '@/lib/storage';
+import { useEffect, useState } from "react";
+import type { Project, ProjectData, ProjectImage } from "@/types/project";
+import { getProjectsData, setProjectsData } from "@/lib/storage";
 
-const STORAGE_KEY = 'lovable-projects-data';
+// 最小化 defaultProjects，实际数据已保存在浏览器 IndexedDB
+const defaultProjects: Project[] = [];
 
-const defaultProjects: Project[] = [
-  {
-    id: 2,
-    title: "金塘水獭科普馆 Jintang Otter Center",
-    location: "展览 Exhibition",
-    mainImage: project2,
-    images: [
-      { id: '2-1763522475506', url: project2, alt: "2", caption: "2.jpg" },
-      { id: '2-1763522687393', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" },
-      { id: '2-1763522478189', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
-      { id: '2-1763522480866', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3a", caption: "3a.jpg" },
-      { id: '2-1763522483741', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "4", caption: "4.jpg" },
-      { id: '2-1763522486154', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "5", caption: "5.jpg" },
-      { id: '2-1763522489670', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "6", caption: "6.jpg" },
-      { id: '2-1763522493392', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "7", caption: "7.jpg" },
-      { id: '2-1763522496881', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "8", caption: "8.jpg" },
-      { id: '2-1763522500105', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "9", caption: "9.jpg" },
-      { id: '2-1763522503617', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "10", caption: "10.jpg" },
-      { id: '2-1763522507620', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "11", caption: "11.jpg" },
-      { id: '2-1763522546859', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "12", caption: "12.jpg" },
-      { id: '2-1763522552345', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "13", caption: "13.jpg" },
-      { id: '2-1763522555821', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "14", caption: "14.jpg" },
-      { id: '2-1763522559482', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "15", caption: "15.jpg" },
-      { id: '2-1763522564854', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "16", caption: "16.jpg" },
-      { id: '2-1763522568855', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "17", caption: "17.jpg" },
-      { id: '2-1763522573518', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "18", caption: "18.jpg" }
-    ],
-    description: `近30年来，水獭在全国数量急剧减少，被列为国家二级重点保护动物、濒危动物。金塘是浙江沿海水獭种群密度最高、分布最集中的区域，金塘水獭科普馆包含寻獭客厅（物种生境展示）、知獭实验室（科研工作）和水獭教室（社区活动），为公众提供深入了解水獭的窗口。
-
-展陈从水獭的栖息环境中提取线索。水獭伴水而居，参考的摄影资料中常见棕色的泥地、沙地、礁石，与水獭的皮毛色也很接近。寻獭客厅以棕色为主色调，使用了天然木材和泥土质感的地面及展示墙面，营造出水獭栖息地的氛围。寻獭客厅中设置了很多"寻獭"线索，例如通过岛屿模型旁的窥探镜可观察红外相机夜间捕捉的水獭活动影像；在地面上会惊喜的发现1:1转印的金塘本地水獭脚印；移动世界地图探究全球的十三种獭等等。
-知獭实验室重点展示金塘水獭保护的过程、研究和成果。公众可以透过玻璃看到科研人员在实验室里进行水獭粪便检测。此区域的展板和展示内容都可以灵活拆卸，方便后续更新最新的研究进展和社区活动发布。二楼的水獭教室包含古今水獭文化展示区、观影间和研学活动区域，是非常重要的文化交流空间。
-
-地点：浙江舟山
-完成时间：2025年4月`,
-  },
-  {
-    id: 4,
-    title: "聚落浮田.圩水相依",
-    location: "建筑 Architecture",
-    mainImage: project1,
-    images: [
-      { id: '4-1763530214541', url: project1, alt: "6", caption: "6.jpg" },
-      { id: '4-1763529859576', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" },
-      { id: '4-1763529915136', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "2", caption: "2.jpg" },
-      { id: '4-1763529946282', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
-      { id: '4-1763529977835', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "4", caption: "4.jpg" },
-      { id: '4-1763530023026', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "5", caption: "5.jpg" },
-      { id: '4-1763530265176', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "7", caption: "7.jpg" },
-      { id: '4-1763530269048', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "8", caption: "8.jpg" },
-      { id: '4-1763530274071', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "9", caption: "9.jpg" },
-      { id: '4-1763530277880', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "10", caption: "10.jpg" },
-      { id: '4-1763530280742', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "11", caption: "11.jpg" },
-      { id: '4-1763530283902', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "12", caption: "12.jpg" },
-      { id: '4-1763530287207', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "13", caption: "13.jpg" },
-      { id: '4-1763530290798', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "14", caption: "14.jpg" }
-    ],
-    description: `青浦本土的圩田景观代表着江南地区生态、生产、生活的智慧。本案在三分荡的滨水空间，以圩田、水体、和江南建筑为主要线索，将建筑融于自然的环境基底，创造出具有江南园林特色的生态商业空间。漂浮的空中圩田创造出具有标识感的商业聚落，同时为社区提供了新颖的景观体验及多样的商业空间。创造具有青浦记忆的"聚落浮田"。
-
-地点：上海青浦
-完成时间：2024年8月`,
-  },
-  {
-    id: 6,
-    title: "探索山岭",
-    location: "展览 Exhibition",
-    mainImage: project3,
-    images: [
-      { id: '6-1763530495758', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" },
-      { id: '6-1763530500070', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "2", caption: "2.jpg" },
-      { id: '6-1763530503758', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
-      { id: '6-1763530508310', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "4", caption: "4.jpg" },
-      { id: '6-1763530512918', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "5", caption: "5.jpg" },
-      { id: '6-1763530517990', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "6", caption: "6.jpg" },
-      { id: '6-1763530522062', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "7", caption: "7.jpg" },
-      { id: '6-1763530526758', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "8", caption: "8.jpg" },
-      { id: '6-1763530531454', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "9", caption: "9.jpg" },
-      { id: '6-1763530536990', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "10", caption: "10.jpg" },
-      { id: '6-1763530540542', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "11", caption: "11.jpg" },
-      { id: '6-1763530544838', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "12", caption: "12.jpg" },
-      { id: '6-1763530548838', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "13", caption: "13.jpg" },
-      { id: '6-1763530557990', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "14", caption: "14.jpg" },
-      { id: '6-1763530562254', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "15", caption: "15.jpg" },
-      { id: '6-1763530566422', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "16", caption: "16.jpg" },
-      { id: '6-1763530571414', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "17", caption: "17.jpg" },
-      { id: '6-1763530577054', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "18", caption: "18.jpg" },
-      { id: '6-1763530580862', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "19", caption: "19.jpg" }
-    ],
-    description: `探索山岭展览以杭州的本土草木为媒介，传达生物多样性之美，唤起人对土地、气候、乡土的记忆。展览约200平方米，有丰富的视觉、听觉和触觉体验。馆藏包含展馆所在地寺坞岭的山体模型，百余种杭州本土植物滴胶标本，二十余幅本土植物博物画，以及丰富的在地自然风光和物种的图文、视频介绍。展览的视觉呈现清新自然，空间上围合有度、内外通透，让展厅外秀丽的自然风光也成为展览体验的一部分。
-
-地点：浙江杭州
-完成时间：2023年7月`,
-  },
-  {
-    id: 3,
-    title: "听，有嗡嗡声",
-    location: "展览 Exhibition",
-    mainImage: project4,
-    images: [
-      { id: '3-1763530663830', url: project4, alt: "1", caption: "1.jpg" },
-      { id: '3-1763530668278', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "2", caption: "2.jpg" },
-      { id: '3-1763530673094', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
-      { id: '3-1763530676246', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "4", caption: "4.jpg" },
-      { id: '3-1763530680622', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "5", caption: "5.jpg" },
-      { id: '3-1763530684574', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "6", caption: "6.jpg" },
-      { id: '3-1763530688742', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "7", caption: "7.jpg" },
-      { id: '3-1763530693102', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "8", caption: "8.jpg" },
-      { id: '3-1763530696694', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "9", caption: "9.jpg" },
-      { id: '3-1763530700942', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "10", caption: "10.jpg" },
-      { id: '3-1763530704942', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "11", caption: "11.jpg" },
-      { id: '3-1763530708262', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "12", caption: "12.jpg" },
-      { id: '3-1763530711710', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "13", caption: "13.jpg" },
-      { id: '3-1763530715086', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "14", caption: "14.jpg" },
-      { id: '3-1763530718486', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "15", caption: "15.jpg" },
-      { id: '3-1763530721670', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "16", caption: "16.jpg" },
-      { id: '3-1763530724838', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "17", caption: "17.jpg" },
-      { id: '3-1763530729542', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "18", caption: "18.jpg" },
-      { id: '3-1763530733102', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "19", caption: "19.jpg" }
-    ],
-    description: `提到生物多样性，大型动物往往会最先得到人类的关注。喜好在夜间活动、体积又小的昆虫常容易被人忽略， 但传粉昆虫和植物的相互作用确是地球上生物多样性的最重要驱动因素。这些小小的不起眼的昆虫在植物间嗡嗡叫、扑腾、爬行，以富含蛋白质的花粉和高能量花蜜为食。它们会在移动时运输和沉积花粉，使植物受精并繁殖。如果传粉昆虫减少，开花植物无法繁殖，人类也将没有食物。
-
-"听，有嗡嗡声"将带你着眼于这些微小的个体，重新认识不可或缺的传粉昆虫和它们穿梭的野花秘境。
-
-地点：浙江杭州
-完成时间：2024年4月`,
-  },
-  {
-    id: 1,
-    title: "一室亦园",
-    location: "室内 Interior",
-    mainImage: project1,
-    images: [
-      { id: '1-1763530787054', url: project1, alt: "1", caption: "1.jpg" },
-      { id: '1-1763530792726', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "2", caption: "2.jpg" },
-      { id: '1-1763530797886', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
-      { id: '1-1763530805470', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "4", caption: "4.jpg" },
-      { id: '1-1763530808542', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "5", caption: "5.jpg" },
-      { id: '1-1763530811702', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "6", caption: "6.jpg" },
-      { id: '1-1763530814990', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "7", caption: "7.jpg" },
-      { id: '1-1763530818558', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "8", caption: "8.jpg" },
-      { id: '1-1763530821910', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "9", caption: "9.jpg" },
-      { id: '1-1763530825358', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "10", caption: "10.jpg" },
-      { id: '1-1763530828094', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "11", caption: "11.jpg" },
-      { id: '1-1763530831142', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "12", caption: "12.jpg" },
-      { id: '1-1763530834854', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "13", caption: "13.jpg" },
-      { id: '1-1763530838414', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "14", caption: "14.jpg" },
-      { id: '1-1763530841662', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "15", caption: "15.jpg" },
-      { id: '1-1763530846054', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "16", caption: "16.jpg" },
-      { id: '1-1763530849478', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "17", caption: "17.jpg" },
-      { id: '1-1763530853190', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "18", caption: "18.jpg" },
-      { id: '1-1763530858254', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "19", caption: "19.jpg" }
-    ],
-    description: `此次改造的公寓原是一个标准地产高效户型，三室两厅，满足一家三口忙碌的生活。如今业主夫妇即将退休，子女也不在家中长住，他们希望改造后的公寓更适合闲适的晚年生活。我们在设计时有意打破封闭的房间，将三室两厅变为一室一园，由原始的线性流线变为环形流线。起居空间界限被打破，走过曲折的廊道，内窗外窗的框景让视线丰富变幻。设计将功能与走道结合，使用起来有中式园林里的居游体验，让此住宅在后疫情时代变成最能遛弯的家！
-
-地点：南京
-完成时间：2021年11月`,
-  },
-  {
-    id: 5,
-    title: "食仓",
-    location: "室内 Interior",
-    mainImage: project2,
-    images: [
-      { id: '5-1763530902974', url: project2, alt: "1", caption: "1.jpg" },
-      { id: '5-1763530905774', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "2", caption: "2.jpg" },
-      { id: '5-1763530908590', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
-      { id: '5-1763530911870', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "4", caption: "4.jpg" },
-      { id: '5-1763530914974', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "5", caption: "5.jpg" },
-      { id: '5-1763530917934', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "6", caption: "6.jpg" },
-      { id: '5-1763530921070', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "7", caption: "7.jpg" },
-      { id: '5-1763530924462', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "8", caption: "8.jpg" },
-      { id: '5-1763530927310', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "9", caption: "9.jpg" },
-      { id: '5-1763530930062', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "10", caption: "10.jpg" },
-      { id: '5-1763530933206', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "11", caption: "11.jpg" },
-      { id: '5-1763530936174', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "12", caption: "12.jpg" },
-      { id: '5-1763530939534', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "13", caption: "13.jpg" },
-      { id: '5-1763530942638', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "14", caption: "14.jpg" },
-      { id: '5-1763530946014', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "15", caption: "15.jpg" }
-    ],
-    description: `肉仙来是一家以东北熏酱为核心的创意餐厅，同时也是美食文化交流场所。在东北城市哈尔滨，厂区工人们下班后在户外吃熏酱、唠嗑，是最朴实的本地生活。设计概念"食仓"正是为了还原这份东北记忆。餐厅空间犹如工业货仓旁的食集，设计师在4.5m层高的空间里置入钢构货架系统，将明档、食物展示和仓储垂直整合，形成后厨与前场的互动界面。流动的室内外空间增强了公共性，户外轻盈棚架下食客往来，宛如东北早市般热闹。
-
-地点：上海静安
-完成时间：2025年2月`,
-  },
-  {
-    id: 7,
-    title: "幼儿园",
-    location: "建筑 Architecture",
-    mainImage: project3,
-    images: [
-      { id: '7-1763530980542', url: project3, alt: "1", caption: "1.jpg" }
-    ],
-    description: `幼儿园项目描述待补充。
-
-地点：待定
-完成时间：待定`,
-  },
-  {
-    id: 8,
-    title: "篱笆",
-    location: "建筑 Architecture",
-    mainImage: project4,
-    images: [
-      { id: '8-1763531000350', url: project4, alt: "1", caption: "1.jpg" }
-    ],
-    description: `篱笆项目描述待补充。
-
-地点：待定
-完成时间：待定`,
-  },
-  {
-    id: 9,
-    title: "手艺之家",
-    location: "建筑 Architecture",
-    mainImage: project1,
-    images: [
-      { id: '9-1763531018846', url: project1, alt: "1", caption: "1.jpg" }
-    ],
-    description: `手艺之家项目描述待补充。
-
-地点：待定
-完成时间：待定`,
-  },
-  {
-    id: 10,
-    title: "双棚",
-    location: "建筑 Architecture",
-    mainImage: project2,
-    images: [
-      { id: '10-1763531036622', url: project2, alt: "1", caption: "1.jpg" }
-    ],
-    description: `双棚项目描述待补充。
-
-地点：待定
-完成时间：待定`,
-  },
-  {
-    id: 11,
-    title: "柔和过渡",
-    location: "室内 Interior",
-    mainImage: project3,
-    images: [
-      { id: '11-1763531052454', url: project3, alt: "1", caption: "1.jpg" }
-    ],
-    description: `柔和过渡项目描述待补充。
-
-地点：待定
-完成时间：待定`,
-  },
-  {
-    id: 12,
-    title: "青松住宅",
-    location: "建筑 Architecture",
-    mainImage: project4,
-    images: [
-      { id: '12-1763531070046', url: project4, alt: "1", caption: "1.jpg" }
-    ],
-    description: `青松住宅项目描述待补充。
-
-地点：待定
-完成时间：待定`,
-  },
-  {
-    id: 13,
-    title: "光影梧桐",
-    location: "室内 Interior",
-    mainImage: project1,
-    images: [
-      { id: '13-1763531088430', url: project1, alt: "1", caption: "1.jpg" }
-    ],
-    description: `光影梧桐项目描述待补充。
-
-地点：待定
-完成时间：待定`,
-  },
-  {
-    id: 14,
-    title: "小花野美",
-    location: "室内 Interior",
-    mainImage: project2,
-    images: [
-      { id: '14-1763531105838', url: project2, alt: "1", caption: "1.jpg" }
-    ],
-    description: `小花野美项目描述待补充。
-
-地点：待定
-完成时间：待定`,
-  },
-  {
-    id: 15,
-    title: "风栖·雪筑",
-    location: "室内 Interior",
-    mainImage: project3,
-    images: [
-      { id: '15-1763531123998', url: project3, alt: "1", caption: "1.jpg" }
-    ],
-    description: `风栖·雪筑项目描述待补充。
-
-地点：待定
-完成时间：待定`,
-  },
-  {
-    id: 16,
-    title: "新项目一",
-    location: "建筑 Architecture",
-    mainImage: project4,
-    images: [
-      { id: '16-1763531200000', url: project4, alt: "新项目一", caption: "新项目一.jpg" }
-    ],
-    description: `新项目一描述待补充。
-
-地点：待定
-完成时间：待定`,
-  },
-  {
-    id: 17,
-    title: "新项目二",
-    location: "展览 Exhibition",
-    mainImage: project1,
-    images: [
-      { id: '17-1763531200001', url: project1, alt: "新项目二", caption: "新项目二.jpg" }
-    ],
-    description: `新项目二描述待补充。
-
-地点：待定
-完成时间：待定`,
-  },
-  {
-    id: 18,
-    title: "新项目三",
-    location: "室内 Interior",
-    mainImage: project2,
-    images: [
-      { id: '18-1763531200002', url: project2, alt: "新项目三", caption: "新项目三.jpg" }
-    ],
-    description: `新项目三描述待补充。
-
-地点：待定
-完成时间：待定`,
+function sanitizeImage(project: Project, image: ProjectImage): ProjectImage {
+  // 把占位符 URL 替换为 mainImage，实现"固化"
+  if (image.url === "[BASE64_IMAGE_PLACEHOLDER]" && project.mainImage) {
+    return {
+      ...image,
+      url: project.mainImage,
+    };
   }
-]; 
+  return image;
+}
 
-// 将默认项目中的占位符图片替换为项目主图，避免刷新后图片丢失
-const processedDefaultProjects: Project[] = defaultProjects.map((project) => {
-  const cleanedImages = project.images?.map((image) => ({
-    ...image,
-    url: image.url === "[BASE64_IMAGE_PLACEHOLDER]" ? project.mainImage : image.url,
-  })) ?? [];
-  
-  // 数据规范化：确保 mainImage 始终等于 images[0].url
-  const finalMainImage = cleanedImages.length > 0 && cleanedImages[0].url
-    ? cleanedImages[0].url
-    : project.mainImage;
-  
+function sanitizeProject(project: Project): Project {
+  let images = project.images || [];
+
+  // 如果没有图片但有主图，用主图生成一张图片
+  if ((!images || images.length === 0) && project.mainImage) {
+    images = [
+      {
+        id: `${project.id}-main`,
+        url: project.mainImage,
+        alt: project.title,
+        caption: project.title,
+        type: "image",
+      },
+    ];
+  }
+
+  // 处理占位符 URL
+  const sanitizedImages = images.map((img) => sanitizeImage(project, img));
+
+  // 确保 mainImage 存在
+  let mainImage = project.mainImage;
+  if (!mainImage && sanitizedImages[0]?.url) {
+    mainImage = sanitizedImages[0].url;
+  }
+
   return {
     ...project,
-    images: cleanedImages,
-    mainImage: finalMainImage,
+    mainImage,
+    images: sanitizedImages,
   };
-});
+}
 
-export const useProjectData = () => {
+function sanitizeProjectsData(data: ProjectData | null, fallbackProjects: Project[]): ProjectData {
+  const sourceProjects = data?.projects && data.projects.length > 0 ? data.projects : fallbackProjects;
+
+  const sanitizedProjects = (sourceProjects || []).map((p) => sanitizeProject(p));
+
+  return {
+    projects: sanitizedProjects,
+    lastUpdated: data?.lastUpdated ?? new Date().toISOString(),
+  };
+}
+
+export function useProjectData() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadProjects = async () => {
+    let isMounted = true;
+
+    const load = async () => {
       try {
-        console.log('开始加载项目数据...');
-        const storedData = await getProjectsData();
-        console.log('存储的数据:', storedData);
-        
-        if (storedData && storedData.projects && storedData.projects.length > 0) {
-          console.log('检测到存储的项目数据，数量:', storedData.projects.length);
-          
-          // 清洗存储数据：将占位符图片URL替换为项目主图
-          const sanitizedStoredProjects = storedData.projects.map((project) => {
-            const cleanedImages = project.images?.map((image) => ({
-              ...image,
-              url: (!image.url || image.url === "[BASE64_IMAGE_PLACEHOLDER]" || image.url.trim() === "") 
-                ? project.mainImage 
-                : image.url,
-            })) ?? [];
-            
-            // 数据规范化：确保 mainImage 始终等于 images[0].url
-            const finalMainImage = cleanedImages.length > 0 && cleanedImages[0].url
-              ? cleanedImages[0].url
-              : project.mainImage;
-            
-            return {
-              ...project,
-              images: cleanedImages,
-              mainImage: finalMainImage,
-            };
-          });
-          
-          // 创建已存在项目ID的集合
-          const existingIds = new Set(sanitizedStoredProjects.map(p => p.id));
-          
-          // 找出processedDefaultProjects中不存在于存储数据中的新项目
-          const newDefaultProjects = processedDefaultProjects.filter(p => !existingIds.has(p.id));
-          
-          if (newDefaultProjects.length > 0) {
-            console.log('发现新的默认项目，数量:', newDefaultProjects.length, '项目ID:', newDefaultProjects.map(p => p.id));
-            // 合并清洗后的存储项目和新的默认项目
-            const mergedProjects = [...sanitizedStoredProjects, ...newDefaultProjects];
-            
-            try {
-              await setProjectsData({ 
-                projects: mergedProjects, 
-                lastUpdated: new Date().toISOString() 
-              });
-              console.log('已保存合并后的项目数据');
-              // 等 IndexedDB 写入完成后再更新状态
-              setProjects(mergedProjects);
-            } catch (saveError) {
-              console.error('保存合并数据失败:', saveError);
-              // 即使保存失败也显示数据
-              setProjects(mergedProjects);
-            }
-          } else {
-            console.log('没有新的默认项目，使用清洗后的存储数据');
-            // 将清洗后的数据写回IndexedDB
-            try {
-              await setProjectsData({ 
-                projects: sanitizedStoredProjects, 
-                lastUpdated: new Date().toISOString() 
-              });
-              console.log('已保存清洗后的项目数据');
-              // 等 IndexedDB 写入完成后再更新状态
-              setProjects(sanitizedStoredProjects);
-            } catch (saveError) {
-              console.error('保存清洗数据失败:', saveError);
-              // 即使保存失败也显示数据
-              setProjects(sanitizedStoredProjects);
-            }
-          }
-        } else {
-          console.log('使用默认项目数据');
-          try {
-            await setProjectsData({ projects: processedDefaultProjects, lastUpdated: new Date().toISOString() });
-            console.log('已保存默认项目数据');
-            // 等 IndexedDB 写入完成后再更新状态
-            setProjects(processedDefaultProjects);
-          } catch (saveError) {
-            console.error('保存默认数据失败，但继续使用默认数据:', saveError);
-            // 即使保存失败也显示数据
-            setProjects(processedDefaultProjects);
-          }
-        }
+        const stored = await getProjectsData();
+        const sanitized = sanitizeProjectsData(stored, defaultProjects);
+
+        if (!isMounted) return;
+
+        setProjects(sanitized.projects);
+
+        // 重新保存清洗后的数据，确保之后始终是"固化"的数据
+        await setProjectsData(sanitized);
       } catch (error) {
-        console.error('加载项目数据失败，使用默认数据:', error);
-        setProjects(processedDefaultProjects);
+        console.error("Failed to load project data", error);
+        if (!isMounted) return;
+        const fallback = sanitizeProjectsData(null, defaultProjects);
+        setProjects(fallback.projects);
       } finally {
-        console.log('项目数据加载完成');
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
 
-    loadProjects();
+    load();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
-  const saveProjects = async (updatedProjects: Project[]) => {
+  const saveProjects = async (updated: Project[]) => {
+    setProjects(updated);
+    const payload: ProjectData = {
+      projects: updated.map((p) => sanitizeProject(p)),
+      lastUpdated: new Date().toISOString(),
+    };
     try {
-      await setProjectsData({ projects: updatedProjects, lastUpdated: new Date().toISOString() });
-      setProjects(updatedProjects);
+      await setProjectsData(payload);
     } catch (error) {
-      console.error('Error saving projects:', error);
+      console.error("Failed to save project data", error);
     }
   };
 
   const updateProject = async (projectId: number, updates: Partial<Project>) => {
-    const updatedProjects = projects.map(project => 
-      project.id === projectId ? { ...project, ...updates } : project
+    const updated = projects.map((p) =>
+      p.id === projectId ? sanitizeProject({ ...p, ...updates }) : p,
     );
-    await saveProjects(updatedProjects);
+    await saveProjects(updated);
   };
 
   const addImageToProject = async (
     projectId: number,
     imageUrl: string,
     alt: string,
-    caption: string
+    caption: string,
+    type: ProjectImage["type"] = "image",
+    thumbnail?: string,
   ) => {
-    const updatedProjects = projects.map(project => {
-      if (project.id === projectId) {
-        const newImage = {
-          id: `${projectId}-${Date.now()}`,
-          url: imageUrl,
-          alt,
-          caption
-        };
-        return {
-          ...project,
-          images: [...project.images, newImage]
-        };
-      }
-      return project;
+    const updated = projects.map((p) => {
+      if (p.id !== projectId) return p;
+      const newImage: ProjectImage = {
+        id: `${projectId}-${Date.now()}`,
+        url: imageUrl,
+        alt,
+        caption,
+        type,
+        thumbnail,
+      };
+      return sanitizeProject({ ...p, images: [...(p.images || []), newImage] });
     });
-    await saveProjects(updatedProjects);
+    await saveProjects(updated);
   };
 
   const removeImageFromProject = async (projectId: number, imageId: string) => {
-    const updatedProjects = projects.map(project => {
-      if (project.id === projectId) {
-        return {
-          ...project,
-          images: project.images.filter(img => img.id !== imageId)
-        };
-      }
-      return project;
+    const updated = projects.map((p) => {
+      if (p.id !== projectId) return p;
+      const filtered = (p.images || []).filter((img) => img.id !== imageId);
+      return sanitizeProject({ ...p, images: filtered });
     });
-    await saveProjects(updatedProjects);
+    await saveProjects(updated);
   };
 
   const updateProjectDescription = async (projectId: number, description: string) => {
-    await updateProject(projectId, { description });
+    const updated = projects.map((p) =>
+      p.id === projectId ? sanitizeProject({ ...p, description }) : p,
+    );
+    await saveProjects(updated);
   };
 
   const reorderProjectImages = async (projectId: number, newOrder: string[]) => {
-    const updatedProjects = projects.map(project => {
-      if (project.id === projectId) {
-        const reorderedImages = newOrder
-          .map(id => project.images.find(img => img.id === id))
-          .filter((img): img is NonNullable<typeof img> => img !== undefined);
-        return {
-          ...project,
-          images: reorderedImages
-        };
-      }
-      return project;
+    const updated = projects.map((p) => {
+      if (p.id !== projectId) return p;
+      const imageMap = new Map((p.images || []).map((img) => [img.id, img] as const));
+      const reordered: ProjectImage[] = [];
+
+      newOrder.forEach((id) => {
+        const img = imageMap.get(id);
+        if (img) reordered.push(img);
+      });
+
+      // 把遗漏的图片也补上
+      (p.images || []).forEach((img) => {
+        if (!newOrder.includes(img.id)) reordered.push(img);
+      });
+
+      return sanitizeProject({ ...p, images: reordered });
     });
-    await saveProjects(updatedProjects);
+    await saveProjects(updated);
   };
 
   const reorderProjects = async (newOrder: number[]) => {
-    const reorderedProjects = newOrder
-      .map(id => projects.find(p => p.id === id))
-      .filter((p): p is Project => p !== undefined);
-    await saveProjects(reorderedProjects);
+    const projectMap = new Map(projects.map((p) => [p.id, p] as const));
+    const reordered: Project[] = [];
+
+    newOrder.forEach((id) => {
+      const p = projectMap.get(id);
+      if (p) reordered.push(p);
+    });
+
+    // 把遗漏的项目也补上
+    projects.forEach((p) => {
+      if (!newOrder.includes(p.id)) reordered.push(p);
+    });
+
+    await saveProjects(reordered);
   };
 
   return {
@@ -557,6 +201,6 @@ export const useProjectData = () => {
     removeImageFromProject,
     updateProjectDescription,
     reorderProjectImages,
-    reorderProjects
-  };
-};
+    reorderProjects,
+  } as const;
+}
