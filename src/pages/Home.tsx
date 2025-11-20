@@ -124,7 +124,7 @@ const Home = () => {
               
               {/* Project info overlay on hover */}
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <div className="text-center text-white px-8">
+                <div className="text-center text-black px-8">
                   <h3 className="text-4xl md:text-5xl font-bold mb-4 leading-relaxed">
                     {project.title}
                   </h3>
