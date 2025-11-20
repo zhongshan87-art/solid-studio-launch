@@ -92,7 +92,7 @@ const Home = () => {
       {/* Large title overlay */}
       <div className="fixed inset-0 z-10 flex items-center justify-center pointer-events-none">
         <h1 className="text-[12vw] md:text-[10vw] font-bold tracking-tight text-foreground mix-blend-difference">
-          FOREST DESIGN
+          尺度森林工作室 FOREST DESIGN STUDIO
         </h1>
       </div>
 
