@@ -317,18 +317,27 @@ export const useProjectData = () => {
   useEffect(() => {
     const loadProjects = async () => {
       try {
+        console.log('开始加载项目数据...');
         const storedData = await getProjectsData();
+        console.log('存储的数据:', storedData);
         
         if (storedData && storedData.projects && storedData.projects.length > 0) {
+          console.log('使用存储的项目数据，数量:', storedData.projects.length);
           setProjects(storedData.projects);
         } else {
+          console.log('使用默认项目数据');
           setProjects(defaultProjects);
-          await setProjectsData({ projects: defaultProjects, lastUpdated: new Date().toISOString() });
+          try {
+            await setProjectsData({ projects: defaultProjects, lastUpdated: new Date().toISOString() });
+          } catch (saveError) {
+            console.error('保存默认数据失败，但继续使用默认数据:', saveError);
+          }
         }
       } catch (error) {
-        console.error('Error loading projects:', error);
+        console.error('加载项目数据失败，使用默认数据:', error);
         setProjects(defaultProjects);
       } finally {
+        console.log('项目数据加载完成');
         setIsLoading(false);
       }
     };
