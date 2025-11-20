@@ -13,7 +13,7 @@ const Home = () => {
 
   // Get varied height for each image
   const getImageHeight = (index: number) => {
-    const heights = ['60vh', '75vh', '85vh', '70vh', '65vh', '80vh'];
+    const heights = ['20vh', '28vh', '35vh', '25vh', '22vh', '30vh'];
     return heights[index % heights.length];
   };
 
