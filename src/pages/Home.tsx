@@ -91,7 +91,7 @@ const Home = () => {
       
       {/* Large title overlay */}
       <div className="fixed inset-0 z-10 flex items-center justify-center pointer-events-none">
-        <h1 className="text-[6vw] md:text-[5vw] font-bold tracking-tight text-foreground mix-blend-difference">
+        <h1 className="text-[6vw] md:text-[5vw] font-bold tracking-tight text-black mix-blend-difference">
           尺度森林工作室 FOREST DESIGN STUDIO
         </h1>
       </div>
@@ -147,10 +147,10 @@ const Home = () => {
           {selectedProject && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-2xl font-bold leading-relaxed">
+                <DialogTitle className="text-2xl font-bold leading-relaxed text-black">
                   {selectedProject.title}
                 </DialogTitle>
-                <p className="text-muted-foreground font-light leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+                <p className="text-black font-light leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
                   {selectedProject.location}
                 </p>
               </DialogHeader>
@@ -171,7 +171,7 @@ const Home = () => {
                       return (
                         <p 
                           key={index} 
-                          className={`${hasChinese ? 'font-bold' : 'font-light'} leading-relaxed mb-4`}
+                          className={`${hasChinese ? 'font-bold' : 'font-light'} leading-relaxed mb-4 text-black`}
                           style={hasChinese ? {} : { fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}
                         >
                           {paragraph}
@@ -192,7 +192,7 @@ const Home = () => {
                           className="w-full rounded-lg"
                         />
                         {image.caption && (
-                          <p className="text-sm text-muted-foreground font-light leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+                          <p className="text-sm text-black font-light leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
                             {image.caption}
                           </p>
                         )}
