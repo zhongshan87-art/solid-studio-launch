@@ -341,6 +341,7 @@ export const ProjectGrid = () => {
                     
                     <TabsContent value="images" className="p-4">
                       <ProjectImageManager 
+                        projectId={selectedProject.id}
                         images={selectedProject.images} 
                         onImageAdd={handleImageAdd} 
                         onImageRemove={handleImageRemove} 

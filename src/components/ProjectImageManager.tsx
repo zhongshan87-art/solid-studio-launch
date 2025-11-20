@@ -25,6 +25,7 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 
 interface ProjectImageManagerProps {
+  projectId: number;
   images: ProjectImage[];
   onImageAdd: (media: { 
     url: string; 
@@ -171,6 +172,7 @@ const SortableImageItem: React.FC<SortableImageItemProps> = ({
 };
 
 export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
+  projectId,
   images,
   onImageAdd,
   onImageRemove,
@@ -219,7 +221,7 @@ export const ProjectImageManager: React.FC<ProjectImageManagerProps> = ({
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <h4 className="text-lg font-medium">Project Images</h4>
-        <MediaUpload onMediaAdd={onImageAdd} />
+        <MediaUpload projectId={projectId} onMediaAdd={onImageAdd} />
       </div>
 
       <DndContext
