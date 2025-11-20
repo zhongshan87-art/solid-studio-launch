@@ -158,7 +158,7 @@ const Home = () => {
               <div className="space-y-4">
                 {/* Main image */}
                 <img
-                  src={selectedProject.mainImage}
+                  src={selectedProject.images?.[0]?.url || selectedProject.mainImage}
                   alt={selectedProject.title}
                   className="w-full rounded-lg"
                 />
