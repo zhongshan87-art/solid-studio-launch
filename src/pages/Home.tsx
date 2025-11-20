@@ -23,6 +23,22 @@ const Home = () => {
     return alignments[index % alignments.length];
   };
 
+  // Get width for each image - some full width, some narrower
+  const getImageWidth = (index: number) => {
+    const widthPattern = index % 6;
+    // Pattern: narrow, narrow, full, narrow, narrow, full
+    if (widthPattern === 2 || widthPattern === 5) {
+      return 'w-full';
+    }
+    return 'w-[70%] md:w-[60%]';
+  };
+
+  // Full width images should be centered
+  const shouldCenter = (index: number) => {
+    const widthPattern = index % 6;
+    return widthPattern === 2 || widthPattern === 5;
+  };
+
   // Auto-scroll effect
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -94,10 +110,10 @@ const Home = () => {
           {[...projects, ...projects].map((project, index) => (
             <div
               key={`${project.id}-${index}`}
-              className={`w-full flex ${getImageAlignment(index)}`}
+              className={`w-full flex ${shouldCenter(index) ? 'justify-center' : getImageAlignment(index)}`}
             >
               <div
-                className="w-[70%] md:w-[60%] cursor-pointer group relative overflow-hidden"
+                className={`${getImageWidth(index)} cursor-pointer group relative overflow-hidden`}
                 style={{ height: getImageHeight(index) }}
                 onClick={() => setSelectedProject(project)}
               >
