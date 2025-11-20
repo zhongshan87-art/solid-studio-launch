@@ -34,6 +34,60 @@ export const Header = () => {
   const [editingCardId, setEditingCardId] = useState<string | null>(null);
   const fileInputRefs = useRef<{[key: string]: HTMLInputElement | null}>({});
 
+  // Default media cards
+  const getDefaultMediaCards = (): MediaCard[] => [
+    {
+      id: "1",
+      image: project1,
+      text: "Outstanding Architecture Award 2023\nRecognized for innovative sustainable design practices and exceptional integration with natural landscapes.",
+      objectFit: 'cover' as const
+    },
+    {
+      id: "2", 
+      image: project2,
+      text: "Innovative Design Recognition 2022\nAwarded for pushing boundaries in contemporary architecture while maintaining user-centered spatial experiences.",
+      objectFit: 'cover' as const
+    },
+    {
+      id: "3",
+      image: project3, 
+      text: "Sustainable Building Excellence 2023\nHonored for pioneering sustainable building practices and innovative material applications.",
+      objectFit: 'cover' as const
+    }
+  ];
+
+  // Validate image URL
+  const isValidImageUrl = (url: string): boolean => {
+    if (!url || url.trim() === '') return false;
+    // Check if it's a valid data URL or static resource path
+    return url.startsWith('data:image/') || 
+           url.startsWith('http://') || 
+           url.startsWith('https://') || 
+           url.startsWith('/');
+  };
+
+  // Reset to default media cards
+  const resetToDefault = async () => {
+    try {
+      const defaultCards = getDefaultMediaCards();
+      setMediaCards(defaultCards);
+      await setMediaCardsStore(defaultCards);
+      // Also backup to localStorage
+      localStorage.setItem('mediaCards', JSON.stringify(defaultCards));
+      toast({
+        title: "已重置",
+        description: "Media cards have been reset to default images.",
+      });
+    } catch (error) {
+      console.error('Failed to reset media cards:', error);
+      toast({
+        title: "重置失败",
+        description: "Failed to reset to default. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   // Load data from IndexedDB on mount
   useEffect(() => {
     const loadData = async () => {
@@ -59,28 +113,29 @@ export const Header = () => {
         
         if (!cards || cards.length === 0) {
           // Use default data
-          cards = [
-            {
-              id: "1",
-              image: project1,
-              text: "Outstanding Architecture Award 2023\nRecognized for innovative sustainable design practices and exceptional integration with natural landscapes.",
-              objectFit: 'cover' as const
-            },
-            {
-              id: "2", 
-              image: project2,
-              text: "Innovative Design Recognition 2022\nAwarded for pushing boundaries in contemporary architecture while maintaining user-centered spatial experiences.",
-              objectFit: 'cover' as const
-            },
-            {
-              id: "3",
-              image: project3, 
-              text: "Sustainable Building Excellence 2023\nHonored for pioneering sustainable building practices and innovative material applications.",
-              objectFit: 'cover' as const
-            }
-          ];
+          cards = getDefaultMediaCards();
           // Save default data to IndexedDB
           await setMediaCardsStore(cards);
+        } else {
+          // Validate and fix invalid image URLs
+          let needsUpdate = false;
+          const validatedCards = cards.map((card) => {
+            if (!isValidImageUrl(card.image)) {
+              console.warn(`Invalid image URL detected for card ${card.id}, falling back to default`);
+              needsUpdate = true;
+              // Find corresponding default card or use first default
+              const defaultCard = getDefaultMediaCards().find(dc => dc.id === card.id) || getDefaultMediaCards()[0];
+              return { ...card, image: defaultCard.image };
+            }
+            return card;
+          });
+          
+          if (needsUpdate) {
+            cards = validatedCards;
+            await setMediaCardsStore(cards);
+            // Backup to localStorage
+            localStorage.setItem('mediaCards', JSON.stringify(cards));
+          }
         }
         setMediaCards(cards);
 
@@ -124,18 +179,22 @@ export const Header = () => {
 
   // Save media cards to IndexedDB
   useEffect(() => {
-    (async () => {
-      try {
-        await setMediaCardsStore(mediaCards);
-      } catch (error) {
-        console.error('Failed to save media cards:', error);
-        toast({
-          title: "Save failed",
-          description: "Failed to save media cards.",
-          variant: "destructive",
-        });
-      }
-    })();
+    if (mediaCards.length > 0) {
+      (async () => {
+        try {
+          await setMediaCardsStore(mediaCards);
+          // Dual storage: also backup to localStorage
+          localStorage.setItem('mediaCards', JSON.stringify(mediaCards));
+        } catch (error) {
+          console.error('Failed to save media cards:', error);
+          toast({
+            title: "Save failed",
+            description: "Failed to save media cards.",
+            variant: "destructive",
+          });
+        }
+      })();
+    }
   }, [mediaCards]);
 
   // Save studio data to IndexedDB
@@ -339,10 +398,13 @@ export const Header = () => {
             <div className="flex-1 overflow-auto">
               <div className="p-4">
                 {isEditMode && (
-                  <div className="mb-4">
+                  <div className="mb-4 flex gap-2">
                     <Button onClick={addMediaCard} className="gap-2">
                       <Plus className="w-4 h-4" />
                       Add Card
+                    </Button>
+                    <Button onClick={resetToDefault} variant="outline" className="gap-2">
+                      恢复默认图片 Reset to Default
                     </Button>
                   </div>
                 )}
@@ -357,7 +419,13 @@ export const Header = () => {
                             alt="Media card" 
                             className={`w-full aspect-[3/4] object-${card.objectFit || 'cover'}`}
                             onError={(e) => {
+                              console.error(`Failed to load image for card ${card.id}:`, card.image);
                               e.currentTarget.src = '/placeholder.svg';
+                              toast({
+                                title: "图片加载失败",
+                                description: `Card ${card.id} image failed to load. Using placeholder.`,
+                                variant: "destructive",
+                              });
                             }}
                           />
                           
