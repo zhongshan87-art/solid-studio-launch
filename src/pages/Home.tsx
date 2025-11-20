@@ -84,11 +84,11 @@ const Home = () => {
         onMouseLeave={() => setIsPaused(false)}
       >
         {/* Duplicate projects for infinite scroll effect */}
-        <div className="flex flex-col gap-8 px-4 md:px-8 lg:px-12 py-8">
+        <div className="flex flex-col gap-8 px-4 md:px-8 lg:px-12 py-8 items-center">
           {[...projects, ...projects].map((project, index) => (
             <div
               key={`${project.id}-${index}`}
-              className="w-full cursor-pointer group relative overflow-hidden"
+              className="w-[70%] md:w-[60%] cursor-pointer group relative overflow-hidden"
               style={{ height: getImageHeight(index) }}
               onClick={() => setSelectedProject(project)}
             >
