@@ -350,13 +350,23 @@ const defaultProjects: Project[] = [
 ]; 
 
 // 将默认项目中的占位符图片替换为项目主图，避免刷新后图片丢失
-const processedDefaultProjects: Project[] = defaultProjects.map((project) => ({
-  ...project,
-  images: project.images?.map((image) => ({
+const processedDefaultProjects: Project[] = defaultProjects.map((project) => {
+  const cleanedImages = project.images?.map((image) => ({
     ...image,
     url: image.url === "[BASE64_IMAGE_PLACEHOLDER]" ? project.mainImage : image.url,
-  })) ?? [],
-}));
+  })) ?? [];
+  
+  // 数据规范化：确保 mainImage 始终等于 images[0].url
+  const finalMainImage = cleanedImages.length > 0 && cleanedImages[0].url
+    ? cleanedImages[0].url
+    : project.mainImage;
+  
+  return {
+    ...project,
+    images: cleanedImages,
+    mainImage: finalMainImage,
+  };
+});
 
 export const useProjectData = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -373,15 +383,25 @@ export const useProjectData = () => {
           console.log('检测到存储的项目数据，数量:', storedData.projects.length);
           
           // 清洗存储数据：将占位符图片URL替换为项目主图
-          const sanitizedStoredProjects = storedData.projects.map((project) => ({
-            ...project,
-            images: project.images?.map((image) => ({
+          const sanitizedStoredProjects = storedData.projects.map((project) => {
+            const cleanedImages = project.images?.map((image) => ({
               ...image,
               url: (!image.url || image.url === "[BASE64_IMAGE_PLACEHOLDER]" || image.url.trim() === "") 
                 ? project.mainImage 
                 : image.url,
-            })) ?? [],
-          }));
+            })) ?? [];
+            
+            // 数据规范化：确保 mainImage 始终等于 images[0].url
+            const finalMainImage = cleanedImages.length > 0 && cleanedImages[0].url
+              ? cleanedImages[0].url
+              : project.mainImage;
+            
+            return {
+              ...project,
+              images: cleanedImages,
+              mainImage: finalMainImage,
+            };
+          });
           
           // 创建已存在项目ID的集合
           const existingIds = new Set(sanitizedStoredProjects.map(p => p.id));
@@ -393,7 +413,6 @@ export const useProjectData = () => {
             console.log('发现新的默认项目，数量:', newDefaultProjects.length, '项目ID:', newDefaultProjects.map(p => p.id));
             // 合并清洗后的存储项目和新的默认项目
             const mergedProjects = [...sanitizedStoredProjects, ...newDefaultProjects];
-            setProjects(mergedProjects);
             
             try {
               await setProjectsData({ 
@@ -401,12 +420,15 @@ export const useProjectData = () => {
                 lastUpdated: new Date().toISOString() 
               });
               console.log('已保存合并后的项目数据');
+              // 等 IndexedDB 写入完成后再更新状态
+              setProjects(mergedProjects);
             } catch (saveError) {
               console.error('保存合并数据失败:', saveError);
+              // 即使保存失败也显示数据
+              setProjects(mergedProjects);
             }
           } else {
             console.log('没有新的默认项目，使用清洗后的存储数据');
-            setProjects(sanitizedStoredProjects);
             // 将清洗后的数据写回IndexedDB
             try {
               await setProjectsData({ 
@@ -414,17 +436,25 @@ export const useProjectData = () => {
                 lastUpdated: new Date().toISOString() 
               });
               console.log('已保存清洗后的项目数据');
+              // 等 IndexedDB 写入完成后再更新状态
+              setProjects(sanitizedStoredProjects);
             } catch (saveError) {
               console.error('保存清洗数据失败:', saveError);
+              // 即使保存失败也显示数据
+              setProjects(sanitizedStoredProjects);
             }
           }
         } else {
           console.log('使用默认项目数据');
-          setProjects(processedDefaultProjects);
           try {
             await setProjectsData({ projects: processedDefaultProjects, lastUpdated: new Date().toISOString() });
+            console.log('已保存默认项目数据');
+            // 等 IndexedDB 写入完成后再更新状态
+            setProjects(processedDefaultProjects);
           } catch (saveError) {
             console.error('保存默认数据失败，但继续使用默认数据:', saveError);
+            // 即使保存失败也显示数据
+            setProjects(processedDefaultProjects);
           }
         }
       } catch (error) {
