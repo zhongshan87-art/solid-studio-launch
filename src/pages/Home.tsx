@@ -11,15 +11,9 @@ const Home = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Get varied height for each image
+  // Get varied height for each image - all 16:9 ratio
   const getImageHeight = (index: number) => {
-    const widthPattern = index % 6;
-    // Full width images get 16:9 aspect ratio
-    if (widthPattern === 2 || widthPattern === 5) {
-      return '56.25vw'; // 16:9 ratio for full width
-    }
-    const heights = ['24vh', '34vh', '42vh', '30vh', '26vh', '36vh'];
-    return heights[index % heights.length];
+    return 'auto'; // Use aspect-ratio CSS instead
   };
 
   // Get alignment for each image
@@ -119,7 +113,7 @@ const Home = () => {
             >
               <div
                 className={`${getImageWidth(index)} cursor-pointer group relative overflow-hidden`}
-                style={{ height: getImageHeight(index) }}
+                style={{ height: getImageHeight(index), aspectRatio: '16/9' }}
                 onClick={() => setSelectedProject(project)}
               >
                 <img
