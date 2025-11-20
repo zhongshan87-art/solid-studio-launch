@@ -15,25 +15,7 @@ const defaultProjects: Project[] = [
     location: "展览 Exhibition",
     mainImage: project2,
     images: [
-      { id: '2-1763522475506', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "2", caption: "2.jpg" },
-      { id: '2-1763522687393', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" },
-      { id: '2-1763522478189', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
-      { id: '2-1763522480866', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3a", caption: "3a.jpg" },
-      { id: '2-1763522483741', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "4", caption: "4.jpg" },
-      { id: '2-1763522486154', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "5", caption: "5.jpg" },
-      { id: '2-1763522489670', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "6", caption: "6.jpg" },
-      { id: '2-1763522493392', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "7", caption: "7.jpg" },
-      { id: '2-1763522496881', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "8", caption: "8.jpg" },
-      { id: '2-1763522500105', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "9", caption: "9.jpg" },
-      { id: '2-1763522503617', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "10", caption: "10.jpg" },
-      { id: '2-1763522507620', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "11", caption: "11.jpg" },
-      { id: '2-1763522546859', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "12", caption: "12.jpg" },
-      { id: '2-1763522552345', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "13", caption: "13.jpg" },
-      { id: '2-1763522555821', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "14", caption: "14.jpg" },
-      { id: '2-1763522559482', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "15", caption: "15.jpg" },
-      { id: '2-1763522564854', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "16", caption: "16.jpg" },
-      { id: '2-1763522568855', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "17", caption: "17.jpg" },
-      { id: '2-1763522573518', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "18", caption: "18.jpg" }
+      { id: '2-1', url: project2, alt: "金塘水獭科普馆", caption: "主图" }
     ],
     description: `近30年来，水獭在全国数量急剧减少，被列为国家二级重点保护动物、濒危动物。金塘是浙江沿海水獭种群密度最高、分布最集中的区域，金塘水獭科普馆包含寻獭客厅（物种生境展示）、知獭实验室（科研工作）和水獭教室（社区活动），为公众提供深入了解水獭的窗口。
 
