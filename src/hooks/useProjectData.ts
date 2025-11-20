@@ -372,16 +372,27 @@ export const useProjectData = () => {
         if (storedData && storedData.projects && storedData.projects.length > 0) {
           console.log('检测到存储的项目数据，数量:', storedData.projects.length);
           
+          // 清洗存储数据：将占位符图片URL替换为项目主图
+          const sanitizedStoredProjects = storedData.projects.map((project) => ({
+            ...project,
+            images: project.images?.map((image) => ({
+              ...image,
+              url: (!image.url || image.url === "[BASE64_IMAGE_PLACEHOLDER]" || image.url.trim() === "") 
+                ? project.mainImage 
+                : image.url,
+            })) ?? [],
+          }));
+          
           // 创建已存在项目ID的集合
-          const existingIds = new Set(storedData.projects.map(p => p.id));
+          const existingIds = new Set(sanitizedStoredProjects.map(p => p.id));
           
           // 找出processedDefaultProjects中不存在于存储数据中的新项目
           const newDefaultProjects = processedDefaultProjects.filter(p => !existingIds.has(p.id));
           
           if (newDefaultProjects.length > 0) {
             console.log('发现新的默认项目，数量:', newDefaultProjects.length, '项目ID:', newDefaultProjects.map(p => p.id));
-            // 合并存储的项目和新的默认项目
-            const mergedProjects = [...storedData.projects, ...newDefaultProjects];
+            // 合并清洗后的存储项目和新的默认项目
+            const mergedProjects = [...sanitizedStoredProjects, ...newDefaultProjects];
             setProjects(mergedProjects);
             
             try {
@@ -394,8 +405,18 @@ export const useProjectData = () => {
               console.error('保存合并数据失败:', saveError);
             }
           } else {
-            console.log('没有新的默认项目，使用存储的数据');
-            setProjects(storedData.projects);
+            console.log('没有新的默认项目，使用清洗后的存储数据');
+            setProjects(sanitizedStoredProjects);
+            // 将清洗后的数据写回IndexedDB
+            try {
+              await setProjectsData({ 
+                projects: sanitizedStoredProjects, 
+                lastUpdated: new Date().toISOString() 
+              });
+              console.log('已保存清洗后的项目数据');
+            } catch (saveError) {
+              console.error('保存清洗数据失败:', saveError);
+            }
           }
         } else {
           console.log('使用默认项目数据');
