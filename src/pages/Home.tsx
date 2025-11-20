@@ -117,7 +117,7 @@ const Home = () => {
                 onClick={() => setSelectedProject(project)}
               >
                 <img
-                  src={project.mainImage}
+                  src={project.images?.[0]?.url || project.mainImage}
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
