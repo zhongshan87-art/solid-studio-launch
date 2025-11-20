@@ -314,7 +314,7 @@ const defaultProjects: Project[] = [
     location: "建筑 Architecture",
     mainImage: project4,
     images: [
-      { id: '16-1763531200000', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '16-1763531200000', url: project4, alt: "新项目一", caption: "新项目一.jpg" }
     ],
     description: `新项目一描述待补充。
 
@@ -327,7 +327,7 @@ const defaultProjects: Project[] = [
     location: "展览 Exhibition",
     mainImage: project1,
     images: [
-      { id: '17-1763531200001', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '17-1763531200001', url: project1, alt: "新项目二", caption: "新项目二.jpg" }
     ],
     description: `新项目二描述待补充。
 
@@ -340,7 +340,7 @@ const defaultProjects: Project[] = [
     location: "室内 Interior",
     mainImage: project2,
     images: [
-      { id: '18-1763531200002', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '18-1763531200002', url: project2, alt: "新项目三", caption: "新项目三.jpg" }
     ],
     description: `新项目三描述待补充。
 
