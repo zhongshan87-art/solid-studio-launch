@@ -17,6 +17,12 @@ const Home = () => {
     return heights[index % heights.length];
   };
 
+  // Get alignment for each image
+  const getImageAlignment = (index: number) => {
+    const alignments = ['justify-start', 'justify-center', 'justify-end', 'justify-center', 'justify-start', 'justify-end'];
+    return alignments[index % alignments.length];
+  };
+
   // Auto-scroll effect
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -84,19 +90,22 @@ const Home = () => {
         onMouseLeave={() => setIsPaused(false)}
       >
         {/* Duplicate projects for infinite scroll effect */}
-        <div className="flex flex-col gap-8 px-4 md:px-8 lg:px-12 py-8 items-center">
+        <div className="flex flex-col gap-8 px-4 md:px-8 lg:px-12 py-8">
           {[...projects, ...projects].map((project, index) => (
             <div
               key={`${project.id}-${index}`}
-              className="w-[70%] md:w-[60%] cursor-pointer group relative overflow-hidden"
-              style={{ height: getImageHeight(index) }}
-              onClick={() => setSelectedProject(project)}
+              className={`w-full flex ${getImageAlignment(index)}`}
             >
-              <img
-                src={project.mainImage}
-                alt={project.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
+              <div
+                className="w-[70%] md:w-[60%] cursor-pointer group relative overflow-hidden"
+                style={{ height: getImageHeight(index) }}
+                onClick={() => setSelectedProject(project)}
+              >
+                <img
+                  src={project.mainImage}
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
               
               {/* Project info overlay on hover */}
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -108,6 +117,7 @@ const Home = () => {
                     {project.location}
                   </p>
                 </div>
+              </div>
               </div>
             </div>
           ))}
