@@ -347,7 +347,16 @@ const defaultProjects: Project[] = [
 地点：待定
 完成时间：待定`,
   }
-];
+]; 
+
+// 将默认项目中的占位符图片替换为项目主图，避免刷新后图片丢失
+const processedDefaultProjects: Project[] = defaultProjects.map((project) => ({
+  ...project,
+  images: project.images?.map((image) => ({
+    ...image,
+    url: image.url === "[BASE64_IMAGE_PLACEHOLDER]" ? project.mainImage : image.url,
+  })) ?? [],
+}));
 
 export const useProjectData = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -366,8 +375,8 @@ export const useProjectData = () => {
           // 创建已存在项目ID的集合
           const existingIds = new Set(storedData.projects.map(p => p.id));
           
-          // 找出defaultProjects中不存在于存储数据中的新项目
-          const newDefaultProjects = defaultProjects.filter(p => !existingIds.has(p.id));
+          // 找出processedDefaultProjects中不存在于存储数据中的新项目
+          const newDefaultProjects = processedDefaultProjects.filter(p => !existingIds.has(p.id));
           
           if (newDefaultProjects.length > 0) {
             console.log('发现新的默认项目，数量:', newDefaultProjects.length, '项目ID:', newDefaultProjects.map(p => p.id));
@@ -390,16 +399,16 @@ export const useProjectData = () => {
           }
         } else {
           console.log('使用默认项目数据');
-          setProjects(defaultProjects);
+          setProjects(processedDefaultProjects);
           try {
-            await setProjectsData({ projects: defaultProjects, lastUpdated: new Date().toISOString() });
+            await setProjectsData({ projects: processedDefaultProjects, lastUpdated: new Date().toISOString() });
           } catch (saveError) {
             console.error('保存默认数据失败，但继续使用默认数据:', saveError);
           }
         }
       } catch (error) {
         console.error('加载项目数据失败，使用默认数据:', error);
-        setProjects(defaultProjects);
+        setProjects(processedDefaultProjects);
       } finally {
         console.log('项目数据加载完成');
         setIsLoading(false);
