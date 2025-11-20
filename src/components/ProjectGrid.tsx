@@ -73,8 +73,8 @@ const SortableProjectCard = ({ project, isGridEditMode, onClick }: SortableProje
         )}
       </div>
       <div className="p-4">
-        <h3 className="font-semibold text-lg mb-1 transition-colors group-hover:text-[hsl(0,0%,39%)]">{project.title}</h3>
-        <p className="text-sm text-foreground transition-colors group-hover:text-[hsl(0,0%,39%)]">{project.location}</p>
+        <h3 className="font-semibold text-lg mb-1 transition-colors group-hover:text-black text-black">{project.title}</h3>
+        <p className="text-sm text-black transition-colors group-hover:text-black">{project.location}</p>
       </div>
     </article>
   );
@@ -351,9 +351,9 @@ export const ProjectGrid = () => {
                   </Tabs>
                 </div> : <div className="p-4">
                   <div className="space-y-6">
-                    <div className="text-slate-50">
-                      <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
-                      <p className="text-lg mb-4 text-slate-50">{selectedProject.location}</p>
+                    <div className="text-black">
+                      <h3 className="text-2xl font-bold mb-4 text-black">{selectedProject.title}</h3>
+                      <p className="text-lg mb-4 text-black">{selectedProject.location}</p>
                       <div className="text-base leading-relaxed w-full">
                         <p className="w-full break-words whitespace-pre-wrap text-black">{projectDescription}</p>
                       </div>
