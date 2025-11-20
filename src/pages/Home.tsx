@@ -120,6 +120,13 @@ const Home = () => {
                   src={project.images?.[0]?.url || project.mainImage}
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    // 如果第一张图片加载失败，自动回退到 mainImage
+                    if (target.src !== project.mainImage) {
+                      target.src = project.mainImage;
+                    }
+                  }}
                 />
               
               {/* Project info overlay on hover */}
