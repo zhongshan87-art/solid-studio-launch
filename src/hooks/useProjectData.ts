@@ -1,63 +1,15 @@
 import { useEffect, useState } from "react";
 import type { Project, ProjectData, ProjectImage } from "@/types/project";
 import { getProjectsData, setProjectsData } from "@/lib/storage";
-
-// 最小化 defaultProjects，实际数据已保存在浏览器 IndexedDB
-const defaultProjects: Project[] = [];
-
-function sanitizeImage(project: Project, image: ProjectImage): ProjectImage {
-  // 把占位符 URL 替换为 mainImage，实现"固化"
-  if (image.url === "[BASE64_IMAGE_PLACEHOLDER]" && project.mainImage) {
-    return {
-      ...image,
-      url: project.mainImage,
-    };
-  }
-  return image;
-}
-
-function sanitizeProject(project: Project): Project {
-  let images = project.images || [];
-
-  // 如果没有图片但有主图，用主图生成一张图片
-  if ((!images || images.length === 0) && project.mainImage) {
-    images = [
-      {
-        id: `${project.id}-main`,
-        url: project.mainImage,
-        alt: project.title,
-        caption: project.title,
-        type: "image",
-      },
-    ];
-  }
-
-  // 处理占位符 URL
-  const sanitizedImages = images.map((img) => sanitizeImage(project, img));
-
-  // 确保 mainImage 存在
-  let mainImage = project.mainImage;
-  if (!mainImage && sanitizedImages[0]?.url) {
-    mainImage = sanitizedImages[0].url;
-  }
-
-  return {
-    ...project,
-    mainImage,
-    images: sanitizedImages,
-  };
-}
-
-function sanitizeProjectsData(data: ProjectData | null, fallbackProjects: Project[]): ProjectData {
-  const sourceProjects = data?.projects && data.projects.length > 0 ? data.projects : fallbackProjects;
-
-  const sanitizedProjects = (sourceProjects || []).map((p) => sanitizeProject(p));
-
-  return {
-    projects: sanitizedProjects,
-    lastUpdated: data?.lastUpdated ?? new Date().toISOString(),
-  };
-}
+import {
+  fetchProjectsFromDb,
+  updateProjectInDb,
+  addImageToProjectInDb,
+  removeImageFromProjectInDb,
+  updateProjectDescriptionInDb,
+  reorderProjectImagesInDb,
+  reorderProjectsInDb,
+} from "@/lib/projectsDb";
 
 export function useProjectData() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -68,20 +20,47 @@ export function useProjectData() {
 
     const load = async () => {
       try {
-        const stored = await getProjectsData();
-        const sanitized = sanitizeProjectsData(stored, defaultProjects);
-
+        // 优先从云端数据库获取
+        const cloudProjects = await fetchProjectsFromDb();
+        
         if (!isMounted) return;
 
-        setProjects(sanitized.projects);
-
-        // 重新保存清洗后的数据，确保之后始终是"固化"的数据
-        await setProjectsData(sanitized);
+        if (cloudProjects.length > 0) {
+          // 云端有数据，使用云端数据
+          setProjects(cloudProjects);
+          
+          // 同步到本地缓存
+          const cacheData: ProjectData = {
+            projects: cloudProjects,
+            lastUpdated: new Date().toISOString(),
+          };
+          await setProjectsData(cacheData);
+        } else {
+          // 云端没有数据，尝试从本地缓存获取
+          const cached = await getProjectsData();
+          if (cached && cached.projects.length > 0) {
+            setProjects(cached.projects);
+          } else {
+            // 本地也没有，设置为空
+            setProjects([]);
+          }
+        }
       } catch (error) {
         console.error("Failed to load project data", error);
         if (!isMounted) return;
-        const fallback = sanitizeProjectsData(null, defaultProjects);
-        setProjects(fallback.projects);
+        
+        // 出错时尝试从缓存加载
+        try {
+          const cached = await getProjectsData();
+          if (cached && cached.projects.length > 0) {
+            setProjects(cached.projects);
+          } else {
+            setProjects([]);
+          }
+        } catch (cacheError) {
+          console.error("Failed to load cached data", cacheError);
+          setProjects([]);
+        }
       } finally {
         if (isMounted) {
           setIsLoading(false);
@@ -96,66 +75,110 @@ export function useProjectData() {
     };
   }, []);
 
-  const saveProjects = async (updated: Project[]) => {
-    setProjects(updated);
+  // 保存到本地缓存
+  const saveToCache = async (updated: Project[]) => {
     const payload: ProjectData = {
-      projects: updated.map((p) => sanitizeProject(p)),
+      projects: updated,
       lastUpdated: new Date().toISOString(),
     };
     try {
       await setProjectsData(payload);
     } catch (error) {
-      console.error("Failed to save project data", error);
+      console.error("Failed to save to cache", error);
     }
   };
 
-  const updateProject = async (projectId: number, updates: Partial<Project>) => {
+  const updateProject = async (projectId: string, updates: Partial<Project>) => {
+    // 更新云端
+    const success = await updateProjectInDb(projectId, updates);
+    if (!success) {
+      console.error("Failed to update project in cloud");
+      return;
+    }
+
+    // 更新本地状态
     const updated = projects.map((p) =>
-      p.id === projectId ? sanitizeProject({ ...p, ...updates }) : p,
+      p.id === projectId ? { ...p, ...updates } : p
     );
-    await saveProjects(updated);
+    setProjects(updated);
+    await saveToCache(updated);
   };
 
   const addImageToProject = async (
-    projectId: number,
+    projectId: string,
     imageUrl: string,
     alt: string,
     caption: string,
     type: ProjectImage["type"] = "image",
     thumbnail?: string,
   ) => {
+    // 添加到云端
+    const imageId = await addImageToProjectInDb(projectId, imageUrl, alt, caption, type, thumbnail);
+    if (!imageId) {
+      console.error("Failed to add image to cloud");
+      return;
+    }
+
+    // 更新本地状态
     const updated = projects.map((p) => {
       if (p.id !== projectId) return p;
       const newImage: ProjectImage = {
-        id: `${projectId}-${Date.now()}`,
+        id: imageId,
         url: imageUrl,
         alt,
         caption,
         type,
         thumbnail,
       };
-      return sanitizeProject({ ...p, images: [...(p.images || []), newImage] });
+      return { ...p, images: [...(p.images || []), newImage] };
     });
-    await saveProjects(updated);
+    setProjects(updated);
+    await saveToCache(updated);
   };
 
-  const removeImageFromProject = async (projectId: number, imageId: string) => {
+  const removeImageFromProject = async (projectId: string, imageId: string) => {
+    // 从云端删除
+    const success = await removeImageFromProjectInDb(imageId);
+    if (!success) {
+      console.error("Failed to remove image from cloud");
+      return;
+    }
+
+    // 更新本地状态
     const updated = projects.map((p) => {
       if (p.id !== projectId) return p;
       const filtered = (p.images || []).filter((img) => img.id !== imageId);
-      return sanitizeProject({ ...p, images: filtered });
+      return { ...p, images: filtered };
     });
-    await saveProjects(updated);
+    setProjects(updated);
+    await saveToCache(updated);
   };
 
-  const updateProjectDescription = async (projectId: number, description: string) => {
+  const updateProjectDescription = async (projectId: string, description: string) => {
+    // 更新云端
+    const success = await updateProjectDescriptionInDb(projectId, description);
+    if (!success) {
+      console.error("Failed to update description in cloud");
+      return;
+    }
+
+    // 更新本地状态
     const updated = projects.map((p) =>
-      p.id === projectId ? sanitizeProject({ ...p, description }) : p,
+      p.id === projectId ? { ...p, description } : p
     );
-    await saveProjects(updated);
+    setProjects(updated);
+    await saveToCache(updated);
   };
 
-  const reorderProjectImages = async (projectId: number, newOrder: string[]) => {
+  const reorderProjectImages = async (projectId: string, newOrder: string[]) => {
+    // 更新云端
+    const success = await reorderProjectImagesInDb(projectId, newOrder);
+    if (!success) {
+      console.error("Failed to reorder images in cloud");
+      return;
+    }
+
+    // 更新本地状态
     const updated = projects.map((p) => {
       if (p.id !== projectId) return p;
       const imageMap = new Map((p.images || []).map((img) => [img.id, img] as const));
@@ -171,12 +194,21 @@ export function useProjectData() {
         if (!newOrder.includes(img.id)) reordered.push(img);
       });
 
-      return sanitizeProject({ ...p, images: reordered });
+      return { ...p, images: reordered };
     });
-    await saveProjects(updated);
+    setProjects(updated);
+    await saveToCache(updated);
   };
 
-  const reorderProjects = async (newOrder: number[]) => {
+  const reorderProjects = async (newOrder: string[]) => {
+    // 更新云端
+    const success = await reorderProjectsInDb(newOrder);
+    if (!success) {
+      console.error("Failed to reorder projects in cloud");
+      return;
+    }
+
+    // 更新本地状态
     const projectMap = new Map(projects.map((p) => [p.id, p] as const));
     const reordered: Project[] = [];
 
@@ -190,7 +222,8 @@ export function useProjectData() {
       if (!newOrder.includes(p.id)) reordered.push(p);
     });
 
-    await saveProjects(reordered);
+    setProjects(reordered);
+    await saveToCache(reordered);
   };
 
   return {

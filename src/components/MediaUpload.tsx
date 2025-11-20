@@ -14,7 +14,7 @@ interface MediaUploadProps {
     thumbnail?: string;
   }) => void;
   className?: string;
-  projectId: number;
+  projectId: string;
 }
 
 const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];

@@ -25,7 +25,7 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 
 interface ProjectImageManagerProps {
-  projectId: number;
+  projectId: string;
   images: ProjectImage[];
   onImageAdd: (media: { 
     url: string; 

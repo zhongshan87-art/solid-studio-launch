@@ -8,12 +8,13 @@ export interface ProjectImage {
 }
 
 export interface Project {
-  id: number;
+  id: string;
   title: string;
   location: string;
   mainImage: string;
   images: ProjectImage[];
   description?: string;
+  sortOrder?: number;
 }
 
 export interface ProjectData {

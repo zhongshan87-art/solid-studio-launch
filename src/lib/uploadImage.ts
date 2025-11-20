@@ -7,7 +7,7 @@ export interface UploadResult {
 
 export async function uploadMediaToSupabase(
   file: File,
-  projectId: number
+  projectId: string
 ): Promise<UploadResult> {
   try {
     // 生成唯一文件名
