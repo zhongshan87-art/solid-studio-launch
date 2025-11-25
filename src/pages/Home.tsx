@@ -128,9 +128,10 @@ const Home = () => {
                   <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     <ProjectMainImageUpload
                       projectId={selectedProject.id}
-                      onImageUpdate={(projectId, imageUrl) => {
-                        updateProject(projectId, { mainImage: imageUrl });
-                        setSelectedProject({ ...selectedProject, mainImage: imageUrl });
+                      onImageUpdate={async (projectId, imageUrl) => {
+                        await updateProject(projectId, { mainImage: imageUrl });
+                        // 更新 selectedProject 以反映新的主图
+                        setSelectedProject(prev => prev ? { ...prev, mainImage: imageUrl } : null);
                       }}
                     />
                   </div>
