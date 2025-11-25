@@ -4,9 +4,10 @@ import { Footer } from "@/components/Footer";
 import { useProjectData } from "@/hooks/useProjectData";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Project } from "@/types/project";
+import { ProjectMainImageUpload } from "@/components/ProjectMainImageUpload";
 
 const Home = () => {
-  const { projects, isLoading } = useProjectData();
+  const { projects, isLoading, updateProject } = useProjectData();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
@@ -118,11 +119,22 @@ const Home = () => {
               
               <div className="space-y-4">
                 {/* Main image */}
-                <img
-                  src={selectedProject.mainImage}
-                  alt={selectedProject.title}
-                  className="w-full rounded-lg"
-                />
+                <div className="relative group">
+                  <img
+                    src={selectedProject.mainImage}
+                    alt={selectedProject.title}
+                    className="w-full rounded-lg"
+                  />
+                  <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ProjectMainImageUpload
+                      projectId={selectedProject.id}
+                      onImageUpdate={(projectId, imageUrl) => {
+                        updateProject(projectId, { mainImage: imageUrl });
+                        setSelectedProject({ ...selectedProject, mainImage: imageUrl });
+                      }}
+                    />
+                  </div>
+                </div>
                 
                 {/* Description */}
                 {selectedProject.description && (
