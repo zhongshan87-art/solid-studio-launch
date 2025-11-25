@@ -89,8 +89,6 @@ const Home = () => {
         ref={scrollContainerRef}
         className="fixed inset-0 overflow-y-scroll scrollbar-hide pt-16 px-20"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
       >
         {/* Duplicate projects for infinite scroll effect */}
         <div className="flex flex-col">
