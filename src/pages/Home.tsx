@@ -61,18 +61,11 @@ const Home = () => {
   return (
     <main className="relative min-h-screen bg-background overflow-hidden">
       <Header />
-      
-      {/* Large title overlay */}
-      <div className="fixed inset-0 z-10 flex items-center justify-center pointer-events-none">
-        <h1 className="text-[12vw] md:text-[10vw] font-bold tracking-tight text-foreground mix-blend-difference">
-          FOREST DESIGN
-        </h1>
-      </div>
 
       {/* Auto-scrolling image container */}
       <div 
         ref={scrollContainerRef}
-        className="fixed inset-0 overflow-y-scroll scrollbar-hide pt-16"
+        className="fixed inset-0 overflow-y-scroll scrollbar-hide pt-16 px-20"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
