@@ -18,69 +18,46 @@ interface SortableProjectCardProps {
   isGridEditMode: boolean;
   onClick: () => void;
 }
-
-const SortableProjectCard = ({ project, isGridEditMode, onClick }: SortableProjectCardProps) => {
+const SortableProjectCard = ({
+  project,
+  isGridEditMode,
+  onClick
+}: SortableProjectCardProps) => {
   const {
     attributes,
     listeners,
     setNodeRef,
     transform,
     transition,
-    isDragging,
-  } = useSortable({ id: project.id });
-
+    isDragging
+  } = useSortable({
+    id: project.id
+  });
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : 1,
+    opacity: isDragging ? 0.5 : 1
   };
-
-  return (
-    <article 
-      ref={setNodeRef} 
-      style={style} 
-      className={`group cursor-pointer relative ${isGridEditMode ? 'ring-2 ring-primary/50' : ''}`}
-    >
-      {isGridEditMode && (
-        <div 
-          {...attributes} 
-          {...listeners}
-          className="absolute top-2 left-2 z-10 p-2 bg-background/80 rounded cursor-move hover:bg-background transition-colors"
-        >
+  return <article ref={setNodeRef} style={style} className={`group cursor-pointer relative ${isGridEditMode ? 'ring-2 ring-primary/50' : ''}`}>
+      {isGridEditMode && <div {...attributes} {...listeners} className="absolute top-2 left-2 z-10 p-2 bg-background/80 rounded cursor-move hover:bg-background transition-colors">
           <GripVertical className="h-5 w-5 text-foreground" />
-        </div>
-      )}
+        </div>}
       <div className="w-full overflow-hidden aspect-video">
-        {project.images[0]?.type === 'video' && project.images[0]?.thumbnail ? (
-          <div className="relative w-full h-full" onClick={isGridEditMode ? undefined : onClick}>
-            <img 
-              src={project.images[0].thumbnail} 
-              alt={project.images[0].alt || project.title} 
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-            />
+        {project.images[0]?.type === 'video' && project.images[0]?.thumbnail ? <div className="relative w-full h-full" onClick={isGridEditMode ? undefined : onClick}>
+            <img src={project.images[0].thumbnail} alt={project.images[0].alt || project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center">
                 <div className="w-0 h-0 border-l-[20px] border-l-white border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent ml-1"></div>
               </div>
             </div>
-          </div>
-        ) : (
-          <img 
-            src={project.images[0]?.url || project.mainImage} 
-            alt={project.images[0]?.alt || project.title} 
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-            onClick={isGridEditMode ? undefined : onClick}
-          />
-        )}
+          </div> : <img src={project.images[0]?.url || project.mainImage} alt={project.images[0]?.alt || project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onClick={isGridEditMode ? undefined : onClick} />}
       </div>
       <div className="p-4">
         <h3 className="font-semibold text-lg mb-1 transition-colors group-hover:text-[hsl(0,0%,39%)]">{project.title}</h3>
         <p className="text-sm text-foreground transition-colors group-hover:text-[hsl(0,0%,39%)]">{project.location}</p>
       </div>
-    </article>
-  );
+    </article>;
 };
-
 export const ProjectGrid = () => {
   const {
     projects,
@@ -90,7 +67,7 @@ export const ProjectGrid = () => {
     removeImageFromProject,
     updateProject,
     reorderProjectImages,
-    reorderProjects,
+    reorderProjects
   } = useProjectData();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -99,17 +76,13 @@ export const ProjectGrid = () => {
   const [projectDescription, setProjectDescription] = useState<string>("");
   const [projectTitle, setProjectTitle] = useState<string>("");
   const [projectLocation, setProjectLocation] = useState<string>("");
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 8,
-      },
-    }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
+  const sensors = useSensors(useSensor(PointerSensor, {
+    activationConstraint: {
+      distance: 8
+    }
+  }), useSensor(KeyboardSensor, {
+    coordinateGetter: sortableKeyboardCoordinates
+  }));
 
   // Sync selectedProject with updated projects data fully
   useEffect(() => {
@@ -189,13 +162,12 @@ export const ProjectGrid = () => {
   }) => {
     if (selectedProject) {
       const mediaSize = Math.round(media.url.length * 0.75);
-      console.info('Adding media to project:', selectedProject.id, { 
-        mediaSize, 
-        alt: media.alt, 
+      console.info('Adding media to project:', selectedProject.id, {
+        mediaSize,
+        alt: media.alt,
         caption: media.caption,
-        type: media.type,
+        type: media.type
       });
-      
       addImageToProject(selectedProject.id, media.url, media.alt, media.caption || '');
     }
   };
@@ -226,59 +198,40 @@ export const ProjectGrid = () => {
       setSelectedProject(updatedProject);
     }
   };
-
   const handleReorder = (newOrder: string[]) => {
     if (selectedProject) {
       reorderProjectImages(selectedProject.id, newOrder);
     }
   };
-
   const handleProjectDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-
+    const {
+      active,
+      over
+    } = event;
     if (over && active.id !== over.id) {
-      const oldIndex = projects.findIndex((p) => p.id === active.id);
-      const newIndex = projects.findIndex((p) => p.id === over.id);
-
+      const oldIndex = projects.findIndex(p => p.id === active.id);
+      const newIndex = projects.findIndex(p => p.id === over.id);
       const newOrder = arrayMove(projects, oldIndex, newIndex).map(p => p.id);
       reorderProjects(newOrder);
     }
   };
-
   if (isLoading) {
     return <div className="py-8 text-center">Loading projects...</div>;
   }
-
   return <section id="works" className="py-8">
       <div className="w-full px-[50px]">
         <div className="mb-6 flex justify-end">
           <ProjectExporter projects={projects} />
         </div>
-        {isGridEditMode && (
-          <div className="mb-4 p-3 bg-primary/10 border border-primary/20 rounded-lg text-center">
+        {isGridEditMode && <div className="mb-4 p-3 bg-primary/10 border border-primary/20 rounded-lg text-center">
             <p className="text-sm font-medium">
               编辑模式 - 拖拽项目调整顺序，按 <kbd className="px-2 py-1 bg-background rounded text-xs">Ctrl+Shift+E</kbd> 退出
             </p>
-          </div>
-        )}
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragEnd={handleProjectDragEnd}
-        >
-          <SortableContext
-            items={projects.map(p => p.id)}
-            strategy={rectSortingStrategy}
-          >
+          </div>}
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleProjectDragEnd}>
+          <SortableContext items={projects.map(p => p.id)} strategy={rectSortingStrategy}>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[50px]">
-              {projects.map((project) => (
-                <SortableProjectCard
-                  key={project.id}
-                  project={project}
-                  isGridEditMode={isGridEditMode}
-                  onClick={() => handleImageClick(project)}
-                />
-              ))}
+              {projects.map(project => <SortableProjectCard key={project.id} project={project} isGridEditMode={isGridEditMode} onClick={() => handleImageClick(project)} />)}
             </div>
           </SortableContext>
         </DndContext>
@@ -315,23 +268,14 @@ export const ProjectGrid = () => {
                                 {selectedProject.images.map(media => <CarouselItem key={media.id}>
                                   <div className="flex flex-col items-center space-y-4">
                                     <div className="w-full flex justify-center">
-                                      {media.type === 'video' ? (
-                                        <video 
-                                          src={media.url} 
-                                          controls 
-                                          className="max-h-[60vh] w-auto rounded-lg"
-                                          onError={(e) => {
-                                            console.error('Failed to load video:', media.url.substring(0, 50) + '...');
-                                          }}
-                                        >
+                                      {media.type === 'video' ? <video src={media.url} controls className="max-h-[60vh] w-auto rounded-lg" onError={e => {
+                                console.error('Failed to load video:', media.url.substring(0, 50) + '...');
+                              }}>
                                           Your browser does not support the video tag.
-                                        </video>
-                                      ) : (
-                                        <img src={media.url} alt={media.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" onError={e => {
-                                          console.error('Failed to load image:', media.url.substring(0, 50) + '...');
-                                          e.currentTarget.src = '/placeholder.svg';
-                                        }} />
-                                      )}
+                                        </video> : <img src={media.url} alt={media.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" onError={e => {
+                                console.error('Failed to load image:', media.url.substring(0, 50) + '...');
+                                e.currentTarget.src = '/placeholder.svg';
+                              }} />}
                                     </div>
                                   </div>
                                 </CarouselItem>)}
@@ -344,22 +288,16 @@ export const ProjectGrid = () => {
                     </TabsContent>
                     
                     <TabsContent value="images" className="p-4">
-                      <ProjectImageManager 
-                        images={selectedProject.images} 
-                        onImageAdd={handleImageAdd} 
-                        onImageRemove={handleImageRemove} 
-                        onImageUpdate={handleImageUpdate}
-                        onReorder={handleReorder}
-                      />
+                      <ProjectImageManager images={selectedProject.images} onImageAdd={handleImageAdd} onImageRemove={handleImageRemove} onImageUpdate={handleImageUpdate} onReorder={handleReorder} />
                     </TabsContent>
                   </Tabs>
                 </div> : <div className="p-4">
                   <div className="space-y-6">
                     <div className="text-slate-50">
-                      <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
-                      <p className="text-lg mb-4 text-slate-50">{selectedProject.location}</p>
+                      <h3 className="text-2xl font-bold mb-4 text-slate-950">{selectedProject.title}</h3>
+                      <p className="text-lg mb-4 text-slate-50 bg-transparent">{selectedProject.location}</p>
                       <div className="text-base leading-relaxed w-full">
-                        <p className="w-full break-words whitespace-pre-wrap">{projectDescription}</p>
+                        <p className="w-full break-words whitespace-pre-wrap text-slate-900">{projectDescription}</p>
                       </div>
                     </div>
                     
@@ -369,23 +307,14 @@ export const ProjectGrid = () => {
                           {selectedProject.images.map(media => <CarouselItem key={media.id}>
                               <div className="flex flex-col items-center space-y-4">
                                 <div className="w-full flex justify-center">
-                                  {media.type === 'video' ? (
-                                    <video 
-                                      src={media.url} 
-                                      controls 
-                                      className="max-h-[60vh] w-auto rounded-lg"
-                                      onError={(e) => {
-                                        console.error('Failed to load video:', media.url.substring(0, 50) + '...');
-                                      }}
-                                    >
+                                  {media.type === 'video' ? <video src={media.url} controls className="max-h-[60vh] w-auto rounded-lg" onError={e => {
+                            console.error('Failed to load video:', media.url.substring(0, 50) + '...');
+                          }}>
                                       Your browser does not support the video tag.
-                                    </video>
-                                  ) : (
-                                    <img src={media.url} alt={media.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" onError={e => {
-                                      console.error('Failed to load image:', media.url.substring(0, 50) + '...');
-                                      e.currentTarget.src = '/placeholder.svg';
-                                    }} />
-                                  )}
+                                    </video> : <img src={media.url} alt={media.alt} className="max-h-[60vh] w-auto object-contain rounded-lg" onError={e => {
+                            console.error('Failed to load image:', media.url.substring(0, 50) + '...');
+                            e.currentTarget.src = '/placeholder.svg';
+                          }} />}
                                 </div>
                                 
                               </div>
