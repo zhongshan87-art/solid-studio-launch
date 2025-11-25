@@ -95,26 +95,14 @@ const Home = () => {
           {[...projects, ...projects].map((project, index) => (
             <div
               key={`${project.id}-${index}`}
-              className="w-full h-screen cursor-pointer group relative"
+              className="w-full h-screen cursor-pointer relative"
               onClick={() => setSelectedProject(project)}
             >
               <img
                 src={project.mainImage}
                 alt={project.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover"
               />
-              
-              {/* Project info overlay on hover */}
-              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <div className="text-center text-white px-8">
-                  <h3 className="text-4xl md:text-5xl font-bold mb-4 leading-relaxed">
-                    {project.title}
-                  </h3>
-                  <p className="text-xl md:text-2xl font-light" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-                    {project.location}
-                  </p>
-                </div>
-              </div>
             </div>
           ))}
         </div>
