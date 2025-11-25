@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      media_cards: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          image: string
+          sort_order: number | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          image: string
+          sort_order?: number | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          image?: string
+          sort_order?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       project_images: {
         Row: {
           alt: string
@@ -87,6 +114,30 @@ export type Database = {
           main_image_url?: string
           sort_order?: number | null
           title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      studio_data: {
+        Row: {
+          created_at: string
+          id: string
+          image: string
+          intro: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image: string
+          intro: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image?: string
+          intro?: string
           updated_at?: string
         }
         Relationships: []
