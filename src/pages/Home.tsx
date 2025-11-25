@@ -42,11 +42,11 @@ const Home = () => {
       const delta = timestamp - lastTimestamp;
       lastTimestamp = timestamp;
 
-      container.scrollTop += scrollSpeed * (delta / 16);
+      container.scrollTop -= scrollSpeed * (delta / 16);
 
-      // Reset to top when reaching bottom for infinite loop
-      if (container.scrollTop >= container.scrollHeight - container.clientHeight) {
-        container.scrollTop = 0;
+      // Reset to bottom when reaching top for infinite loop
+      if (container.scrollTop <= 0) {
+        container.scrollTop = container.scrollHeight - container.clientHeight;
       }
 
       animationFrameId = requestAnimationFrame(scroll);
