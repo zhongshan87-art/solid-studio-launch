@@ -1,8 +1,90 @@
-# 项目图片管理指南
+# 图片管理指南（混合模式）
 
-本项目使用本地图片存储方案，所有项目图片都保存在代码仓库中，确保下载代码时包含所有图片文件。
+本项目支持两种图片管理方式：
 
-## 📁 目录结构
+1. **在 Lovable 中编辑**：使用云端存储，实时上传和预览
+2. **下载到本地**：导出为完全本地化的项目，脱离云端依赖
+
+---
+
+## 🌐 在 Lovable 中使用（云端模式）
+
+### 特点
+- ✅ 实时上传图片到云端存储
+- ✅ 即时预览效果
+- ✅ 团队协作友好
+- ✅ 自动备份
+
+### 如何使用
+
+1. **上传图片**
+   - 在项目详情页点击"添加图片"
+   - 选择本地图片文件
+   - 填写图片描述（Alt）和说明
+   - 点击"上传"，图片会自动上传到云端
+
+2. **管理图片**
+   - 按 `Ctrl+E` 进入编辑模式
+   - 可以编辑图片信息、重新排序、删除图片
+   - 所有更改自动保存到云端
+
+3. **预览效果**
+   - 在 Lovable 预览窗口实时查看
+   - 支持拖拽排序
+   - 支持批量管理
+
+---
+
+## 💾 导出为本地项目
+
+### 何时使用本地模式？
+- 需要完全脱离云端部署
+- 想要完全控制图片文件
+- 部署到不支持云端存储的环境
+- 希望减少云端依赖
+
+### 导出步骤
+
+1. **在 Lovable 中点击"导出为本地项目"**
+   - 位置：`/works` 页面顶部
+   - 系统会自动下载所有云端图片
+   - 生成更新后的代码
+   - 打包成 ZIP 文件
+
+2. **导出内容**
+   ```
+   lovable-project-export-xxxxx.zip
+   ├── public/images/projects/     # 所有项目图片
+   │   ├── jintang-otter/
+   │   │   ├── main.jpg
+   │   │   ├── 1.jpg
+   │   │   └── 2.jpg
+   │   └── ...
+   ├── src/hooks/useProjectData.ts # 更新后的代码
+   └── README.md                   # 导出说明
+   ```
+
+3. **使用导出的文件**
+   ```bash
+   # 1. 解压下载的 ZIP 文件
+   unzip lovable-project-export-xxxxx.zip
+   
+   # 2. 复制图片文件夹到项目
+   cp -r public/images/projects/* your-project/public/images/projects/
+   
+   # 3. 替换代码文件
+   cp src/hooks/useProjectData.ts your-project/src/hooks/useProjectData.ts
+   
+   # 4. 运行项目
+   cd your-project
+   npm run dev
+   ```
+
+---
+
+## 📁 本地项目的图片目录结构
+
+导出后的本地项目使用以下目录结构：
 
 ```
 public/
@@ -62,6 +144,8 @@ public/
         1.jpg
 ```
 
+---
+
 ## 📝 命名规范
 
 ### 文件夹命名
@@ -72,69 +156,13 @@ public/
 ### 图片文件命名
 - **主图**：固定命名为 `main.jpg`
 - **详情图**：按顺序命名 `1.jpg`, `2.jpg`, `3.jpg`, ...
-- 或使用描述性命名：`interior.jpg`, `exterior.jpg`, `detail.jpg`
 
 ### 支持的图片格式
 - JPG / JPEG (推荐)
 - PNG
 - WebP
-- GIF
 
-## 🚀 添加新项目图片
-
-### 步骤 1：创建项目文件夹
-在 `public/images/projects/` 下创建新的项目文件夹：
-
-```bash
-mkdir public/images/projects/new-project
-```
-
-### 步骤 2：添加图片文件
-将项目图片复制到该文件夹：
-
-```bash
-cp ~/Downloads/project-main.jpg public/images/projects/new-project/main.jpg
-cp ~/Downloads/photo1.jpg public/images/projects/new-project/1.jpg
-cp ~/Downloads/photo2.jpg public/images/projects/new-project/2.jpg
-```
-
-### 步骤 3：在代码中引用
-在 `src/hooks/useProjectData.ts` 中添加新项目：
-
-```typescript
-{
-  id: 16,
-  title: "新项目名称",
-  location: "建筑 Architecture",
-  mainImage: "/images/projects/new-project/main.jpg",
-  images: [
-    { 
-      id: '16-1', 
-      url: "/images/projects/new-project/1.jpg", 
-      alt: "图片描述", 
-      caption: "图片说明" 
-    },
-    { 
-      id: '16-2', 
-      url: "/images/projects/new-project/2.jpg", 
-      alt: "图片描述", 
-      caption: "图片说明" 
-    }
-  ],
-  description: "项目详细描述..."
-}
-```
-
-## 🎨 在界面中添加图片
-
-项目详情页面提供了"添加图片"功能：
-
-1. 点击项目卡片打开详情页
-2. 点击"添加图片"按钮
-3. 在弹窗中输入：
-   - **图片路径**：`/images/projects/项目名/图片.jpg`
-   - **图片描述**：用于 SEO 和无障碍访问
-   - **图片说明**：在界面中显示的标题（可选）
+---
 
 ## 🖼️ 图片优化建议
 
@@ -152,73 +180,64 @@ cp ~/Downloads/photo2.jpg public/images/projects/new-project/2.jpg
 - [ImageOptim](https://imageoptim.com/) - Mac 应用
 - [Squoosh](https://squoosh.app/) - Google 在线工具
 
-## 🔄 迁移现有云端图片
-
-如果您之前上传的图片在云端，需要手动下载：
-
-1. 在浏览器中打开项目
-2. 右键点击图片 → "在新标签页中打开图片"
-3. 右键 → "图片另存为..."
-4. 按照命名规范保存到对应的项目文件夹
+---
 
 ## ⚠️ 注意事项
 
+### 在 Lovable 云端模式下
+1. 图片会自动上传到云端存储
+2. URL 格式为：`https://...supabase.co/storage/v1/object/public/...`
+3. 无需手动管理文件路径
+
+### 在本地部署模式下
 1. **图片路径**必须以 `/images/` 开头（不是 `public/images/`）
 2. 文件夹和文件名**区分大小写**
 3. **避免使用中文**命名文件夹和文件
 4. 提交代码前确保图片文件已添加到 Git
 
-## 📦 版本控制
+---
 
-### 添加图片到 Git
-```bash
-git add public/images/projects/
-git commit -m "添加新项目图片"
-```
+## 🔄 切换模式
 
-### .gitignore 配置
-默认情况下，`public/images/projects/` 目录中的图片**会被提交**到 Git。
+### 从云端模式切换到本地模式
+1. 点击"导出为本地项目"按钮
+2. 下载生成的 ZIP 文件
+3. 解压并按说明部署
 
-如果图片文件过大导致仓库体积问题，可以考虑：
-1. 使用 [Git LFS](https://git-lfs.github.com/) 管理大文件
-2. 优化图片尺寸和质量
+### 从本地模式切换到云端模式
+⚠️ **不推荐** - 需要手动上传所有图片到云端存储
+
+---
 
 ## 🆘 常见问题
 
-### Q: 图片不显示怎么办？
-1. 检查文件路径是否正确（以 `/images/` 开头）
-2. 确认图片文件确实存在于 `public/images/projects/` 对应位置
+### Q: 在 Lovable 中图片不显示怎么办？
+1. 检查是否成功上传（查看控制台日志）
+2. 确认 Supabase Storage bucket 权限正确
+3. 尝试重新上传图片
+
+### Q: 导出后的本地项目图片不显示？
+1. 检查 `public/images/projects/` 文件夹是否存在
+2. 确认图片文件已正确复制
 3. 检查文件名大小写是否匹配
 4. 刷新浏览器缓存（Ctrl+F5 / Cmd+Shift+R）
 
-### Q: 如何批量添加图片？
-使用脚本批量复制：
-```bash
-# 复制整个项目文件夹
-cp -r ~/Downloads/project-photos/* public/images/projects/new-project/
+### Q: 可以同时使用云端和本地图片吗？
+可以！`useProjectData.ts` 会自动识别 URL 类型：
+- 云端 URL（以 `https://` 开头）直接使用
+- 本地路径（以 `/images/` 开头）从 public 文件夹加载
 
-# 批量重命名
-cd public/images/projects/new-project
-counter=1
-for file in *.jpg; do
-  mv "$file" "$counter.jpg"
-  ((counter++))
-done
-```
+### Q: 导出需要多长时间？
+取决于图片数量和大小，通常每张图片需要 1-3 秒下载时间。
 
-### Q: 可以使用 PNG 或 WebP 吗？
-可以！修改路径时将 `.jpg` 改为 `.png` 或 `.webp` 即可。
-
-### Q: 图片加载很慢怎么办？
-1. 压缩图片文件大小（建议 < 300KB）
-2. 使用 WebP 格式（比 JPG 小 25-35%）
-3. 降低图片分辨率（1920x1080 通常足够）
+---
 
 ## 📚 相关文件
 
 - **项目数据定义**：`src/hooks/useProjectData.ts`
 - **图片上传组件**：`src/components/MediaUpload.tsx`
 - **图片管理组件**：`src/components/ProjectImageManager.tsx`
+- **项目导出组件**：`src/components/ProjectExporter.tsx`
 - **项目类型定义**：`src/types/project.ts`
 
 ---

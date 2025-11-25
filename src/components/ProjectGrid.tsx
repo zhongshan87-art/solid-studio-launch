@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useProjectData } from "@/hooks/useProjectData";
 import { ProjectImageManager } from "./ProjectImageManager";
+import { ProjectExporter } from "./ProjectExporter";
 import { Project } from "@/types/project";
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, rectSortingStrategy } from '@dnd-kit/sortable';
@@ -250,6 +251,9 @@ export const ProjectGrid = () => {
 
   return <section id="works" className="py-8">
       <div className="w-full px-[50px]">
+        <div className="mb-6 flex justify-end">
+          <ProjectExporter projects={projects} />
+        </div>
         {isGridEditMode && (
           <div className="mb-4 p-3 bg-primary/10 border border-primary/20 rounded-lg text-center">
             <p className="text-sm font-medium">

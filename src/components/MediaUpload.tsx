@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Plus } from 'lucide-react';
+import { Plus, Upload } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 import {
   Dialog,
   DialogContent,
@@ -26,15 +27,31 @@ interface MediaUploadProps {
 
 export const MediaUpload: React.FC<MediaUploadProps> = ({ onMediaAdd, className }) => {
   const [open, setOpen] = useState(false);
-  const [imagePath, setImagePath] = useState('');
   const [altText, setAltText] = useState('');
   const [caption, setCaption] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const handleAdd = () => {
-    if (!imagePath.trim()) {
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (!file.type.startsWith('image/')) {
+        toast({
+          title: "文件类型错误",
+          description: "请选择图片文件",
+          variant: "destructive",
+        });
+        return;
+      }
+      setSelectedFile(file);
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!selectedFile) {
       toast({
-        title: "路径不能为空",
-        description: "请输入图片路径",
+        title: "请选择文件",
+        description: "请先选择要上传的图片",
         variant: "destructive",
       });
       return;
@@ -49,23 +66,54 @@ export const MediaUpload: React.FC<MediaUploadProps> = ({ onMediaAdd, className 
       return;
     }
 
-    onMediaAdd({
-      url: imagePath,
-      alt: altText,
-      caption: caption || altText,
-      type: 'image',
-    });
+    setUploading(true);
 
-    toast({
-      title: "图片已添加",
-      description: "图片已成功添加到项目",
-    });
+    try {
+      const fileExt = selectedFile.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+      const filePath = `projects/${fileName}`;
 
-    // Reset form
-    setImagePath('');
-    setAltText('');
-    setCaption('');
-    setOpen(false);
+      const { data, error } = await supabase.storage
+        .from('project-images')
+        .upload(filePath, selectedFile, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (error) {
+        throw error;
+      }
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('project-images')
+        .getPublicUrl(data.path);
+
+      onMediaAdd({
+        url: publicUrl,
+        alt: altText,
+        caption: caption || altText,
+        type: 'image',
+      });
+
+      toast({
+        title: "上传成功",
+        description: "图片已成功上传到云端",
+      });
+
+      setSelectedFile(null);
+      setAltText('');
+      setCaption('');
+      setOpen(false);
+    } catch (error) {
+      console.error('Upload error:', error);
+      toast({
+        title: "上传失败",
+        description: error instanceof Error ? error.message : "上传过程中出现错误",
+        variant: "destructive",
+      });
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
@@ -82,23 +130,28 @@ export const MediaUpload: React.FC<MediaUploadProps> = ({ onMediaAdd, className 
       </DialogTrigger>
       <DialogContent className="sm:max-w-[525px]">
         <DialogHeader>
-          <DialogTitle>添加本地图片</DialogTitle>
+          <DialogTitle>上传项目图片</DialogTitle>
           <DialogDescription>
-            请将图片文件放入 <code className="bg-muted px-1 py-0.5 rounded">public/images/projects/</code> 目录，然后输入图片路径
+            选择图片文件并上传到云端存储
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="space-y-2">
-            <Label htmlFor="image-path">图片路径 *</Label>
-            <Input
-              id="image-path"
-              placeholder="/images/projects/项目名/图片.jpg"
-              value={imagePath}
-              onChange={(e) => setImagePath(e.target.value)}
-            />
-            <p className="text-xs text-muted-foreground">
-              示例: /images/projects/jintang-otter/1.jpg
-            </p>
+            <Label htmlFor="file-upload">选择图片 *</Label>
+            <div className="flex items-center gap-2">
+              <Input
+                id="file-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleFileSelect}
+                disabled={uploading}
+              />
+              {selectedFile && (
+                <span className="text-sm text-muted-foreground">
+                  {selectedFile.name}
+                </span>
+              )}
+            </div>
           </div>
           <div className="space-y-2">
             <Label htmlFor="alt-text">图片描述 (Alt) *</Label>
@@ -107,6 +160,7 @@ export const MediaUpload: React.FC<MediaUploadProps> = ({ onMediaAdd, className 
               placeholder="描述图片内容"
               value={altText}
               onChange={(e) => setAltText(e.target.value)}
+              disabled={uploading}
             />
           </div>
           <div className="space-y-2">
@@ -116,15 +170,17 @@ export const MediaUpload: React.FC<MediaUploadProps> = ({ onMediaAdd, className 
               placeholder="图片标题或说明"
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
+              disabled={uploading}
             />
           </div>
         </div>
         <div className="flex justify-end gap-2">
-          <Button variant="outline" onClick={() => setOpen(false)}>
+          <Button variant="outline" onClick={() => setOpen(false)} disabled={uploading}>
             取消
           </Button>
-          <Button onClick={handleAdd}>
-            添加
+          <Button onClick={handleUpload} disabled={uploading}>
+            <Upload className="w-4 h-4 mr-2" />
+            {uploading ? '上传中...' : '上传'}
           </Button>
         </div>
       </DialogContent>
