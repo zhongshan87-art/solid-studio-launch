@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Plus } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
-import { uploadMediaToSupabase } from '@/lib/uploadImage';
 
 interface MediaUploadProps {
   onMediaAdd: (media: { 
@@ -14,7 +13,6 @@ interface MediaUploadProps {
     thumbnail?: string;
   }) => void;
   className?: string;
-  projectId: string;
 }
 
 const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
@@ -22,7 +20,7 @@ const ALLOWED_VIDEO_TYPES = ['video/mp4', 'video/webm', 'video/quicktime', 'vide
 const MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10MB
 const MAX_VIDEO_SIZE = 50 * 1024 * 1024; // 50MB
 
-export const MediaUpload: React.FC<MediaUploadProps> = ({ onMediaAdd, className, projectId }) => {
+export const MediaUpload: React.FC<MediaUploadProps> = ({ onMediaAdd, className }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
 
@@ -84,62 +82,49 @@ export const MediaUpload: React.FC<MediaUploadProps> = ({ onMediaAdd, className,
         return;
       }
 
-      // 上传到 Supabase Storage
-      const uploadResult = await uploadMediaToSupabase(file, projectId);
+      const reader = new FileReader();
       
-      if (uploadResult.error) {
+      reader.onload = async () => {
+        const dataUrl = reader.result as string;
+        const mediaType = isImage ? 'image' : 'video';
+        
+        let thumbnail: string | undefined;
+        
+        if (isVideo) {
+          try {
+            thumbnail = await generateVideoThumbnail(dataUrl);
+          } catch (error) {
+            console.warn('Failed to generate video thumbnail:', error);
+          }
+        }
+        
+        onMediaAdd({
+          url: dataUrl,
+          alt: file.name.split('.')[0],
+          caption: file.name,
+          type: mediaType,
+          thumbnail,
+        });
+
+        toast({
+          title: `${mediaType === 'image' ? 'Image' : 'Video'} uploaded`,
+          description: `${mediaType === 'image' ? 'Image' : 'Video'} has been added to the project.`,
+        });
+
+        setUploading(false);
+      };
+
+      reader.onerror = () => {
         toast({
           title: "Upload failed",
-          description: uploadResult.error,
+          description: "Failed to read file. Please try again.",
           variant: "destructive",
         });
         setUploading(false);
-        return;
-      }
+      };
 
-      const mediaType = isImage ? 'image' : 'video';
-      let thumbnail: string | undefined;
-      
-      // 如果是视频，生成缩略图并上传
-      if (isVideo) {
-        try {
-          const reader = new FileReader();
-          const dataUrl = await new Promise<string>((resolve, reject) => {
-            reader.onload = () => resolve(reader.result as string);
-            reader.onerror = reject;
-            reader.readAsDataURL(file);
-          });
-          
-          const thumbnailDataUrl = await generateVideoThumbnail(dataUrl);
-          
-          // 将缩略图转换为 Blob 并上传
-          const thumbnailBlob = await fetch(thumbnailDataUrl).then(r => r.blob());
-          const thumbnailFile = new File([thumbnailBlob], `${file.name}-thumb.jpg`, { type: 'image/jpeg' });
-          const thumbnailResult = await uploadMediaToSupabase(thumbnailFile, projectId);
-          
-          if (!thumbnailResult.error) {
-            thumbnail = thumbnailResult.url;
-          }
-        } catch (error) {
-          console.warn('Failed to generate video thumbnail:', error);
-        }
-      }
-      
-      onMediaAdd({
-        url: uploadResult.url,
-        alt: file.name.split('.')[0],
-        caption: file.name,
-        type: mediaType,
-        thumbnail,
-      });
+      reader.readAsDataURL(file);
 
-      toast({
-        title: `${mediaType === 'image' ? 'Image' : 'Video'} uploaded`,
-        description: `${mediaType === 'image' ? 'Image' : 'Video'} has been saved to cloud storage.`,
-      });
-
-      setUploading(false);
-      
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }

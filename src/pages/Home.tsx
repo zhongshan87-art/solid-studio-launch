@@ -11,33 +11,6 @@ const Home = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Get varied height for each image - all 16:9 ratio
-  const getImageHeight = (index: number) => {
-    return 'auto'; // Use aspect-ratio CSS instead
-  };
-
-  // Get alignment for each image
-  const getImageAlignment = (index: number) => {
-    const alignments = ['justify-start', 'justify-center', 'justify-end', 'justify-center', 'justify-start', 'justify-end'];
-    return alignments[index % alignments.length];
-  };
-
-  // Get width for each image - some full width, some narrower
-  const getImageWidth = (index: number) => {
-    const widthPattern = index % 6;
-    // Pattern: narrow, narrow, full, narrow, narrow, full
-    if (widthPattern === 2 || widthPattern === 5) {
-      return 'w-full';
-    }
-    return 'w-[70%] md:w-[60%]';
-  };
-
-  // Full width images should be centered
-  const shouldCenter = (index: number) => {
-    const widthPattern = index % 6;
-    return widthPattern === 2 || widthPattern === 5;
-  };
-
   // Auto-scroll effect
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -91,8 +64,8 @@ const Home = () => {
       
       {/* Large title overlay */}
       <div className="fixed inset-0 z-10 flex items-center justify-center pointer-events-none">
-        <h1 className="text-[6vw] md:text-[5vw] font-bold tracking-tight text-black mix-blend-difference">
-          尺度森林工作室 FOREST DESIGN STUDIO
+        <h1 className="text-[12vw] md:text-[10vw] font-bold tracking-tight text-foreground mix-blend-difference">
+          FOREST DESIGN
         </h1>
       </div>
 
@@ -105,33 +78,22 @@ const Home = () => {
         onMouseLeave={() => setIsPaused(false)}
       >
         {/* Duplicate projects for infinite scroll effect */}
-        <div className="flex flex-col gap-8 px-4 md:px-8 lg:px-12 py-8">
+        <div className="flex flex-col">
           {[...projects, ...projects].map((project, index) => (
             <div
               key={`${project.id}-${index}`}
-              className={`w-full flex ${shouldCenter(index) ? 'justify-center' : getImageAlignment(index)}`}
+              className="w-full h-screen cursor-pointer group relative"
+              onClick={() => setSelectedProject(project)}
             >
-              <div
-                className={`${getImageWidth(index)} cursor-pointer group relative overflow-hidden`}
-                style={{ height: getImageHeight(index), aspectRatio: '16/9' }}
-                onClick={() => setSelectedProject(project)}
-              >
-                <img
-                  src={project.images?.[0]?.url || project.mainImage}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    // 如果第一张图片加载失败，自动回退到 mainImage
-                    if (target.src !== project.mainImage) {
-                      target.src = project.mainImage;
-                    }
-                  }}
-                />
+              <img
+                src={project.mainImage}
+                alt={project.title}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
               
               {/* Project info overlay on hover */}
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <div className="text-center text-black px-8">
+                <div className="text-center text-white px-8">
                   <h3 className="text-4xl md:text-5xl font-bold mb-4 leading-relaxed">
                     {project.title}
                   </h3>
@@ -139,7 +101,6 @@ const Home = () => {
                     {project.location}
                   </p>
                 </div>
-              </div>
               </div>
             </div>
           ))}
@@ -154,10 +115,10 @@ const Home = () => {
           {selectedProject && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-2xl font-bold leading-relaxed text-black">
+                <DialogTitle className="text-2xl font-bold leading-relaxed">
                   {selectedProject.title}
                 </DialogTitle>
-                <p className="text-black font-light leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+                <p className="text-muted-foreground font-light leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
                   {selectedProject.location}
                 </p>
               </DialogHeader>
@@ -165,7 +126,7 @@ const Home = () => {
               <div className="space-y-4">
                 {/* Main image */}
                 <img
-                  src={selectedProject.images?.[0]?.url || selectedProject.mainImage}
+                  src={selectedProject.mainImage}
                   alt={selectedProject.title}
                   className="w-full rounded-lg"
                 />
@@ -178,7 +139,7 @@ const Home = () => {
                       return (
                         <p 
                           key={index} 
-                          className={`${hasChinese ? 'font-bold' : 'font-light'} leading-relaxed mb-4 text-black`}
+                          className={`${hasChinese ? 'font-bold' : 'font-light'} leading-relaxed mb-4`}
                           style={hasChinese ? {} : { fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}
                         >
                           {paragraph}
@@ -199,7 +160,7 @@ const Home = () => {
                           className="w-full rounded-lg"
                         />
                         {image.caption && (
-                          <p className="text-sm text-black font-light leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+                          <p className="text-sm text-muted-foreground font-light leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
                             {image.caption}
                           </p>
                         )}
