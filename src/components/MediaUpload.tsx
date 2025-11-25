@@ -1,8 +1,17 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Plus } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 
 interface MediaUploadProps {
   onMediaAdd: (media: { 
@@ -15,154 +24,110 @@ interface MediaUploadProps {
   className?: string;
 }
 
-const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-const ALLOWED_VIDEO_TYPES = ['video/mp4', 'video/webm', 'video/quicktime', 'video/x-msvideo'];
-const MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10MB
-const MAX_VIDEO_SIZE = 50 * 1024 * 1024; // 50MB
-
 export const MediaUpload: React.FC<MediaUploadProps> = ({ onMediaAdd, className }) => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [uploading, setUploading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [imagePath, setImagePath] = useState('');
+  const [altText, setAltText] = useState('');
+  const [caption, setCaption] = useState('');
 
-  const generateVideoThumbnail = (videoUrl: string): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const video = document.createElement('video');
-      video.crossOrigin = 'anonymous';
-      video.src = videoUrl;
-      video.currentTime = 1;
-
-      video.onloadeddata = () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-          resolve(canvas.toDataURL('image/jpeg', 0.7));
-        } else {
-          reject(new Error('Failed to get canvas context'));
-        }
-      };
-
-      video.onerror = () => reject(new Error('Failed to load video'));
-    });
-  };
-
-  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (!files || files.length === 0) return;
-
-    setUploading(true);
-    
-    try {
-      const file = files[0];
-      
-      const isImage = ALLOWED_IMAGE_TYPES.includes(file.type);
-      const isVideo = ALLOWED_VIDEO_TYPES.includes(file.type);
-
-      if (!isImage && !isVideo) {
-        toast({
-          title: "Invalid file type",
-          description: "Please select an image (JPG, PNG, GIF, WebP) or video (MP4, WebM, MOV) file.",
-          variant: "destructive",
-        });
-        setUploading(false);
-        return;
-      }
-
-      const maxSize = isImage ? MAX_IMAGE_SIZE : MAX_VIDEO_SIZE;
-      if (file.size > maxSize) {
-        toast({
-          title: "File too large",
-          description: `Please select a ${isImage ? 'image' : 'video'} smaller than ${maxSize / (1024 * 1024)}MB.`,
-          variant: "destructive",
-        });
-        setUploading(false);
-        return;
-      }
-
-      const reader = new FileReader();
-      
-      reader.onload = async () => {
-        const dataUrl = reader.result as string;
-        const mediaType = isImage ? 'image' : 'video';
-        
-        let thumbnail: string | undefined;
-        
-        if (isVideo) {
-          try {
-            thumbnail = await generateVideoThumbnail(dataUrl);
-          } catch (error) {
-            console.warn('Failed to generate video thumbnail:', error);
-          }
-        }
-        
-        onMediaAdd({
-          url: dataUrl,
-          alt: file.name.split('.')[0],
-          caption: file.name,
-          type: mediaType,
-          thumbnail,
-        });
-
-        toast({
-          title: `${mediaType === 'image' ? 'Image' : 'Video'} uploaded`,
-          description: `${mediaType === 'image' ? 'Image' : 'Video'} has been added to the project.`,
-        });
-
-        setUploading(false);
-      };
-
-      reader.onerror = () => {
-        toast({
-          title: "Upload failed",
-          description: "Failed to read file. Please try again.",
-          variant: "destructive",
-        });
-        setUploading(false);
-      };
-
-      reader.readAsDataURL(file);
-
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-    } catch (error) {
-      console.error('Upload error:', error);
+  const handleAdd = () => {
+    if (!imagePath.trim()) {
       toast({
-        title: "Upload failed",
-        description: "Failed to upload file. Please try again.",
+        title: "路径不能为空",
+        description: "请输入图片路径",
         variant: "destructive",
       });
-      setUploading(false);
+      return;
     }
-  };
 
-  const triggerFileSelect = () => {
-    fileInputRef.current?.click();
+    if (!altText.trim()) {
+      toast({
+        title: "Alt文本不能为空",
+        description: "请输入图片描述",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    onMediaAdd({
+      url: imagePath,
+      alt: altText,
+      caption: caption || altText,
+      type: 'image',
+    });
+
+    toast({
+      title: "图片已添加",
+      description: "图片已成功添加到项目",
+    });
+
+    // Reset form
+    setImagePath('');
+    setAltText('');
+    setCaption('');
+    setOpen(false);
   };
 
   return (
-    <div className={className}>
-      <Input
-        ref={fileInputRef}
-        type="file"
-        accept="image/*,video/mp4,video/webm,video/quicktime"
-        onChange={handleFileSelect}
-        className="hidden"
-      />
-      
-      <Button
-        type="button"
-        variant="outline"
-        onClick={triggerFileSelect}
-        disabled={uploading}
-        className="w-full"
-      >
-        <Plus className="w-4 h-4 mr-2" />
-        {uploading ? "Uploading..." : "Add Image/Video"}
-      </Button>
-    </div>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button
+          type="button"
+          variant="outline"
+          className={className}
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          添加图片
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[525px]">
+        <DialogHeader>
+          <DialogTitle>添加本地图片</DialogTitle>
+          <DialogDescription>
+            请将图片文件放入 <code className="bg-muted px-1 py-0.5 rounded">public/images/projects/</code> 目录，然后输入图片路径
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="space-y-2">
+            <Label htmlFor="image-path">图片路径 *</Label>
+            <Input
+              id="image-path"
+              placeholder="/images/projects/项目名/图片.jpg"
+              value={imagePath}
+              onChange={(e) => setImagePath(e.target.value)}
+            />
+            <p className="text-xs text-muted-foreground">
+              示例: /images/projects/jintang-otter/1.jpg
+            </p>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="alt-text">图片描述 (Alt) *</Label>
+            <Input
+              id="alt-text"
+              placeholder="描述图片内容"
+              value={altText}
+              onChange={(e) => setAltText(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="caption">图片说明 (可选)</Label>
+            <Input
+              id="caption"
+              placeholder="图片标题或说明"
+              value={caption}
+              onChange={(e) => setCaption(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="flex justify-end gap-2">
+          <Button variant="outline" onClick={() => setOpen(false)}>
+            取消
+          </Button>
+          <Button onClick={handleAdd}>
+            添加
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };
