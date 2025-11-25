@@ -10,7 +10,6 @@ const Home = () => {
   const { projects, isLoading, updateProject } = useProjectData();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [isPaused, setIsPaused] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
 
   // Edit mode keyboard shortcut
@@ -29,7 +28,7 @@ const Home = () => {
   // Auto-scroll effect
   useEffect(() => {
     const container = scrollContainerRef.current;
-    if (!container || isPaused) return;
+    if (!container) return;
 
     let animationFrameId: number;
     let lastTimestamp = 0;
@@ -60,7 +59,7 @@ const Home = () => {
         cancelAnimationFrame(animationFrameId);
       }
     };
-  }, [isPaused]);
+  }, []);
 
   if (isLoading) {
     return (
