@@ -11,6 +11,20 @@ const Home = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  // Edit mode keyboard shortcut
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+        e.preventDefault();
+        setIsEditMode(prev => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // Auto-scroll effect
   useEffect(() => {
@@ -62,6 +76,13 @@ const Home = () => {
   return (
     <main className="relative min-h-screen bg-background overflow-hidden">
       <Header />
+      
+      {/* Edit mode indicator */}
+      {isEditMode && (
+        <div className="fixed top-20 right-4 z-50 bg-primary text-primary-foreground px-4 py-2 rounded-lg shadow-lg">
+          编辑模式 (Ctrl+E 退出)
+        </div>
+      )}
 
       {/* Auto-scrolling image container */}
       <div 
@@ -125,16 +146,18 @@ const Home = () => {
                     alt={selectedProject.title}
                     className="w-full rounded-lg"
                   />
-                  <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <ProjectMainImageUpload
-                      projectId={selectedProject.id}
-                      onImageUpdate={async (projectId, imageUrl) => {
-                        await updateProject(projectId, { mainImage: imageUrl });
-                        // 更新 selectedProject 以反映新的主图
-                        setSelectedProject(prev => prev ? { ...prev, mainImage: imageUrl } : null);
-                      }}
-                    />
-                  </div>
+                  {isEditMode && (
+                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <ProjectMainImageUpload
+                        projectId={selectedProject.id}
+                        onImageUpdate={async (projectId, imageUrl) => {
+                          await updateProject(projectId, { mainImage: imageUrl });
+                          // 更新 selectedProject 以反映新的主图
+                          setSelectedProject(prev => prev ? { ...prev, mainImage: imageUrl } : null);
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
                 
                 {/* Description */}
