@@ -15,25 +15,7 @@ const defaultProjects: Project[] = [
     location: "展览 Exhibition",
     mainImage: project2,
     images: [
-      { id: '2-1763522475506', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "2", caption: "2.jpg" },
-      { id: '2-1763522687393', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" },
-      { id: '2-1763522478189', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
-      { id: '2-1763522480866', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3a", caption: "3a.jpg" },
-      { id: '2-1763522483741', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "4", caption: "4.jpg" },
-      { id: '2-1763522486154', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "5", caption: "5.jpg" },
-      { id: '2-1763522489670', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "6", caption: "6.jpg" },
-      { id: '2-1763522493392', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "7", caption: "7.jpg" },
-      { id: '2-1763522496881', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "8", caption: "8.jpg" },
-      { id: '2-1763522500105', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "9", caption: "9.jpg" },
-      { id: '2-1763522503617', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "10", caption: "10.jpg" },
-      { id: '2-1763522507620', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "11", caption: "11.jpg" },
-      { id: '2-1763522546859', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "12", caption: "12.jpg" },
-      { id: '2-1763522552345', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "13", caption: "13.jpg" },
-      { id: '2-1763522555821', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "14", caption: "14.jpg" },
-      { id: '2-1763522559482', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "15", caption: "15.jpg" },
-      { id: '2-1763522564854', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "16", caption: "16.jpg" },
-      { id: '2-1763522568855', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "17", caption: "17.jpg" },
-      { id: '2-1763522573518', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "18", caption: "18.jpg" }
+      { id: '2-1', url: project2, alt: "金塘水獭科普馆", caption: "金塘水獭科普馆" }
     ],
     description: `近30年来，水獭在全国数量急剧减少，被列为国家二级重点保护动物、濒危动物。金塘是浙江沿海水獭种群密度最高、分布最集中的区域，金塘水獭科普馆包含寻獭客厅（物种生境展示）、知獭实验室（科研工作）和水獭教室（社区活动），为公众提供深入了解水獭的窗口。
 
@@ -49,20 +31,7 @@ const defaultProjects: Project[] = [
     location: "建筑 Architecture",
     mainImage: project1,
     images: [
-      { id: '4-1763530214541', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "6", caption: "6.jpg" },
-      { id: '4-1763529859576', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" },
-      { id: '4-1763529915136', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "2", caption: "2.jpg" },
-      { id: '4-1763529946282', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
-      { id: '4-1763529977835', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "4", caption: "4.jpg" },
-      { id: '4-1763530023026', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "5", caption: "5.jpg" },
-      { id: '4-1763530265176', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "7", caption: "7.jpg" },
-      { id: '4-1763530269048', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "8", caption: "8.jpg" },
-      { id: '4-1763530274071', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "9", caption: "9.jpg" },
-      { id: '4-1763530277880', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "10", caption: "10.jpg" },
-      { id: '4-1763530280742', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "11", caption: "11.jpg" },
-      { id: '4-1763530283902', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "12", caption: "12.jpg" },
-      { id: '4-1763530287207', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "13", caption: "13.jpg" },
-      { id: '4-1763530290798', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "14", caption: "14.jpg" }
+      { id: '4-1', url: project1, alt: "聚落浮田", caption: "聚落浮田" }
     ],
     description: `青浦本土的圩田景观代表着江南地区生态、生产、生活的智慧。本案在三分荡的滨水空间，以圩田、水体、和江南建筑为主要线索，将建筑融于自然的环境基底，创造出具有江南园林特色的生态商业空间。漂浮的空中圩田创造出具有标识感的商业聚落，同时为社区提供了新颖的景观体验及多样的商业空间。创造具有青浦记忆的"聚落浮田"。
 
@@ -75,25 +44,7 @@ const defaultProjects: Project[] = [
     location: "展览 Exhibition",
     mainImage: project3,
     images: [
-      { id: '6-1763530495758', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" },
-      { id: '6-1763530500070', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "2", caption: "2.jpg" },
-      { id: '6-1763530503758', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
-      { id: '6-1763530508310', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "4", caption: "4.jpg" },
-      { id: '6-1763530512918', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "5", caption: "5.jpg" },
-      { id: '6-1763530517990', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "6", caption: "6.jpg" },
-      { id: '6-1763530522062', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "7", caption: "7.jpg" },
-      { id: '6-1763530526758', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "8", caption: "8.jpg" },
-      { id: '6-1763530531454', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "9", caption: "9.jpg" },
-      { id: '6-1763530536990', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "10", caption: "10.jpg" },
-      { id: '6-1763530540542', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "11", caption: "11.jpg" },
-      { id: '6-1763530544838', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "12", caption: "12.jpg" },
-      { id: '6-1763530548838', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "13", caption: "13.jpg" },
-      { id: '6-1763530557990', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "14", caption: "14.jpg" },
-      { id: '6-1763530562254', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "15", caption: "15.jpg" },
-      { id: '6-1763530566422', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "16", caption: "16.jpg" },
-      { id: '6-1763530571414', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "17", caption: "17.jpg" },
-      { id: '6-1763530577054', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "18", caption: "18.jpg" },
-      { id: '6-1763530580862', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "19", caption: "19.jpg" }
+      { id: '6-1', url: project3, alt: "探索山岭", caption: "探索山岭" }
     ],
     description: `探索山岭展览以杭州的本土草木为媒介，传达生物多样性之美，唤起人对土地、气候、乡土的记忆。展览约200平方米，有丰富的视觉、听觉和触觉体验。馆藏包含展馆所在地寺坞岭的山体模型，百余种杭州本土植物滴胶标本，二十余幅本土植物博物画，以及丰富的在地自然风光和物种的图文、视频介绍。展览的视觉呈现清新自然，空间上围合有度、内外通透，让展厅外秀丽的自然风光也成为展览体验的一部分。
 
@@ -106,25 +57,7 @@ const defaultProjects: Project[] = [
     location: "展览 Exhibition",
     mainImage: project4,
     images: [
-      { id: '3-1763530663830', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" },
-      { id: '3-1763530668278', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "2", caption: "2.jpg" },
-      { id: '3-1763530673094', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
-      { id: '3-1763530676246', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "4", caption: "4.jpg" },
-      { id: '3-1763530680622', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "5", caption: "5.jpg" },
-      { id: '3-1763530684574', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "6", caption: "6.jpg" },
-      { id: '3-1763530688742', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "7", caption: "7.jpg" },
-      { id: '3-1763530693102', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "8", caption: "8.jpg" },
-      { id: '3-1763530696694', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "9", caption: "9.jpg" },
-      { id: '3-1763530700942', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "10", caption: "10.jpg" },
-      { id: '3-1763530704942', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "11", caption: "11.jpg" },
-      { id: '3-1763530708262', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "12", caption: "12.jpg" },
-      { id: '3-1763530711710', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "13", caption: "13.jpg" },
-      { id: '3-1763530715086', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "14", caption: "14.jpg" },
-      { id: '3-1763530718486', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "15", caption: "15.jpg" },
-      { id: '3-1763530721670', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "16", caption: "16.jpg" },
-      { id: '3-1763530724838', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "17", caption: "17.jpg" },
-      { id: '3-1763530729542', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "18", caption: "18.jpg" },
-      { id: '3-1763530733102', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "19", caption: "19.jpg" }
+      { id: '3-1', url: project4, alt: "听，有嗡嗡声", caption: "听，有嗡嗡声" }
     ],
     description: `提到生物多样性，大型动物往往会最先得到人类的关注。喜好在夜间活动、体积又小的昆虫常容易被人忽略， 但传粉昆虫和植物的相互作用确是地球上生物多样性的最重要驱动因素。这些小小的不起眼的昆虫在植物间嗡嗡叫、扑腾、爬行，以富含蛋白质的花粉和高能量花蜜为食。它们会在移动时运输和沉积花粉，使植物受精并繁殖。如果传粉昆虫减少，开花植物无法繁殖，人类也将没有食物。
 
@@ -139,25 +72,7 @@ const defaultProjects: Project[] = [
     location: "室内 Interior",
     mainImage: project1,
     images: [
-      { id: '1-1763530787054', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" },
-      { id: '1-1763530792726', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "2", caption: "2.jpg" },
-      { id: '1-1763530797886', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
-      { id: '1-1763530805470', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "4", caption: "4.jpg" },
-      { id: '1-1763530808542', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "5", caption: "5.jpg" },
-      { id: '1-1763530811702', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "6", caption: "6.jpg" },
-      { id: '1-1763530814990', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "7", caption: "7.jpg" },
-      { id: '1-1763530818558', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "8", caption: "8.jpg" },
-      { id: '1-1763530821910', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "9", caption: "9.jpg" },
-      { id: '1-1763530825358', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "10", caption: "10.jpg" },
-      { id: '1-1763530828094', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "11", caption: "11.jpg" },
-      { id: '1-1763530831142', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "12", caption: "12.jpg" },
-      { id: '1-1763530834854', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "13", caption: "13.jpg" },
-      { id: '1-1763530838414', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "14", caption: "14.jpg" },
-      { id: '1-1763530841662', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "15", caption: "15.jpg" },
-      { id: '1-1763530846054', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "16", caption: "16.jpg" },
-      { id: '1-1763530849478', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "17", caption: "17.jpg" },
-      { id: '1-1763530853190', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "18", caption: "18.jpg" },
-      { id: '1-1763530858254', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "19", caption: "19.jpg" }
+      { id: '1-1', url: project1, alt: "一室亦园", caption: "一室亦园" }
     ],
     description: `此次改造的公寓原是一个标准地产高效户型，三室两厅，满足一家三口忙碌的生活。如今业主夫妇即将退休，子女也不在家中长住，他们希望改造后的公寓更适合闲适的晚年生活。我们在设计时有意打破封闭的房间，将三室两厅变为一室一园，由原始的线性流线变为环形流线。起居空间界限被打破，走过曲折的廊道，内窗外窗的框景让视线丰富变幻。设计将功能与走道结合，使用起来有中式园林里的居游体验，让此住宅在后疫情时代变成最能遛弯的家！
 
@@ -170,21 +85,7 @@ const defaultProjects: Project[] = [
     location: "室内 Interior",
     mainImage: project2,
     images: [
-      { id: '5-1763530902974', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" },
-      { id: '5-1763530905774', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "2", caption: "2.jpg" },
-      { id: '5-1763530908590', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "3", caption: "3.jpg" },
-      { id: '5-1763530911870', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "4", caption: "4.jpg" },
-      { id: '5-1763530914974', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "5", caption: "5.jpg" },
-      { id: '5-1763530917934', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "6", caption: "6.jpg" },
-      { id: '5-1763530921070', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "7", caption: "7.jpg" },
-      { id: '5-1763530924462', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "8", caption: "8.jpg" },
-      { id: '5-1763530927310', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "9", caption: "9.jpg" },
-      { id: '5-1763530930062', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "10", caption: "10.jpg" },
-      { id: '5-1763530933206', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "11", caption: "11.jpg" },
-      { id: '5-1763530936174', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "12", caption: "12.jpg" },
-      { id: '5-1763530939534', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "13", caption: "13.jpg" },
-      { id: '5-1763530942638', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "14", caption: "14.jpg" },
-      { id: '5-1763530946014', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "15", caption: "15.jpg" }
+      { id: '5-1', url: project2, alt: "食仓", caption: "食仓" }
     ],
     description: `肉仙来是一家以东北熏酱为核心的创意餐厅，同时也是美食文化交流场所。在东北城市哈尔滨，厂区工人们下班后在户外吃熏酱、唠嗑，是最朴实的本地生活。设计概念"食仓"正是为了还原这份东北记忆。餐厅空间犹如工业货仓旁的食集，设计师在4.5m层高的空间里置入钢构货架系统，将明档、食物展示和仓储垂直整合，形成后厨与前场的互动界面。流动的室内外空间增强了公共性，户外轻盈棚架下食客往来，宛如东北早市般热闹。
 
@@ -197,7 +98,7 @@ const defaultProjects: Project[] = [
     location: "建筑 Architecture",
     mainImage: project3,
     images: [
-      { id: '7-1763530980542', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '7-1', url: project3, alt: "幼儿园", caption: "幼儿园" }
     ],
     description: `幼儿园项目描述待补充。
 
@@ -210,7 +111,7 @@ const defaultProjects: Project[] = [
     location: "建筑 Architecture",
     mainImage: project4,
     images: [
-      { id: '8-1763531000350', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '8-1', url: project4, alt: "篱笆", caption: "篱笆" }
     ],
     description: `篱笆项目描述待补充。
 
@@ -223,7 +124,7 @@ const defaultProjects: Project[] = [
     location: "建筑 Architecture",
     mainImage: project1,
     images: [
-      { id: '9-1763531018846', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '9-1', url: project1, alt: "手艺之家", caption: "手艺之家" }
     ],
     description: `手艺之家项目描述待补充。
 
@@ -236,7 +137,7 @@ const defaultProjects: Project[] = [
     location: "建筑 Architecture",
     mainImage: project2,
     images: [
-      { id: '10-1763531036622', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '10-1', url: project2, alt: "双棚", caption: "双棚" }
     ],
     description: `双棚项目描述待补充。
 
@@ -249,7 +150,7 @@ const defaultProjects: Project[] = [
     location: "室内 Interior",
     mainImage: project3,
     images: [
-      { id: '11-1763531052454', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '11-1', url: project3, alt: "柔和过渡", caption: "柔和过渡" }
     ],
     description: `柔和过渡项目描述待补充。
 
@@ -262,7 +163,7 @@ const defaultProjects: Project[] = [
     location: "建筑 Architecture",
     mainImage: project4,
     images: [
-      { id: '12-1763531070046', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '12-1', url: project4, alt: "青松住宅", caption: "青松住宅" }
     ],
     description: `青松住宅项目描述待补充。
 
@@ -275,7 +176,7 @@ const defaultProjects: Project[] = [
     location: "室内 Interior",
     mainImage: project1,
     images: [
-      { id: '13-1763531088430', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '13-1', url: project1, alt: "光影梧桐", caption: "光影梧桐" }
     ],
     description: `光影梧桐项目描述待补充。
 
@@ -288,7 +189,7 @@ const defaultProjects: Project[] = [
     location: "室内 Interior",
     mainImage: project2,
     images: [
-      { id: '14-1763531105838', url: "[BASE64_IMAGE_PLACEHOLDER]", alt: "1", caption: "1.jpg" }
+      { id: '14-1', url: project2, alt: "小花野美", caption: "小花野美" }
     ],
     description: `小花野美项目描述待补充。
 
