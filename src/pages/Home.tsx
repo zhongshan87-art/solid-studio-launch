@@ -115,10 +115,10 @@ const Home = () => {
           {selectedProject && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-2xl font-bold leading-relaxed">
+                <DialogTitle className="text-2xl font-bold leading-relaxed text-black">
                   {selectedProject.title}
                 </DialogTitle>
-                <p className="text-muted-foreground font-light leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+                <p className="text-black font-light leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
                   {selectedProject.location}
                 </p>
               </DialogHeader>
@@ -151,13 +151,13 @@ const Home = () => {
                     {selectedProject.description.split('\n\n').map((paragraph, index) => {
                       const hasChinese = /[\u4e00-\u9fa5]/.test(paragraph);
                       return (
-                        <p 
-                          key={index} 
-                          className={`${hasChinese ? 'font-bold' : 'font-light'} leading-relaxed mb-4`}
-                          style={hasChinese ? {} : { fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}
-                        >
-                          {paragraph}
-                        </p>
+                  <p 
+                    key={index} 
+                    className={`${hasChinese ? 'font-bold' : 'font-light'} leading-relaxed mb-4 text-black`}
+                    style={hasChinese ? {} : { fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}
+                  >
+                    {paragraph}
+                  </p>
                       );
                     })}
                   </div>
@@ -173,11 +173,11 @@ const Home = () => {
                           alt={image.alt}
                           className="w-full rounded-lg"
                         />
-                        {image.caption && (
-                          <p className="text-sm text-muted-foreground font-light leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-                            {image.caption}
-                          </p>
-                        )}
+                  {image.caption && (
+                    <p className="text-sm text-black font-light leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+                      {image.caption}
+                    </p>
+                  )}
                       </div>
                     ))}
                   </div>
