@@ -93,6 +93,10 @@ const Home = () => {
     }
   };
 
+  const handleMainImageUpdate = (projectId: number, imageUrl: string) => {
+    updateProject(projectId, { mainImage: imageUrl });
+  };
+
   if (isLoading) {
     return (
       <main className="min-h-screen">
@@ -154,6 +158,7 @@ const Home = () => {
         onImageRemove={handleImageRemove}
         onImageUpdate={handleImageUpdate}
         onReorder={handleReorder}
+        onMainImageUpdate={handleMainImageUpdate}
       />
     </main>
   );

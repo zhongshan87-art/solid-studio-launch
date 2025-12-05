@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { ProjectImageManager } from "./ProjectImageManager";
+import { ProjectMainImageUpload } from "./ProjectMainImageUpload";
 import { Project } from "@/types/project";
 
 interface ProjectDetailModalProps {
@@ -19,6 +20,7 @@ interface ProjectDetailModalProps {
   onImageRemove?: (imageId: string) => void;
   onImageUpdate?: (imageId: string, updates: any) => void;
   onReorder?: (newOrder: string[]) => void;
+  onMainImageUpdate?: (projectId: number, imageUrl: string) => void;
 }
 
 export const ProjectDetailModal = ({
@@ -33,6 +35,7 @@ export const ProjectDetailModal = ({
   onImageRemove,
   onImageUpdate,
   onReorder,
+  onMainImageUpdate,
 }: ProjectDetailModalProps) => {
   const [projectDescription, setProjectDescription] = useState<string>("");
   const [projectTitle, setProjectTitle] = useState<string>("");
@@ -97,6 +100,46 @@ export const ProjectDetailModal = ({
                     className="text-lg text-muted-foreground border-0 bg-transparent px-0 focus-visible:ring-0"
                     placeholder="Project location..."
                   />
+                </div>
+
+                {/* 主图管理区域 */}
+                <div className="space-y-4 mb-6 p-4 border rounded-lg bg-muted/30">
+                  <h4 className="font-medium text-sm">主图管理</h4>
+                  
+                  {/* Forest 页面主图 */}
+                  <div className="flex items-center gap-4">
+                    <div className="w-24 h-16 overflow-hidden rounded border flex-shrink-0">
+                      <img 
+                        src={project.mainImage} 
+                        alt="Forest 主图" 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm text-muted-foreground mb-2">Forest 页面主图</p>
+                      {onMainImageUpdate && (
+                        <ProjectMainImageUpload
+                          projectId={project.id}
+                          onImageUpdate={onMainImageUpdate}
+                        />
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Works 页面主图 */}
+                  <div className="flex items-center gap-4">
+                    <div className="w-24 h-16 overflow-hidden rounded border flex-shrink-0">
+                      <img 
+                        src={project.images[0]?.url || project.mainImage} 
+                        alt="Works 主图" 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm text-muted-foreground mb-2">Works 页面主图 (第一张详情图)</p>
+                      <p className="text-xs text-muted-foreground">在 Images 标签页中调整图片顺序或替换第一张图</p>
+                    </div>
+                  </div>
                 </div>
 
                 <Tabs defaultValue="content" className="w-full">
