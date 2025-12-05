@@ -5,7 +5,6 @@ import { useProjectData } from "@/hooks/useProjectData";
 import { Project } from "@/types/project";
 import { ProjectDetailModal } from "@/components/ProjectDetailModal";
 import { useAuth } from "@/hooks/useAuth";
-import PlantLineDrawings from "@/components/PlantLineDrawings";
 
 const Home = () => {
   const { projects, isLoading, updateProject, updateProjectDescription, addImageToProject, removeImageFromProject, reorderProjectImages } = useProjectData();
@@ -148,9 +147,6 @@ const Home = () => {
         className="fixed inset-0 overflow-y-scroll pt-20"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', pointerEvents: 'none' }}
       >
-        {/* Plant line drawings background */}
-        <PlantLineDrawings containerHeight={totalContentHeight} />
-        
         {/* Scattered images layout like solidobjectives.com */}
         <div className="relative px-8 md:px-16 lg:px-24" style={{ pointerEvents: 'auto', minHeight: totalContentHeight }}>
           {[...projects, ...projects].map((project, index) => {
