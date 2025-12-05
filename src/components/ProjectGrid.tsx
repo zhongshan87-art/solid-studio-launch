@@ -156,6 +156,10 @@ export const ProjectGrid = () => {
     }
   };
 
+  const handleMainImageUpdate = (projectId: number, imageUrl: string) => {
+    updateProject(projectId, { mainImage: imageUrl });
+  };
+
   const handleProjectDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (over && active.id !== over.id) {
@@ -207,6 +211,7 @@ export const ProjectGrid = () => {
         onImageRemove={handleImageRemove}
         onImageUpdate={handleImageUpdate}
         onReorder={handleReorder}
+        onMainImageUpdate={handleMainImageUpdate}
       />
     </section>
   );
