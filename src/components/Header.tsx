@@ -144,7 +144,7 @@ export const Header = () => {
     if (!isMediaOpen) return;
     
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'F2' && isAdmin) {
+      if (event.key === 'F2') {
         event.preventDefault();
         setIsEditModeActive(prev => !prev);
       }
