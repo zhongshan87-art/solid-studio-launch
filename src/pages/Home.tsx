@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useProjectData } from "@/hooks/useProjectData";
@@ -14,32 +14,6 @@ const Home = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { isAdmin } = useAuth();
 
-  // Generate random layout positions for images (memoized to stay consistent)
-  const imageLayouts = useMemo(() => {
-    if (projects.length === 0) return [];
-    
-    // Create layouts for doubled projects (for infinite scroll)
-    const allProjects = [...projects, ...projects];
-    const layouts: { scale: number; offsetX: number; marginTop: number; side: 'left' | 'right' }[] = [];
-    
-    allProjects.forEach((_, index) => {
-      const scale = 0.3 + Math.random() * 0.4; // 30-70% scale
-      const side = Math.random() > 0.5 ? 'left' : 'right';
-      const offsetX = Math.random() * 15; // 0-15% offset from edge
-      const marginTop = 50 + Math.random() * 150; // Random vertical spacing
-      
-      layouts.push({ scale, offsetX, marginTop, side });
-    });
-    
-    return layouts;
-  }, [projects.length]);
-
-  // Calculate total content height for plant drawings
-  const totalContentHeight = useMemo(() => {
-    if (imageLayouts.length === 0) return 5000;
-    return imageLayouts.reduce((acc, layout) => acc + layout.marginTop + 400 * layout.scale, 0) * 2;
-  }, [imageLayouts]);
-
   // Auto-scroll effect
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -47,7 +21,7 @@ const Home = () => {
 
     let animationFrameId: number;
     let lastTimestamp = 0;
-    const scrollSpeed = 0.3; // Slower scroll for appreciation
+    const scrollSpeed = 0.5; // pixels per frame
 
     const scroll = (timestamp: number) => {
       if (lastTimestamp === 0) {
@@ -144,43 +118,24 @@ const Home = () => {
       {/* Auto-scrolling image container */}
       <div 
         ref={scrollContainerRef}
-        className="fixed inset-0 overflow-y-scroll pt-20"
+        className="fixed inset-0 overflow-y-scroll pt-16 px-20"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', pointerEvents: 'none' }}
       >
-        {/* Scattered images layout like solidobjectives.com */}
-        <div className="relative px-8 md:px-16 lg:px-24" style={{ pointerEvents: 'auto', minHeight: totalContentHeight }}>
-          {[...projects, ...projects].map((project, index) => {
-            const layout = imageLayouts[index];
-            if (!layout) return null;
-            
-            const width = layout.scale * 100;
-            const isLeft = layout.side === 'left';
-            
-            return (
-              <div
-                key={`${project.id}-${index}`}
-                className="relative cursor-pointer transition-opacity duration-300 hover:opacity-90"
-                style={{
-                  width: `${width}%`,
-                  maxWidth: '70vw',
-                  minWidth: '200px',
-                  marginTop: `${layout.marginTop}px`,
-                  marginLeft: isLeft ? `${layout.offsetX}%` : 'auto',
-                  marginRight: isLeft ? 'auto' : `${layout.offsetX}%`,
-                }}
-                onClick={() => handleProjectClick(project)}
-              >
-                <img
-                  src={project.mainImage}
-                  alt={project.title}
-                  className="w-full h-auto object-cover"
-                  style={{
-                    aspectRatio: 'auto',
-                  }}
-                />
-              </div>
-            );
-          })}
+        {/* Duplicate projects for infinite scroll effect */}
+        <div className="flex flex-col" style={{ pointerEvents: 'auto' }}>
+          {[...projects, ...projects].map((project, index) => (
+            <div
+              key={`${project.id}-${index}`}
+              className="w-full h-screen cursor-pointer relative"
+              onClick={() => handleProjectClick(project)}
+            >
+              <img
+                src={project.mainImage}
+                alt={project.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
         </div>
       </div>
 
