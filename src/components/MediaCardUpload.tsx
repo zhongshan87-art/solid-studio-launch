@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Upload } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { uploadImage } from "@/lib/uploadImage";
 import { toast } from "@/hooks/use-toast";
 
 interface MediaCardUploadProps {
@@ -43,20 +43,7 @@ export function MediaCardUpload({ onAdd, className }: MediaCardUploadProps) {
 
     setUploading(true);
     try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${crypto.randomUUID()}.${fileExt}`;
-      const filePath = `media/${fileName}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from('project-images')
-        .upload(filePath, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('project-images')
-        .getPublicUrl(filePath);
-
+      const publicUrl = await uploadImage(file, 'media');
       await onAdd(publicUrl, description);
 
       toast({
