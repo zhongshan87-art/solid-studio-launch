@@ -17,7 +17,7 @@ const Home = () => {
   // Auto-scroll effect
   useEffect(() => {
     const container = scrollContainerRef.current;
-    if (!container) return;
+    if (!container || isLoading) return;
 
     let animationFrameId: number;
     let lastTimestamp = 0;
@@ -48,7 +48,7 @@ const Home = () => {
         cancelAnimationFrame(animationFrameId);
       }
     };
-  }, []);
+  }, [isLoading]);
 
   // Sync selectedProject with projects updates
   useEffect(() => {
