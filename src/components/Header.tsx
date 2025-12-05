@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
@@ -135,8 +135,31 @@ export const Header = () => {
     signOut
   } = useAuth();
 
-  // Edit mode is only available for authenticated admins
-  const isEditMode = isAdmin;
+  // Edit mode state - requires F2 toggle and admin status
+  const [isEditModeActive, setIsEditModeActive] = useState(false);
+  const isEditMode = isAdmin && isEditModeActive;
+
+  // F2 keyboard shortcut for News modal
+  useEffect(() => {
+    if (!isMediaOpen) return;
+    
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'F2' && isAdmin) {
+        event.preventDefault();
+        setIsEditModeActive(prev => !prev);
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isMediaOpen, isAdmin]);
+
+  // Reset edit mode when modal closes
+  useEffect(() => {
+    if (!isMediaOpen) {
+      setIsEditModeActive(false);
+    }
+  }, [isMediaOpen]);
   const handleUpdateCardDescription = async (cardId: string, description: string) => {
     try {
       await updateCard(cardId, {
@@ -213,7 +236,14 @@ export const Header = () => {
         <Dialog open={isMediaOpen} onOpenChange={setIsMediaOpen}>
           <DialogContent className="w-[80vw] max-w-none h-[80vh] max-h-none">
             <DialogHeader>
-              <DialogTitle>奖项和新闻 Awards & News</DialogTitle>
+              <div className="flex items-center gap-3">
+                <DialogTitle>奖项和新闻 Awards & News</DialogTitle>
+                {isEditMode && (
+                  <span className="text-xs bg-primary text-primary-foreground px-2 py-1 rounded">
+                    编辑模式
+                  </span>
+                )}
+              </div>
             </DialogHeader>
             <div className="flex-1 overflow-auto">
               <div className="p-4">
