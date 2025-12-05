@@ -1,36 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Trash2 } from "lucide-react";
+import { Trash2, LogIn, LogOut } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { useMediaData } from "@/hooks/useMediaData";
 import { useStudioData } from "@/hooks/useStudioData";
 import { MediaCardUpload } from "@/components/MediaCardUpload";
 import { StudioImageUpload } from "@/components/StudioImageUpload";
+import { useAuth } from "@/hooks/useAuth";
 
 export const Header = () => {
   const [isMediaOpen, setIsMediaOpen] = useState(false);
   const [isStudioOpen, setIsStudioOpen] = useState(false);
-  const [isEditMode, setIsEditMode] = useState(false);
   
   const { cards, isLoading: mediaLoading, addCard, updateCard, deleteCard } = useMediaData();
   const { studio, isLoading: studioLoading, updateStudio } = useStudioData();
+  const { user, isAdmin, signOut } = useAuth();
 
-  // Toggle edit mode with Ctrl+E
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.key === 'e') {
-        e.preventDefault();
-        setIsEditMode(prev => !prev);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  // Edit mode is only available for authenticated admins
+  const isEditMode = isAdmin;
 
   const handleUpdateCardDescription = async (cardId: string, description: string) => {
     try {
@@ -72,6 +63,14 @@ export const Header = () => {
     }
   };
 
+  const handleSignOut = async () => {
+    await signOut();
+    toast({
+      title: "Signed out",
+      description: "You have been signed out successfully",
+    });
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background shadow-sm">
       <div className="container-studio flex justify-end items-center py-6 gap-8">
@@ -88,6 +87,20 @@ export const Header = () => {
           <button className="text-caption font-medium hover:text-primary transition-colors" onClick={() => setIsStudioOpen(true)}>
             Studio
           </button>
+          
+          {/* Auth button */}
+          {user ? (
+            <Button variant="ghost" size="sm" onClick={handleSignOut} className="gap-2">
+              <LogOut className="w-4 h-4" />
+              {isAdmin && <span className="text-xs text-primary">(Admin)</span>}
+            </Button>
+          ) : (
+            <Link to="/auth">
+              <Button variant="ghost" size="sm" className="gap-2">
+                <LogIn className="w-4 h-4" />
+              </Button>
+            </Link>
+          )}
         </nav>
 
         <Dialog open={isMediaOpen} onOpenChange={setIsMediaOpen}>
