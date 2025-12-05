@@ -118,11 +118,11 @@ const Home = () => {
       {/* Auto-scrolling image container */}
       <div 
         ref={scrollContainerRef}
-        className="fixed inset-0 overflow-y-scroll scrollbar-hide pt-16 px-20"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        className="fixed inset-0 overflow-y-scroll pt-16 px-20"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', pointerEvents: 'none' }}
       >
         {/* Duplicate projects for infinite scroll effect */}
-        <div className="flex flex-col">
+        <div className="flex flex-col" style={{ pointerEvents: 'auto' }}>
           {[...projects, ...projects].map((project, index) => (
             <div
               key={`${project.id}-${index}`}
