@@ -1,16 +1,119 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Trash2, LogOut } from "lucide-react";
+import { Trash2, LogOut, ImagePlus } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { useMediaData } from "@/hooks/useMediaData";
 import { useStudioData } from "@/hooks/useStudioData";
 import { MediaCardUpload } from "@/components/MediaCardUpload";
 import { StudioImageUpload } from "@/components/StudioImageUpload";
 import { useAuth } from "@/hooks/useAuth";
+
+interface MediaCardItemProps {
+  card: { id: string; image: string; description: string };
+  isEditMode: boolean;
+  onUpdateDescription: (cardId: string, description: string) => void;
+  onUpdateImage: (cardId: string, imageUrl: string) => void;
+  onDelete: (cardId: string) => void;
+}
+
+const MediaCardItem = ({ card, isEditMode, onUpdateDescription, onUpdateImage, onDelete }: MediaCardItemProps) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isUploading, setIsUploading] = useState(false);
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `media-${card.id}-${Date.now()}.${fileExt}`;
+      const filePath = `media/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('project-images')
+        .upload(filePath, file, { upsert: true });
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('project-images')
+        .getPublicUrl(filePath);
+
+      onUpdateImage(card.id, publicUrl);
+    } catch (error) {
+      console.error('Upload failed:', error);
+    } finally {
+      setIsUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
+
+  return (
+    <Card className="overflow-hidden">
+      <CardContent className="p-0">
+        <div className="relative">
+          <img 
+            src={card.image} 
+            alt="Media card" 
+            className="w-full aspect-[3/4] object-cover" 
+            onError={e => { e.currentTarget.src = '/placeholder.svg'; }} 
+          />
+          
+          {isEditMode && (
+            <div className="absolute top-2 right-2 flex gap-1">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+              />
+              <Button 
+                size="sm" 
+                variant="secondary" 
+                onClick={() => fileInputRef.current?.click()}
+                disabled={isUploading}
+                className="h-8 w-8 p-0"
+              >
+                <ImagePlus className="w-4 h-4" />
+              </Button>
+              <Button 
+                size="sm" 
+                variant="destructive" 
+                onClick={() => onDelete(card.id)} 
+                className="h-8 w-8 p-0"
+              >
+                <Trash2 className="w-4 h-4" />
+              </Button>
+            </div>
+          )}
+        </div>
+        
+        <div className="p-4">
+          {isEditMode ? (
+            <Textarea 
+              value={card.description} 
+              onChange={e => onUpdateDescription(card.id, e.target.value)} 
+              className="min-h-[80px] text-sm resize-none border-0 bg-transparent p-0 focus-visible:ring-0" 
+              placeholder="Enter card description..." 
+            />
+          ) : (
+            <p className="text-lg leading-relaxed whitespace-pre-line text-foreground font-bold">
+              {card.description}
+            </p>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
 export const Header = () => {
   const [isMediaOpen, setIsMediaOpen] = useState(false);
   const [isStudioOpen, setIsStudioOpen] = useState(false);
@@ -92,7 +195,7 @@ export const Header = () => {
             Works
           </Link>
           <button className="text-caption font-medium hover:text-primary transition-colors" onClick={() => setIsMediaOpen(true)}>
-            Media
+            News
           </button>
           <button className="text-caption font-medium hover:text-primary transition-colors" onClick={() => setIsStudioOpen(true)}>
             Studio
@@ -110,7 +213,7 @@ export const Header = () => {
         <Dialog open={isMediaOpen} onOpenChange={setIsMediaOpen}>
           <DialogContent className="w-[80vw] max-w-none h-[80vh] max-h-none">
             <DialogHeader>
-              <DialogTitle>奖项和媒体 Awards & Media</DialogTitle>
+              <DialogTitle>奖项和新闻 Awards & News</DialogTitle>
             </DialogHeader>
             <div className="flex-1 overflow-auto">
               <div className="p-4">
@@ -119,27 +222,14 @@ export const Header = () => {
                   </div>}
                 
                 {mediaLoading ? <p className="text-center text-muted-foreground">Loading...</p> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {cards.map(card => <Card key={card.id} className="overflow-hidden">
-                        <CardContent className="p-0">
-                          <div className="relative">
-                            <img src={card.image} alt="Media card" className="w-full aspect-[3/4] object-cover" onError={e => {
-                        e.currentTarget.src = '/placeholder.svg';
-                      }} />
-                            
-                            {isEditMode && <div className="absolute top-2 right-2">
-                                <Button size="sm" variant="destructive" onClick={() => handleDeleteCard(card.id)} className="h-8 w-8 p-0">
-                                  <Trash2 className="w-4 h-4" />
-                                </Button>
-                              </div>}
-                          </div>
-                          
-                          <div className="p-4">
-                            {isEditMode ? <Textarea value={card.description} onChange={e => handleUpdateCardDescription(card.id, e.target.value)} className="min-h-[80px] text-sm resize-none border-0 bg-transparent p-0 focus-visible:ring-0" placeholder="Enter card description..." /> : <p className="text-lg leading-relaxed whitespace-pre-line text-foreground font-bold">
-                                {card.description}
-                              </p>}
-                          </div>
-                        </CardContent>
-                      </Card>)}
+                    {cards.map(card => <MediaCardItem 
+                        key={card.id} 
+                        card={card} 
+                        isEditMode={isEditMode} 
+                        onUpdateDescription={handleUpdateCardDescription}
+                        onUpdateImage={(cardId, imageUrl) => updateCard(cardId, { image: imageUrl })}
+                        onDelete={handleDeleteCard}
+                      />)}
                   </div>}
               </div>
             </div>
