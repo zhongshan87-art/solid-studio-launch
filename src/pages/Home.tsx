@@ -5,25 +5,16 @@ import { useProjectData } from "@/hooks/useProjectData";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Project } from "@/types/project";
 import { ProjectMainImageUpload } from "@/components/ProjectMainImageUpload";
+import { useAuth } from "@/hooks/useAuth";
 
 const Home = () => {
   const { projects, isLoading, updateProject } = useProjectData();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [isEditMode, setIsEditMode] = useState(false);
+  const { isAdmin } = useAuth();
 
-  // Edit mode keyboard shortcut
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
-        e.preventDefault();
-        setIsEditMode(prev => !prev);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  // Edit mode is only available for authenticated admins
+  const isEditMode = isAdmin;
 
   // Auto-scroll effect
   useEffect(() => {
@@ -79,7 +70,7 @@ const Home = () => {
       {/* Edit mode indicator */}
       {isEditMode && (
         <div className="fixed top-20 right-4 z-50 bg-primary text-primary-foreground px-4 py-2 rounded-lg shadow-lg">
-          编辑模式 (Ctrl+E 退出)
+          编辑模式 (Admin)
         </div>
       )}
 
