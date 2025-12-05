@@ -122,7 +122,7 @@ const Home = () => {
       {/* Auto-scrolling image container */}
       <div 
         ref={scrollContainerRef}
-        className="fixed inset-0 overflow-y-scroll pt-16 px-20"
+        className="fixed inset-0 overflow-y-scroll pt-16 px-0 lg:px-20"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', pointerEvents: 'none' }}
       >
         {/* Duplicate projects for infinite scroll effect */}
@@ -130,7 +130,7 @@ const Home = () => {
           {[...projects, ...projects].map((project, index) => (
             <div
               key={`${project.id}-${index}`}
-              className="w-full h-screen cursor-pointer relative"
+              className="w-full aspect-[4/3] cursor-pointer relative"
               onClick={() => handleProjectClick(project)}
             >
               <img
