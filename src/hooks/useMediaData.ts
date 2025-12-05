@@ -124,27 +124,15 @@ export function useMediaData() {
   };
 
   const addCard = async (image: string, description: string) => {
-    try {
-      const newCard: MediaCard = {
-        id: crypto.randomUUID(),
-        image,
-        description,
-        sort_order: cards.length
-      };
-      
-      const updatedCards = [...cards, newCard];
-      await saveCards(updatedCards);
-    } catch (error) {
-      console.warn('Error adding card:', error);
-      // Still try to update local state even if storage fails
-      const newCard: MediaCard = {
-        id: crypto.randomUUID(),
-        image,
-        description,
-        sort_order: cards.length
-      };
-      setCards(prev => [...prev, newCard]);
-    }
+    const newCard: MediaCard = {
+      id: crypto.randomUUID(),
+      image,
+      description,
+      sort_order: cards.length
+    };
+    
+    const updatedCards = [...cards, newCard];
+    await saveCards(updatedCards);
   };
 
   const updateCard = async (id: string, updates: Partial<MediaCard>) => {

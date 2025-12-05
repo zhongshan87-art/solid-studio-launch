@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Trash2, LogOut, ImagePlus } from "lucide-react";
-import { uploadImage } from "@/lib/uploadImage";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { useMediaData } from "@/hooks/useMediaData";
 import { useStudioData } from "@/hooks/useStudioData";
@@ -31,15 +31,23 @@ const MediaCardItem = ({ card, isEditMode, onUpdateDescription, onUpdateImage, o
 
     setIsUploading(true);
     try {
-      const publicUrl = await uploadImage(file, 'media');
+      const fileExt = file.name.split('.').pop();
+      const fileName = `media-${card.id}-${Date.now()}.${fileExt}`;
+      const filePath = `media/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('project-images')
+        .upload(filePath, file, { upsert: true });
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('project-images')
+        .getPublicUrl(filePath);
+
       onUpdateImage(card.id, publicUrl);
     } catch (error) {
       console.error('Upload failed:', error);
-      toast({
-        title: "Upload failed",
-        description: error instanceof Error ? error.message : "Failed to upload image",
-        variant: "destructive",
-      });
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = '';

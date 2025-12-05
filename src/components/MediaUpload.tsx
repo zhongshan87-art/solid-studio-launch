@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Plus, Upload } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
-import { uploadImage } from '@/lib/uploadImage';
+import { supabase } from '@/integrations/supabase/client';
 import {
   Dialog,
   DialogContent,
@@ -69,7 +69,24 @@ export const MediaUpload: React.FC<MediaUploadProps> = ({ onMediaAdd, className 
     setUploading(true);
 
     try {
-      const publicUrl = await uploadImage(selectedFile, 'projects');
+      const fileExt = selectedFile.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+      const filePath = `projects/${fileName}`;
+
+      const { data, error } = await supabase.storage
+        .from('project-images')
+        .upload(filePath, selectedFile, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (error) {
+        throw error;
+      }
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('project-images')
+        .getPublicUrl(data.path);
 
       onMediaAdd({
         url: publicUrl,
