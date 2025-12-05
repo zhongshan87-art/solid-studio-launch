@@ -14,36 +14,14 @@ const Home = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { isAdmin } = useAuth();
 
-  // Calculate opacity based on distance from viewport center
-  const calculateOpacity = (element: HTMLElement): number => {
-    const rect = element.getBoundingClientRect();
-    const elementCenter = rect.top + rect.height / 2;
-    const viewportCenter = window.innerHeight / 2;
-    
-    const distance = Math.abs(elementCenter - viewportCenter);
-    const maxDistance = window.innerHeight;
-    
-    // Closer to center = higher opacity, min 0.3
-    const opacity = Math.max(0.3, 1 - (distance / maxDistance) * 0.9);
-    return opacity;
-  };
-
-  // Auto-scroll effect with opacity updates
+  // Auto-scroll effect
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
     let animationFrameId: number;
     let lastTimestamp = 0;
-    const scrollSpeed = 0.5;
-
-    const updateOpacities = () => {
-      const images = container.querySelectorAll('[data-project-image]');
-      images.forEach((img) => {
-        const opacity = calculateOpacity(img as HTMLElement);
-        (img as HTMLElement).style.opacity = String(opacity);
-      });
-    };
+    const scrollSpeed = 0.5; // pixels per frame
 
     const scroll = (timestamp: number) => {
       if (lastTimestamp === 0) {
@@ -59,9 +37,6 @@ const Home = () => {
       if (container.scrollTop >= container.scrollHeight - container.clientHeight) {
         container.scrollTop = 0;
       }
-
-      // Update opacities based on scroll position
-      updateOpacities();
 
       animationFrameId = requestAnimationFrame(scroll);
     };
@@ -151,9 +126,7 @@ const Home = () => {
           {[...projects, ...projects].map((project, index) => (
             <div
               key={`${project.id}-${index}`}
-              data-project-image
-              className="w-full h-screen cursor-pointer relative transition-opacity duration-150"
-              style={{ opacity: 0.3 }}
+              className="w-full h-screen cursor-pointer relative"
               onClick={() => handleProjectClick(project)}
             >
               <img
