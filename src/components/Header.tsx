@@ -281,8 +281,8 @@ export const Header = () => {
             <div className="flex-1 overflow-auto p-4">
               {studioLoading ? <p className="text-center text-muted-foreground">Loading...</p> : <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
                   {/* Left column - Display text */}
-                  <div className="flex flex-col gap-4 items-center">
-                    {isEditMode ? <Textarea value={studio.intro} onChange={e => handleUpdateStudioIntro(e.target.value)} className="min-h-[300px] text-sm leading-relaxed resize-none w-[60%]" placeholder="Studio introduction..." /> : <div className="text-sm leading-relaxed w-[60%] space-y-4">
+                  <div className="flex flex-col gap-4 items-center justify-center h-full">
+                    {isEditMode ? <Textarea value={studio.intro} onChange={e => handleUpdateStudioIntro(e.target.value)} className="min-h-[300px] text-sm leading-relaxed resize-none w-[60%]" placeholder="Studio introduction..." /> : <div className="text-sm leading-relaxed w-[60%] space-y-4 text-justify">
                         {studio.intro.split('\n\n').map((paragraph, index) => {
                     const hasChinese = /[\u4e00-\u9fa5]/.test(paragraph);
                     return <p key={index} className={hasChinese ? 'font-bold' : 'font-light'} style={hasChinese ? {} : {
