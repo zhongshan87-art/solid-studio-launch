@@ -137,11 +137,11 @@ export const Header = () => {
 
   // Edit mode state - requires F2 toggle and admin status
   const [isEditModeActive, setIsEditModeActive] = useState(false);
-  const isEditMode = isAdmin && isEditModeActive;
+  const isEditMode = isEditModeActive;
 
-  // F2 keyboard shortcut for News modal
+  // F2 keyboard shortcut for News and Studio modals
   useEffect(() => {
-    if (!isMediaOpen) return;
+    if (!isMediaOpen && !isStudioOpen) return;
     
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'F2') {
@@ -152,14 +152,14 @@ export const Header = () => {
     
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isMediaOpen, isAdmin]);
+  }, [isMediaOpen, isStudioOpen]);
 
-  // Reset edit mode when modal closes
+  // Reset edit mode when both modals are closed
   useEffect(() => {
-    if (!isMediaOpen) {
+    if (!isMediaOpen && !isStudioOpen) {
       setIsEditModeActive(false);
     }
-  }, [isMediaOpen]);
+  }, [isMediaOpen, isStudioOpen]);
   const handleUpdateCardDescription = async (cardId: string, description: string) => {
     try {
       await updateCard(cardId, {
@@ -269,7 +269,14 @@ export const Header = () => {
         <Dialog open={isStudioOpen} onOpenChange={setIsStudioOpen}>
           <DialogContent className="w-[80vw] max-w-none h-[80vh] max-h-none">
             <DialogHeader>
-              <DialogTitle>尺度森林S.F.A</DialogTitle>
+              <div className="flex items-center gap-3">
+                <DialogTitle>尺度森林S.F.A</DialogTitle>
+                {isEditMode && (
+                  <span className="text-xs bg-primary text-primary-foreground px-2 py-1 rounded">
+                    编辑模式
+                  </span>
+                )}
+              </div>
             </DialogHeader>
             <div className="flex-1 overflow-auto p-4">
               {studioLoading ? <p className="text-center text-muted-foreground">Loading...</p> : <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
