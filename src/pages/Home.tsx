@@ -2,19 +2,17 @@ import { useState, useEffect, useRef } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useProjectData } from "@/hooks/useProjectData";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Project } from "@/types/project";
-import { ProjectMainImageUpload } from "@/components/ProjectMainImageUpload";
+import { ProjectDetailModal } from "@/components/ProjectDetailModal";
 import { useAuth } from "@/hooks/useAuth";
 
 const Home = () => {
-  const { projects, isLoading, updateProject } = useProjectData();
+  const { projects, isLoading, updateProject, updateProjectDescription, addImageToProject, removeImageFromProject, reorderProjectImages } = useProjectData();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { isAdmin } = useAuth();
-
-  // Edit mode is only available for authenticated admins
-  const isEditMode = isAdmin;
 
   // Auto-scroll effect
   useEffect(() => {
@@ -52,6 +50,49 @@ const Home = () => {
     };
   }, []);
 
+  // Sync selectedProject with projects updates
+  useEffect(() => {
+    if (!selectedProject || projects.length === 0) return;
+    const updated = projects.find(p => p.id === selectedProject.id);
+    if (updated) {
+      setSelectedProject(updated);
+    }
+  }, [projects, selectedProject?.id]);
+
+  const handleProjectClick = (project: Project) => {
+    const currentProject = projects.find(p => p.id === project.id) || project;
+    setSelectedProject(currentProject);
+    setIsModalOpen(true);
+    setIsEditMode(false);
+  };
+
+  const handleImageAdd = (media: { url: string; alt: string; caption?: string; type: 'image' | 'video'; thumbnail?: string }) => {
+    if (selectedProject) {
+      addImageToProject(selectedProject.id, media.url, media.alt, media.caption || '');
+    }
+  };
+
+  const handleImageRemove = (imageId: string) => {
+    if (selectedProject) {
+      removeImageFromProject(selectedProject.id, imageId);
+    }
+  };
+
+  const handleImageUpdate = (imageId: string, updates: any) => {
+    if (selectedProject) {
+      const updatedImages = selectedProject.images.map(img =>
+        img.id === imageId ? { ...img, ...updates } : img
+      );
+      updateProject(selectedProject.id, { images: updatedImages });
+    }
+  };
+
+  const handleReorder = (newOrder: string[]) => {
+    if (selectedProject) {
+      reorderProjectImages(selectedProject.id, newOrder);
+    }
+  };
+
   if (isLoading) {
     return (
       <main className="min-h-screen">
@@ -68,7 +109,7 @@ const Home = () => {
       <Header />
       
       {/* Edit mode indicator */}
-      {isEditMode && (
+      {isAdmin && isEditMode && (
         <div className="fixed top-20 right-4 z-50 bg-primary text-primary-foreground px-4 py-2 rounded-lg shadow-lg">
           编辑模式 (Admin)
         </div>
@@ -86,7 +127,7 @@ const Home = () => {
             <div
               key={`${project.id}-${index}`}
               className="w-full h-screen cursor-pointer relative"
-              onClick={() => setSelectedProject(project)}
+              onClick={() => handleProjectClick(project)}
             >
               <img
                 src={project.mainImage}
@@ -100,84 +141,20 @@ const Home = () => {
 
       <Footer />
 
-      {/* Project Detail Modal */}
-      <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-          {selectedProject && (
-            <>
-              <DialogHeader>
-                <DialogTitle className="text-2xl font-bold leading-relaxed text-black">
-                  {selectedProject.title}
-                </DialogTitle>
-                <p className="text-black font-light leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-                  {selectedProject.location}
-                </p>
-              </DialogHeader>
-              
-              <div className="space-y-4">
-                {/* Main image */}
-                <div className="relative group">
-                  <img
-                    src={selectedProject.mainImage}
-                    alt={selectedProject.title}
-                    className="w-full rounded-lg"
-                  />
-                  {isEditMode && (
-                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <ProjectMainImageUpload
-                        projectId={selectedProject.id}
-                        onImageUpdate={async (projectId, imageUrl) => {
-                          await updateProject(projectId, { mainImage: imageUrl });
-                          // 更新 selectedProject 以反映新的主图
-                          setSelectedProject(prev => prev ? { ...prev, mainImage: imageUrl } : null);
-                        }}
-                      />
-                    </div>
-                  )}
-                </div>
-                
-                {/* Description */}
-                {selectedProject.description && (
-                  <div className="prose max-w-none">
-                    {selectedProject.description.split('\n\n').map((paragraph, index) => {
-                      const hasChinese = /[\u4e00-\u9fa5]/.test(paragraph);
-                      return (
-                  <p 
-                    key={index} 
-                    className={`${hasChinese ? 'font-bold' : 'font-light'} leading-relaxed mb-4 text-black`}
-                    style={hasChinese ? {} : { fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}
-                  >
-                    {paragraph}
-                  </p>
-                      );
-                    })}
-                  </div>
-                )}
-                
-                {/* Additional images */}
-                {selectedProject.images && selectedProject.images.length > 0 && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                    {selectedProject.images.map((image) => (
-                      <div key={image.id} className="space-y-2">
-                        <img
-                          src={image.url}
-                          alt={image.alt}
-                          className="w-full rounded-lg"
-                        />
-                  {image.caption && (
-                    <p className="text-sm text-black font-light leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-                      {image.caption}
-                    </p>
-                  )}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+      {/* Project Detail Modal - shared component */}
+      <ProjectDetailModal
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        isEditMode={isAdmin ? isEditMode : false}
+        onEditModeChange={isAdmin ? setIsEditMode : undefined}
+        onProjectUpdate={updateProject}
+        onDescriptionUpdate={updateProjectDescription}
+        onImageAdd={handleImageAdd}
+        onImageRemove={handleImageRemove}
+        onImageUpdate={handleImageUpdate}
+        onReorder={handleReorder}
+      />
     </main>
   );
 };
