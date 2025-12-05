@@ -134,13 +134,6 @@ const Home = () => {
                 alt={project.title}
                 className="w-full h-full object-cover"
               />
-              {/* Gradient overlay */}
-              <div 
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background: 'linear-gradient(to top, hsl(var(--background) / 0.6) 0%, hsl(var(--background) / 0) 100%)'
-                }}
-              />
             </div>
           ))}
         </div>
