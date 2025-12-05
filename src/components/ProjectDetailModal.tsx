@@ -56,7 +56,7 @@ export const ProjectDetailModal = ({
     if (!isOpen || !onEditModeChange) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.ctrlKey && event.key === 'e' && !event.shiftKey) {
+      if (event.altKey && event.key === 'e') {
         event.preventDefault();
         if (isEditMode && project) {
           // Save the description and title when exiting edit mode
