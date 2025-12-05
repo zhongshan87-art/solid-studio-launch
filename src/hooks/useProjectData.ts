@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Project, ProjectData } from '@/types/project';
+import { Project, ProjectData, ProjectImage } from '@/types/project';
 import { getProjectsData, setProjectsData } from '@/lib/storage';
-
-const STORAGE_KEY = 'lovable-projects-data';
+import { supabase } from '@/integrations/supabase/client';
 
 const defaultProjects: Project[] = [
   {
@@ -214,6 +213,26 @@ const defaultProjects: Project[] = [
   }
 ];
 
+// Convert Supabase project data to local Project format
+const mapSupabaseProject = (
+  project: { id: string; title: string; location: string; main_image_url: string; description: string | null; sort_order: number | null },
+  images: { id: string; url: string; alt: string; caption: string | null; type: string; thumbnail: string | null }[]
+): Project => ({
+  id: project.id as unknown as number, // Keep as string but cast for compatibility
+  title: project.title,
+  location: project.location,
+  mainImage: project.main_image_url,
+  description: project.description || '',
+  images: images.map(img => ({
+    id: img.id,
+    url: img.url,
+    alt: img.alt,
+    caption: img.caption || undefined,
+    type: img.type as 'image' | 'video',
+    thumbnail: img.thumbnail || undefined
+  }))
+});
+
 export const useProjectData = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -221,17 +240,51 @@ export const useProjectData = () => {
   useEffect(() => {
     const loadProjects = async () => {
       try {
-        const storedData = await getProjectsData();
-        
-        if (storedData && storedData.projects && storedData.projects.length > 0) {
-          setProjects(storedData.projects);
+        // 1. First try to load from Supabase
+        const { data: projectsData, error: projectsError } = await supabase
+          .from('projects')
+          .select('*')
+          .order('sort_order', { ascending: true });
+
+        if (projectsError) throw projectsError;
+
+        if (projectsData && projectsData.length > 0) {
+          // Load images for each project
+          const projectsWithImages = await Promise.all(
+            projectsData.map(async (project) => {
+              const { data: images } = await supabase
+                .from('project_images')
+                .select('*')
+                .eq('project_id', project.id)
+                .order('sort_order', { ascending: true });
+
+              return mapSupabaseProject(project, images || []);
+            })
+          );
+
+          setProjects(projectsWithImages);
+          // Cache to IndexedDB
+          await setProjectsData({ projects: projectsWithImages, lastUpdated: new Date().toISOString() });
         } else {
-          setProjects(defaultProjects);
-          await setProjectsData({ projects: defaultProjects, lastUpdated: new Date().toISOString() });
+          // 2. Supabase is empty, fallback to IndexedDB
+          const storedData = await getProjectsData();
+          if (storedData?.projects?.length > 0) {
+            setProjects(storedData.projects);
+          } else {
+            // 3. Use default projects
+            setProjects(defaultProjects);
+            await setProjectsData({ projects: defaultProjects, lastUpdated: new Date().toISOString() });
+          }
         }
       } catch (error) {
-        console.error('Error loading projects:', error);
-        setProjects(defaultProjects);
+        console.error('Error loading projects from Supabase:', error);
+        // Fallback to IndexedDB on error
+        try {
+          const storedData = await getProjectsData();
+          setProjects(storedData?.projects || defaultProjects);
+        } catch {
+          setProjects(defaultProjects);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -240,9 +293,52 @@ export const useProjectData = () => {
     loadProjects();
   }, []);
 
+  const saveProjectsToSupabase = async (projectsToSave: Project[]) => {
+    for (let i = 0; i < projectsToSave.length; i++) {
+      const project = projectsToSave[i];
+      const projectId = String(project.id);
+      
+      const { error: projectError } = await supabase
+        .from('projects')
+        .upsert({
+          id: projectId,
+          title: project.title,
+          location: project.location,
+          main_image_url: project.mainImage,
+          description: project.description || null,
+          sort_order: i
+        });
+
+      if (projectError) {
+        console.error('Error saving project to Supabase:', projectError);
+        continue;
+      }
+
+      // Save project images
+      for (let j = 0; j < project.images.length; j++) {
+        const img = project.images[j];
+        await supabase
+          .from('project_images')
+          .upsert({
+            id: img.id,
+            project_id: projectId,
+            url: img.url,
+            alt: img.alt,
+            caption: img.caption || null,
+            type: img.type || 'image',
+            thumbnail: img.thumbnail || null,
+            sort_order: j
+          });
+      }
+    }
+  };
+
   const saveProjects = async (updatedProjects: Project[]) => {
     try {
+      // Save to IndexedDB
       await setProjectsData({ projects: updatedProjects, lastUpdated: new Date().toISOString() });
+      // Save to Supabase
+      await saveProjectsToSupabase(updatedProjects);
       setProjects(updatedProjects);
     } catch (error) {
       console.error('Error saving projects:', error);
@@ -264,7 +360,7 @@ export const useProjectData = () => {
   ) => {
     const updatedProjects = projects.map(project => {
       if (project.id === projectId) {
-        const newImage = {
+        const newImage: ProjectImage = {
           id: `${projectId}-${Date.now()}`,
           url: imageUrl,
           alt,
@@ -290,6 +386,10 @@ export const useProjectData = () => {
       }
       return project;
     });
+    
+    // Also delete from Supabase
+    await supabase.from('project_images').delete().eq('id', imageId);
+    
     await saveProjects(updatedProjects);
   };
 
