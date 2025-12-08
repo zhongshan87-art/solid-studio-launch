@@ -374,21 +374,24 @@ const defaultProjects: Project[] = [
     location: "建筑 Architecture",
     mainImage: "/images/projects/qingsong/main.jpg",
     images: [{ id: "12-1", url: "/images/projects/qingsong/1.jpg", alt: "青松住宅", caption: "青松住宅" }],
-    description: `青松住宅项目描述待补充。
+    description: `初次探访基地，窗外的青松给所有人留下了映象，在静安区建筑密度如此高的地段，凝视着窗外这颗青松能感知到“心远地自偏”。室内的材料也延续“雪落青松”展开。公区明亮，如雪后的白净，墙裙的白色大理石在客厅里延伸，壁炉的火焰在白色石材中轻盈舞动。书房和卧室犹如松树杆的深沉褐色，创造静谧沉浸的休体验。
+这次的设计目标是为业主在繁忙的都市生活中打造一个宁静，治愈，滋养的居住空间。希望我们都能在忙碌的城市里享受到“心远地自偏”的愉悦。
 
-地点：待定
-完成时间：待定`,
+地点：上海静安
+完成时间：2023年11月`,
   },
   {
     id: 13,
     title: "光影梧桐",
-    location: "室内 Interior",
+    location: "建筑 Architecture",
     mainImage: "/images/projects/guangying/main.jpg",
     images: [{ id: "13-1", url: "/images/projects/guangying/1.jpg", alt: "光影梧桐室内", caption: "光影梧桐" }],
-    description: `光影梧桐项目描述待补充。
+    description: `项目位于上海市长宁区江苏路地铁站。“第三层车站”是希望把车站的城市层作为一个整体的空间系统去考虑，研究怎样让这些公共空间被合理有效的利用起来，并能够很好的接入到周边的社区当中。 愚园路斑驳的梧桐树影给了我们很深的印象，所以我们用一片梧桐叶的意向串联街角空间。在不同主题的公共空间当中， 植入光影装置和艺术盒子，希望用这种当下的文化语言去实时呈现包罗万象又充满活力的愚园路文化。
+    业主：上海市长宁区规划和自然资源局
+    方案征集获奖方案
 
-地点：待定
-完成时间：待定`,
+地点：上海长宁
+完成时间：2023年12月`,
   },
   {
     id: 14,
