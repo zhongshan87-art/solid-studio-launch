@@ -17,7 +17,7 @@ const defaultProjects: Project[] = [
     id: 2,
     title: "金塘水獭科普馆 Jintang Otter Center",
     location: "展览 Exhibition",
-    mainImage: jintangOtter1,
+    mainImage: jintangOtter4,
     images: [
       { id: "2-1", url: jintangOtter1, alt: "寻獭客厅展示", caption: "灵动的獭-投影展示" },
       { id: "2-2", url: jintangOtter2, alt: "展厅全景", caption: "寻獭客厅全景" },
