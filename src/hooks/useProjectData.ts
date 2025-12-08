@@ -98,6 +98,16 @@ import liba3 from "@/assets/liba/3.jpg";
 import liba4 from "@/assets/liba/4.jpg";
 import liba5 from "@/assets/liba/5.jpg";
 import liba6 from "@/assets/liba/6.jpg";
+
+// 双棚图片
+import shuangpeng1 from "@/assets/shuangpeng/1.jpg";
+import shuangpeng2 from "@/assets/shuangpeng/2.jpg";
+import shuangpeng3 from "@/assets/shuangpeng/3.jpg";
+import shuangpeng4 from "@/assets/shuangpeng/4.jpg";
+import shuangpeng5 from "@/assets/shuangpeng/5.jpg";
+import shuangpeng6 from "@/assets/shuangpeng/6.jpg";
+import shuangpeng7 from "@/assets/shuangpeng/7.jpg";
+import shuangpeng8 from "@/assets/shuangpeng/8.jpg";
 import liba7 from "@/assets/liba/7.jpg";
 import liba8 from "@/assets/liba/8.jpg";
 
@@ -302,9 +312,18 @@ const defaultProjects: Project[] = [
   {
     id: 10,
     title: "双棚",
-    location: "建筑 Architecture",
-    mainImage: "/images/projects/shuangpeng/main.jpg",
-    images: [{ id: "10-1", url: "/images/projects/shuangpeng/1.jpg", alt: "双棚建筑", caption: "双棚" }],
+    location: "室内 Interior",
+    mainImage: shuangpeng1,
+    images: [
+      { id: "10-1", url: shuangpeng1, alt: "外立面", caption: "外立面与蓝色雨棚" },
+      { id: "10-2", url: shuangpeng2, alt: "门廊细节", caption: "门廊结构细节" },
+      { id: "10-3", url: shuangpeng3, alt: "就餐区", caption: "就餐区全景" },
+      { id: "10-4", url: shuangpeng4, alt: "星空棚顶", caption: "星空牛仔布棚顶" },
+      { id: "10-5", url: shuangpeng5, alt: "座位区", caption: "座位区与艺术墙面" },
+      { id: "10-6", url: shuangpeng6, alt: "灯具装置", caption: "定制灯具组" },
+      { id: "10-7", url: shuangpeng7, alt: "棚顶细节", caption: "牛仔布棚顶细节" },
+      { id: "10-8", url: shuangpeng8, alt: "壁灯", caption: "定制壁灯细节" },
+    ],
     description: `双棚项目描述待补充。
 
 地点：待定
