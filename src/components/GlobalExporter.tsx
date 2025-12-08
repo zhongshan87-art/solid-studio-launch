@@ -15,7 +15,8 @@ interface MediaCard {
 
 interface StudioData {
   id?: string;
-  intro: string;
+  introChinese: string;
+  introEnglish: string;
   image: string;
 }
 
@@ -288,7 +289,8 @@ import { getStudioData, setStudioData } from '@/lib/storage';
 
 export interface StudioData {
   id?: string;
-  intro: string;
+  introChinese: string;
+  introEnglish: string;
   image: string;
 }
 

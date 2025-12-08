@@ -89,19 +89,13 @@ export const Header = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
                   {/* Left column - Display text */}
                   <div className="flex flex-col gap-4 items-center justify-center h-full">
-                    <div className="text-sm leading-relaxed w-[60%] space-y-4 text-justify">
-                      {studio.intro.split('\n\n').map((paragraph, index) => {
-                        const hasChinese = /[\u4e00-\u9fa5]/.test(paragraph);
-                        return (
-                          <p 
-                            key={index} 
-                            className={hasChinese ? 'font-bold' : 'font-light'} 
-                            style={hasChinese ? {} : { fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}
-                          >
-                            {paragraph}
-                          </p>
-                        );
-                      })}
+                    <div className="text-sm leading-relaxed w-[60%] space-y-6 text-justify">
+                      <p className="font-medium">
+                        {studio.introChinese}
+                      </p>
+                      <p className="font-light" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+                        {studio.introEnglish}
+                      </p>
                     </div>
                   </div>
                   
