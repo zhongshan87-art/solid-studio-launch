@@ -151,7 +151,7 @@ const defaultProjects: Project[] = [
   },
   {
     id: 4,
-    title: "聚落浮田.圩水相依",
+    title: "聚落浮田.圩水相依 WE LAND",
     location: "建筑 Architecture",
     mainImage: juluoFutian1,
     images: [
@@ -173,7 +173,7 @@ const defaultProjects: Project[] = [
   },
   {
     id: 6,
-    title: "探索山岭",
+    title: "探索山岭 EXPLORE MOUNTAIN",
     location: "展览 Exhibition",
     mainImage: exploreMountain1,
     images: [
