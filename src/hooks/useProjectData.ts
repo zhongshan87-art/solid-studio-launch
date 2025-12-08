@@ -24,6 +24,18 @@ import juluoFutian8 from "@/assets/juluo-futian/8.jpg";
 import juluoFutian9 from "@/assets/juluo-futian/9.jpg";
 import juluoFutian10 from "@/assets/juluo-futian/10.jpg";
 
+// 探索山岭图片
+import exploreMountain1 from "@/assets/explore-mountain/1.jpg";
+import exploreMountain2 from "@/assets/explore-mountain/2.jpg";
+import exploreMountain3 from "@/assets/explore-mountain/3.jpg";
+import exploreMountain4 from "@/assets/explore-mountain/4.jpg";
+import exploreMountain5 from "@/assets/explore-mountain/5.jpg";
+import exploreMountain6 from "@/assets/explore-mountain/6.jpg";
+import exploreMountain7 from "@/assets/explore-mountain/7.jpg";
+import exploreMountain8 from "@/assets/explore-mountain/8.jpg";
+import exploreMountain9 from "@/assets/explore-mountain/9.jpg";
+import exploreMountain10 from "@/assets/explore-mountain/10.jpg";
+
 const defaultProjects: Project[] = [
   {
     id: 2,
@@ -76,10 +88,18 @@ const defaultProjects: Project[] = [
     id: 6,
     title: "探索山岭",
     location: "展览 Exhibition",
-    mainImage: "/images/projects/mountain/main.jpg",
+    mainImage: exploreMountain1,
     images: [
-      { id: "6-1", url: "/images/projects/mountain/1.jpg", alt: "山岭展览空间", caption: "探索山岭" },
-      { id: "6-2", url: "/images/projects/mountain/2.jpg", alt: "植物标本展示", caption: "本土植物博物" },
+      { id: "6-1", url: exploreMountain1, alt: "探索山岭展厅空间", caption: "探索山岭展厅空间" },
+      { id: "6-2", url: exploreMountain2, alt: "山岭模型", caption: "山岭模型" },
+      { id: "6-3", url: exploreMountain3, alt: "山岭模型和高低林立的展牌", caption: "山岭模型和高低林立的展牌" },
+      { id: "6-4", url: exploreMountain4, alt: "样地四群落图", caption: "样地四群落图" },
+      { id: "6-5", url: exploreMountain5, alt: "焕林新生展项", caption: "焕林新生-乡土植物回归" },
+      { id: "6-6", url: exploreMountain6, alt: "可触摸植物标本台", caption: "可触摸植物标本台" },
+      { id: "6-7", url: exploreMountain7, alt: "乡野草木", caption: "乡野草木" },
+      { id: "6-8", url: exploreMountain8, alt: "滴胶标本和远处风光", caption: "滴胶标本和远处风光" },
+      { id: "6-9", url: exploreMountain9, alt: "展厅空间", caption: "展厅空间" },
+      { id: "6-10", url: exploreMountain10, alt: "野外探查", caption: "野外探查" },
     ],
     description: `探索山岭展览以杭州的本土草木为媒介，传达生物多样性之美，唤起人对土地、气候、乡土的记忆。展览约200平方米，有丰富的视觉、听觉和触觉体验。馆藏包含展馆所在地寺坞岭的山体模型，百余种杭州本土植物滴胶标本，二十余幅本土植物博物画，以及丰富的在地自然风光和物种的图文、视频介绍。展览的视觉呈现清新自然，空间上围合有度、内外通透，让展厅外秀丽的自然风光也成为展览体验的一部分。
 
