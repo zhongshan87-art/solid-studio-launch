@@ -371,7 +371,7 @@ const defaultProjects: Project[] = [
   {
     id: 12,
     title: "青松住宅",
-    location: "建筑 Architecture",
+    location: "室内 Interior",
     mainImage: "/images/projects/qingsong/main.jpg",
     images: [{ id: "12-1", url: "/images/projects/qingsong/1.jpg", alt: "青松住宅", caption: "青松住宅" }],
     description: `初次探访基地，窗外的青松给所有人留下了映象，在静安区建筑密度如此高的地段，凝视着窗外这颗青松能感知到“心远地自偏”。室内的材料也延续“雪落青松”展开。公区明亮，如雪后的白净，墙裙的白色大理石在客厅里延伸，壁炉的火焰在白色石材中轻盈舞动。书房和卧室犹如松树杆的深沉褐色，创造静谧沉浸的休体验。
@@ -396,7 +396,7 @@ const defaultProjects: Project[] = [
   {
     id: 14,
     title: "小花野美",
-    location: "室内 Interior",
+    location: "装置 Installation",
     mainImage: "/images/projects/xiaohua/main.jpg",
     images: [{ id: "14-1", url: "/images/projects/xiaohua/1.jpg", alt: "小花野美室内", caption: "小花野美" }],
     description: `小花野美是一个感知长三角本土野花的体验装置。充满体量感的色彩雕塑--花亭,用透明织物表达花朵轻盈柔软,层层包裹的状态。花亭邀请观众进入朦胧色彩之中,沉浸地欣赏彩色X光片般的本土野花影像。
