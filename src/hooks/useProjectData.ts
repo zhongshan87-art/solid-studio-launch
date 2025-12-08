@@ -58,6 +58,7 @@ import yishiyiyuan6 from "@/assets/yishiyiyuan/6.jpg";
 import yishiyiyuan7 from "@/assets/yishiyiyuan/7.jpg";
 import yishiyiyuan8 from "@/assets/yishiyiyuan/8.jpg";
 import yishiyiyuan9 from "@/assets/yishiyiyuan/9.jpg";
+import yishiyiyuan10 from "@/assets/yishiyiyuan/10.jpg";
 
 // 手艺之家图片
 import shouyi1 from "@/assets/shouyi/1.jpg";
@@ -212,14 +213,15 @@ const defaultProjects: Project[] = [
     mainImage: yishiyiyuan1,
     images: [
       { id: "1-1", url: yishiyiyuan1, alt: "层叠的木空间", caption: "层叠的木空间 Layered wooden space" },
-      { id: "1-2", url: yishiyiyuan2, alt: "院落般的客厅", caption: "院落般的客厅" },
-      { id: "1-3", url: yishiyiyuan3, alt: "木质廊洞看向玄关", caption: "木质廊洞看向玄关" },
+      { id: "1-2", url: yishiyiyuan2, alt: "院落般的客厅", caption: "院落般的客厅 Yard-like living room" },
+      { id: "1-3", url: yishiyiyuan3, alt: "木质廊洞看向玄关", caption: "木质廊洞看向玄关 View to entry" },
       { id: "1-4", url: yishiyiyuan4, alt: "观景榻", caption: "观景榻 Scenic seating deck" },
-      { id: "1-5", url: yishiyiyuan5, alt: "餐桌北望", caption: "餐桌北望" },
-      { id: "1-6", url: yishiyiyuan6, alt: "次卫一角", caption: "次卫一角" },
+      { id: "1-5", url: yishiyiyuan5, alt: "餐桌北望", caption: "餐桌北望 Look north from dining" },
+      { id: "1-6", url: yishiyiyuan6, alt: "次卫一角", caption: "次卫一角 Guest bathroom corner" },
       { id: "1-7", url: yishiyiyuan7, alt: "厨房", caption: "厨房 Kitchen" },
       { id: "1-8", url: yishiyiyuan8, alt: "橱柜细节", caption: "橱柜细节 Kitchen cabinet details" },
-      { id: "1-9", url: yishiyiyuan9, alt: "旧木地板再创造", caption: "旧木地板再创造" },
+      { id: "1-9", url: yishiyiyuan9, alt: "旧木地板再创造", caption: "旧木地板再创造 Reinterpretation of old flooring" },
+      { id: "1-10", url: yishiyiyuan10, alt: "新旧平面对比", caption: "新旧平面对比 Before and after" },
     ],
     description: `此次改造的公寓原是一个标准地产高效户型，三室两厅，满足一家三口忙碌的生活。如今业主夫妇即将退休，子女也不在家中长住，他们希望改造后的公寓更适合闲适的晚年生活。我们在设计时有意打破封闭的房间，将三室两厅变为一室一园，由原始的线性流线变为环形流线。起居空间界限被打破，走过曲折的廊道，内窗外窗的框景让视线丰富变幻。设计将功能与走道结合，使用起来有中式园林里的居游体验，让此住宅在后疫情时代变成最能遛弯的家！
 
