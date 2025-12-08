@@ -387,8 +387,8 @@ const defaultProjects: Project[] = [
     mainImage: "/images/projects/guangying/main.jpg",
     images: [{ id: "13-1", url: "/images/projects/guangying/1.jpg", alt: "光影梧桐室内", caption: "光影梧桐" }],
     description: `项目位于上海市长宁区江苏路地铁站。“第三层车站”是希望把车站的城市层作为一个整体的空间系统去考虑，研究怎样让这些公共空间被合理有效的利用起来，并能够很好的接入到周边的社区当中。 愚园路斑驳的梧桐树影给了我们很深的印象，所以我们用一片梧桐叶的意向串联街角空间。在不同主题的公共空间当中， 植入光影装置和艺术盒子，希望用这种当下的文化语言去实时呈现包罗万象又充满活力的愚园路文化。
-    业主：上海市长宁区规划和自然资源局
-    方案征集获奖方案
+业主：上海市长宁区规划和自然资源局
+方案征集获奖方案
 
 地点：上海长宁
 完成时间：2023年12月`,
@@ -399,10 +399,10 @@ const defaultProjects: Project[] = [
     location: "室内 Interior",
     mainImage: "/images/projects/xiaohua/main.jpg",
     images: [{ id: "14-1", url: "/images/projects/xiaohua/1.jpg", alt: "小花野美室内", caption: "小花野美" }],
-    description: `小花野美项目描述待补充。
+    description: `小花野美是一个感知长三角本土野花的体验装置。充满体量感的色彩雕塑--花亭,用透明织物表达花朵轻盈柔软,层层包裹的状态。花亭邀请观众进入朦胧色彩之中,沉浸地欣赏彩色X光片般的本土野花影像。
 
-地点：待定
-完成时间：待定`,
+地点：上海黄浦
+完成时间：2024年6月`,
   },
   {
     id: 15,
