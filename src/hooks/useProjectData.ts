@@ -36,6 +36,18 @@ import exploreMountain8 from "@/assets/explore-mountain/8.jpg";
 import exploreMountain9 from "@/assets/explore-mountain/9.jpg";
 import exploreMountain10 from "@/assets/explore-mountain/10.jpg";
 
+// 听，有嗡嗡声图片
+import listenBuzz1 from "@/assets/listen-buzz/1.jpg";
+import listenBuzz2 from "@/assets/listen-buzz/2.jpg";
+import listenBuzz3 from "@/assets/listen-buzz/3.jpg";
+import listenBuzz4 from "@/assets/listen-buzz/4.jpg";
+import listenBuzz5 from "@/assets/listen-buzz/5.jpg";
+import listenBuzz6 from "@/assets/listen-buzz/6.jpg";
+import listenBuzz7 from "@/assets/listen-buzz/7.jpg";
+import listenBuzz8 from "@/assets/listen-buzz/8.jpg";
+import listenBuzz9 from "@/assets/listen-buzz/9.jpg";
+import listenBuzz10 from "@/assets/listen-buzz/10.jpg";
+
 const defaultProjects: Project[] = [
   {
     id: 2,
@@ -110,10 +122,18 @@ const defaultProjects: Project[] = [
     id: 3,
     title: "听，有嗡嗡声",
     location: "展览 Exhibition",
-    mainImage: "/images/projects/buzzing/main.jpg",
+    mainImage: listenBuzz4,
     images: [
-      { id: "3-1", url: "/images/projects/buzzing/1.jpg", alt: "传粉昆虫展览", caption: "听，有嗡嗡声" },
-      { id: "3-2", url: "/images/projects/buzzing/2.jpg", alt: "昆虫与野花", caption: "传粉者的秘境" },
+      { id: "3-1", url: listenBuzz1, alt: "昆虫夜观", caption: "昆虫夜观与夜听" },
+      { id: "3-2", url: listenBuzz2, alt: "展厅平面图", caption: "展厅平面布局" },
+      { id: "3-3", url: listenBuzz3, alt: "传粉者之丘", caption: "传粉者之丘 Pollinators' booths" },
+      { id: "3-4", url: listenBuzz4, alt: "展厅空间", caption: "展厅空间全景" },
+      { id: "3-5", url: listenBuzz5, alt: "展厅空间", caption: "展厅空间-传粉者之丘" },
+      { id: "3-6", url: listenBuzz6, alt: "昆虫标本展示", caption: "昆虫标本展示" },
+      { id: "3-7", url: listenBuzz7, alt: "中华马蜂展示", caption: "中华马蜂展示" },
+      { id: "3-8", url: listenBuzz8, alt: "虫虫拼搭墙", caption: "虫虫拼搭墙 The Buzzle Wall" },
+      { id: "3-9", url: listenBuzz9, alt: "虫虫拼搭墙全景", caption: "虫虫拼搭墙互动区" },
+      { id: "3-10", url: listenBuzz10, alt: "虫虫拼搭墙细节", caption: "虫虫拼搭墙细节" },
     ],
     description: `提到生物多样性，大型动物往往会最先得到人类的关注。喜好在夜间活动、体积又小的昆虫常容易被人忽略， 但传粉昆虫和植物的相互作用确是地球上生物多样性的最重要驱动因素。这些小小的不起眼的昆虫在植物间嗡嗡叫、扑腾、爬行，以富含蛋白质的花粉和高能量花蜜为食。它们会在移动时运输和沉积花粉，使植物受精并繁殖。如果传粉昆虫减少，开花植物无法繁殖，人类也将没有食物。
 
