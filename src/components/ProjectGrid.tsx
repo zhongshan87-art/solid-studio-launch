@@ -66,12 +66,12 @@ export const ProjectGrid = () => {
 
   return (
     <section id="works" className="py-8">
-      <div className="w-full px-[50px]">
-        <div className="mb-6 flex justify-end">
+      <div className="w-full px-0 md:px-[50px]">
+        <div className="mb-6 flex justify-end px-4 md:px-0">
           <GlobalExporter projects={projects} mediaCards={mediaCards} studioData={studioData} />
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[50px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-[50px]">
           {projects.map(project => (
             <ProjectCard 
               key={project.id} 
