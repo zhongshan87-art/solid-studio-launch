@@ -58,7 +58,17 @@ import yishiyiyuan6 from "@/assets/yishiyiyuan/6.jpg";
 import yishiyiyuan7 from "@/assets/yishiyiyuan/7.jpg";
 import yishiyiyuan8 from "@/assets/yishiyiyuan/8.jpg";
 import yishiyiyuan9 from "@/assets/yishiyiyuan/9.jpg";
-import yishiyiyuan10 from "@/assets/yishiyiyuan/10.jpg";
+
+// 手艺之家图片
+import shouyi1 from "@/assets/shouyi/1.jpg";
+import shouyi2 from "@/assets/shouyi/2.jpg";
+import shouyi3 from "@/assets/shouyi/3.jpg";
+import shouyi4 from "@/assets/shouyi/4.jpg";
+import shouyi5 from "@/assets/shouyi/5.jpg";
+import shouyi6 from "@/assets/shouyi/6.jpg";
+import shouyi7 from "@/assets/shouyi/7.jpg";
+import shouyi8 from "@/assets/shouyi/8.jpg";
+import shouyi9 from "@/assets/shouyi/9.jpg";
 
 // 食仓图片
 import shicang1 from "@/assets/shicang/1.jpg";
@@ -200,7 +210,6 @@ const defaultProjects: Project[] = [
       { id: "1-7", url: yishiyiyuan7, alt: "厨房", caption: "厨房 Kitchen" },
       { id: "1-8", url: yishiyiyuan8, alt: "橱柜细节", caption: "橱柜细节 Kitchen cabinet details" },
       { id: "1-9", url: yishiyiyuan9, alt: "旧木地板再创造", caption: "旧木地板再创造" },
-      { id: "1-10", url: yishiyiyuan10, alt: "新旧平面对比", caption: "新旧平面对比 Renovation before and after" },
     ],
     description: `此次改造的公寓原是一个标准地产高效户型，三室两厅，满足一家三口忙碌的生活。如今业主夫妇即将退休，子女也不在家中长住，他们希望改造后的公寓更适合闲适的晚年生活。我们在设计时有意打破封闭的房间，将三室两厅变为一室一园，由原始的线性流线变为环形流线。起居空间界限被打破，走过曲折的廊道，内窗外窗的框景让视线丰富变幻。设计将功能与走道结合，使用起来有中式园林里的居游体验，让此住宅在后疫情时代变成最能遛弯的家！
 
@@ -271,10 +280,20 @@ const defaultProjects: Project[] = [
   {
     id: 9,
     title: "手艺之家",
-    location: "建筑 Architecture",
-    mainImage: "/images/projects/shouyi/main.jpg",
-    images: [{ id: "9-1", url: "/images/projects/shouyi/1.jpg", alt: "手艺之家", caption: "手艺之家" }],
-    description: `手艺之家是上海当代艺术博物馆于“新文化制作人第一季-手艺再兴”项目期间发起的平行计划，展示不同门类的中国手工艺以及相关的书籍、文献资料。
+    location: "展览 Exhibition",
+    mainImage: shouyi1,
+    images: [
+      { id: "9-1", url: shouyi1, alt: "展厅鸟瞰", caption: "手艺之家展厅鸟瞰" },
+      { id: "9-2", url: shouyi2, alt: "展厅模型", caption: "展厅概念模型" },
+      { id: "9-3", url: shouyi3, alt: "入口空间", caption: "展厅入口与竹艺展示" },
+      { id: "9-4", url: shouyi4, alt: "展厅内部", caption: "展厅内部手工艺展示" },
+      { id: "9-5", url: shouyi5, alt: "展览空间", caption: "弧形展览空间与木艺" },
+      { id: "9-6", url: shouyi6, alt: "阅读空间", caption: "阅读区与资料展示" },
+      { id: "9-7", url: shouyi7, alt: "工作坊", caption: "手艺工作坊活动" },
+      { id: "9-8", url: shouyi8, alt: "江景休憩", caption: "江景休憩区" },
+      { id: "9-9", url: shouyi9, alt: "外立面", caption: "建筑外立面夜景" },
+    ],
+    description: `手艺之家是上海当代艺术博物馆于"新文化制作人第一季-手艺再兴"项目期间发起的平行计划，展示不同门类的中国手工艺以及相关的书籍、文献资料。
 展厅以灵动自由的形态唤起人们对手艺有机形态的直观感受，回应手艺的温度；弧形边界形成的流动感再造小屋、村巷的场所感，回应手艺的尺度；塑造有机的、流动的、可漫游的手艺家园
 
 地点：上海
