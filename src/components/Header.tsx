@@ -11,7 +11,7 @@ interface MediaCardItemProps {
 
 const MediaCardItem = ({ card }: MediaCardItemProps) => {
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden w-[80%] mx-auto">
       <CardContent className="p-0">
         <div className="relative">
           <img 
@@ -22,8 +22,8 @@ const MediaCardItem = ({ card }: MediaCardItemProps) => {
           />
         </div>
         
-        <div className="p-4">
-          <p className="text-lg leading-relaxed whitespace-pre-line text-foreground font-bold">
+        <div className="p-3">
+          <p className="text-base leading-relaxed whitespace-pre-line text-foreground font-bold">
             {card.description}
           </p>
         </div>
@@ -66,7 +66,7 @@ export const Header = () => {
                 {mediaLoading ? (
                   <p className="text-center text-muted-foreground">Loading...</p>
                 ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {cards.map(card => (
                       <MediaCardItem key={card.id} card={card} />
                     ))}
