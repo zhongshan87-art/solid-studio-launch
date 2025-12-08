@@ -407,13 +407,12 @@ const defaultProjects: Project[] = [
   {
     id: 15,
     title: "风栖·雪筑",
-    location: "室内 Interior",
+    location: "建筑 Architecture",
     mainImage: "/images/projects/fengqi/main.jpg",
     images: [{ id: "15-1", url: "/images/projects/fengqi/1.jpg", alt: "风栖·雪筑室内", caption: "风栖·雪筑" }],
-    description: `风栖·雪筑项目描述待补充。
+    description: `风栖雪筑创造了一套可适应不同气候的系统性木屋预制方案。设计用同一套预制建材系统来搭建针对湿热和干冷两种类型气候的房屋，同时注重与自然连接的居住体验，为乡村文旅，自然保护地等场所提供有趣，美观，快速搭建，持久的居住和活动场所。
 
-地点：待定
-完成时间：待定`,
+完成时间：2025年8月`,
   },
 ];
 
