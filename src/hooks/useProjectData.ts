@@ -112,6 +112,17 @@ import shuangpeng8 from "@/assets/shuangpeng/8.jpg";
 import liba7 from "@/assets/liba/7.jpg";
 import liba8 from "@/assets/liba/8.jpg";
 
+// 柔和过渡图片
+import rouhe1 from "@/assets/rouhe/1.jpg";
+import rouhe2 from "@/assets/rouhe/2.jpg";
+import rouhe3 from "@/assets/rouhe/3.jpg";
+import rouhe4 from "@/assets/rouhe/4.jpg";
+import rouhe5 from "@/assets/rouhe/5.jpg";
+import rouhe6 from "@/assets/rouhe/6.jpg";
+import rouhe7 from "@/assets/rouhe/7.jpg";
+import rouhe8 from "@/assets/rouhe/8.jpg";
+import rouhe9 from "@/assets/rouhe/9.jpg";
+
 const defaultProjects: Project[] = [
   {
     id: 2,
@@ -335,8 +346,18 @@ const defaultProjects: Project[] = [
     id: 11,
     title: "柔和过渡",
     location: "室内 Interior",
-    mainImage: "/images/projects/rouhe/main.jpg",
-    images: [{ id: "11-1", url: "/images/projects/rouhe/1.jpg", alt: "柔和过渡室内", caption: "柔和过渡" }],
+    mainImage: rouhe1,
+    images: [
+      { id: "11-1", url: rouhe1, alt: "客厅空间", caption: "客厅空间与艺术画作" },
+      { id: "11-2", url: rouhe2, alt: "起居空间", caption: "起居空间与书架" },
+      { id: "11-3", url: rouhe3, alt: "透视空间", caption: "透明纱帘与多功能空间" },
+      { id: "11-4", url: rouhe4, alt: "城市景观", caption: "落地窗与城市景观" },
+      { id: "11-5", url: rouhe5, alt: "书架与装饰", caption: "书架细节与装饰" },
+      { id: "11-6", url: rouhe6, alt: "廊道空间", caption: "廊道与开放空间" },
+      { id: "11-7", url: rouhe7, alt: "书架与收纳", caption: "开放式书架系统" },
+      { id: "11-8", url: rouhe8, alt: "阳台空间", caption: "阳台与植物景观" },
+      { id: "11-9", url: rouhe9, alt: "空间轴测", caption: "空间轴测分析图" },
+    ],
     description: `柔和过渡项目描述待补充。
 
 地点：待定
