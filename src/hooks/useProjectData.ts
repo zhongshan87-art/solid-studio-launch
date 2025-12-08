@@ -1,16 +1,34 @@
-import { useState } from 'react';
 import { Project } from '@/types/project';
+
+// 金塘水獭科普馆图片
+import jintangOtter1 from '@/assets/jintang-otter/1.jpg';
+import jintangOtter2 from '@/assets/jintang-otter/2.jpg';
+import jintangOtter3 from '@/assets/jintang-otter/3.jpg';
+import jintangOtter3a from '@/assets/jintang-otter/3a.jpg';
+import jintangOtter4 from '@/assets/jintang-otter/4.jpg';
+import jintangOtter5 from '@/assets/jintang-otter/5.jpg';
+import jintangOtter6 from '@/assets/jintang-otter/6.jpg';
+import jintangOtter7 from '@/assets/jintang-otter/7.jpg';
+import jintangOtter8 from '@/assets/jintang-otter/8.jpg';
+import jintangOtter9 from '@/assets/jintang-otter/9.jpg';
 
 const defaultProjects: Project[] = [
   {
     id: 2,
     title: "金塘水獭科普馆 Jintang Otter Center",
     location: "展览 Exhibition",
-    mainImage: "/images/projects/jintang-otter/main.jpg",
+    mainImage: jintangOtter4,
     images: [
-      { id: '2-1', url: "/images/projects/jintang-otter/1.jpg", alt: "金塘水獭科普馆内部展示", caption: "金塘水獭科普馆" },
-      { id: '2-2', url: "/images/projects/jintang-otter/2.jpg", alt: "水獭栖息地模型", caption: "水獭栖息地展示" },
-      { id: '2-3', url: "/images/projects/jintang-otter/3.jpg", alt: "科研实验室", caption: "知獭实验室" }
+      { id: '2-1', url: jintangOtter1, alt: "寻獭客厅展示", caption: "灵动的獭-投影展示" },
+      { id: '2-2', url: jintangOtter2, alt: "展厅全景", caption: "寻獭客厅全景" },
+      { id: '2-3', url: jintangOtter3, alt: "鸟类标本展示", caption: "獭与鸟的邻里" },
+      { id: '2-4', url: jintangOtter3a, alt: "岛屿模型与窥探镜", caption: "金塘岛屿沙盘模型" },
+      { id: '2-5', url: jintangOtter4, alt: "展厅中央全景", caption: "寻獭客厅中央展区" },
+      { id: '2-6', url: jintangOtter5, alt: "水獭科普与投影", caption: "水獭物种介绍" },
+      { id: '2-7', url: jintangOtter6, alt: "世界水獭地图", caption: "全球水獭分布地图" },
+      { id: '2-8', url: jintangOtter7, alt: "獭与鸟的邻里展柜", caption: "獭与鸟的邻里展示" },
+      { id: '2-9', url: jintangOtter8, alt: "金塘水獭往事导览台", caption: "金塘水獭往事" },
+      { id: '2-10', url: jintangOtter9, alt: "水獭脚印地砖", caption: "有獭来过" }
     ],
     description: `近30年来，水獭在全国数量急剧减少，被列为国家二级重点保护动物、濒危动物。金塘是浙江沿海水獭种群密度最高、分布最集中的区域，金塘水獭科普馆包含寻獭客厅（物种生境展示）、知獭实验室（科研工作）和水獭教室（社区活动），为公众提供深入了解水獭的窗口。
 
