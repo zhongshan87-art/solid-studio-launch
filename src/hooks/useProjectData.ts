@@ -12,6 +12,18 @@ import jintangOtter7 from "@/assets/jintang-otter/7.jpg";
 import jintangOtter8 from "@/assets/jintang-otter/8.jpg";
 import jintangOtter9 from "@/assets/jintang-otter/9.jpg";
 
+// 聚落浮田.圩水相依图片
+import juluoFutian1 from "@/assets/juluo-futian/1.jpg";
+import juluoFutian2 from "@/assets/juluo-futian/2.jpg";
+import juluoFutian3 from "@/assets/juluo-futian/3.jpg";
+import juluoFutian4 from "@/assets/juluo-futian/4.jpg";
+import juluoFutian5 from "@/assets/juluo-futian/5.jpg";
+import juluoFutian6 from "@/assets/juluo-futian/6.jpg";
+import juluoFutian7 from "@/assets/juluo-futian/7.jpg";
+import juluoFutian8 from "@/assets/juluo-futian/8.jpg";
+import juluoFutian9 from "@/assets/juluo-futian/9.jpg";
+import juluoFutian10 from "@/assets/juluo-futian/10.jpg";
+
 const defaultProjects: Project[] = [
   {
     id: 2,
@@ -42,10 +54,18 @@ const defaultProjects: Project[] = [
     id: 4,
     title: "聚落浮田.圩水相依",
     location: "建筑 Architecture",
-    mainImage: "/images/projects/futian/main.jpg",
+    mainImage: juluoFutian1,
     images: [
-      { id: "4-1", url: "/images/projects/futian/1.jpg", alt: "浮田建筑外观", caption: "聚落浮田" },
-      { id: "4-2", url: "/images/projects/futian/2.jpg", alt: "圩田景观", caption: "圩水相依" },
+      { id: "4-1", url: juluoFutian1, alt: "滨水鸟瞰", caption: "三分荡滨水商业聚落鸟瞰" },
+      { id: "4-2", url: juluoFutian2, alt: "聚落与水系", caption: "圩田聚落与水系景观" },
+      { id: "4-3", url: juluoFutian3, alt: "圩田与聚落概念", caption: "圩田与聚落-设计理念" },
+      { id: "4-4", url: juluoFutian4, alt: "重现圩田聚落", caption: "重现圩田聚落，让社区凝聚" },
+      { id: "4-5", url: juluoFutian5, alt: "空中圩田商业", caption: "空中圩田-首层通透空间" },
+      { id: "4-6", url: juluoFutian6, alt: "首层绿植庭院", caption: "首层商业与绿植庭院" },
+      { id: "4-7", url: juluoFutian7, alt: "形态生成策略", caption: "圩田聚落-形态生成与策略" },
+      { id: "4-8", url: juluoFutian8, alt: "沿街透视", caption: "空中圩田沿街透视" },
+      { id: "4-9", url: juluoFutian9, alt: "室内商业空间", caption: "首层商业休闲空间" },
+      { id: "4-10", url: juluoFutian10, alt: "景观商业体验", caption: "景观体验型商业空间" },
     ],
     description: `青浦本土的圩田景观代表着江南地区生态、生产、生活的智慧。本案在三分荡的滨水空间，以圩田、水体、和江南建筑为主要线索，将建筑融于自然的环境基底，创造出具有江南园林特色的生态商业空间。漂浮的空中圩田创造出具有标识感的商业聚落，同时为社区提供了新颖的景观体验及多样的商业空间。创造具有青浦记忆的"聚落浮田"。
 
