@@ -1,6 +1,8 @@
-import project1 from "@/assets/project-1.jpg";
-import project2 from "@/assets/project-2.jpg";
-import project3 from "@/assets/project-3.jpg";
+import ad100 from "@/assets/media/2022AD100.jpg";
+import archiDaily from "@/assets/media/ArchiDaily.jpg";
+import youfang2023 from "@/assets/media/youfang-2023.jpg";
+import youfang2021 from "@/assets/media/youfang-2021.jpg";
+import xiaohongshu2025 from "@/assets/media/xiaohongshu-2025.jpg";
 
 export interface MediaCard {
   id: string;
@@ -12,18 +14,28 @@ export interface MediaCard {
 const defaultMediaCards: MediaCard[] = [
   {
     id: "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
-    image: project1,
-    description: "Innovative architectural design blending modern aesthetics with traditional elements."
+    image: ad100,
+    description: "AD100 Young 2022 年度最具影响力青年设计力量"
   },
   {
     id: "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
-    image: project2,
-    description: "Sustainable residential project featuring eco-friendly materials and natural lighting."
+    image: archiDaily,
+    description: "ArchDaily Building of the Year 2024 Nominee"
   },
   {
     id: "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f",
-    image: project3,
-    description: "Contemporary urban development integrating green spaces and community areas."
+    image: youfang2023,
+    description: "有方 2023 中国年轻建筑事务所"
+  },
+  {
+    id: "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f8a",
+    image: youfang2021,
+    description: "有方 2021 中国年轻建筑事务所"
+  },
+  {
+    id: "e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b",
+    image: xiaohongshu2025,
+    description: "InAward 小红书设计大赛 2025 获奖作品"
   }
 ];
 
