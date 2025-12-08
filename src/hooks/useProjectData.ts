@@ -72,6 +72,15 @@ import shicang8 from "@/assets/shicang/8.jpg";
 import shicang9 from "@/assets/shicang/9.jpg";
 import shicang10 from "@/assets/shicang/10.jpg";
 
+// 幼儿园图片
+import kindergarten1 from "@/assets/kindergarten/1.jpg";
+import kindergarten2 from "@/assets/kindergarten/2.jpg";
+import kindergarten3 from "@/assets/kindergarten/3.jpg";
+import kindergarten4 from "@/assets/kindergarten/4.jpg";
+import kindergarten5 from "@/assets/kindergarten/5.jpg";
+import kindergarten6 from "@/assets/kindergarten/6.png";
+import kindergarten7 from "@/assets/kindergarten/7.jpg";
+
 const defaultProjects: Project[] = [
   {
     id: 2,
@@ -214,8 +223,16 @@ const defaultProjects: Project[] = [
     id: 7,
     title: "幼儿园",
     location: "建筑 Architecture",
-    mainImage: "/images/projects/kindergarten/main.jpg",
-    images: [{ id: "7-1", url: "/images/projects/kindergarten/1.jpg", alt: "幼儿园建筑", caption: "幼儿园" }],
+    mainImage: kindergarten1,
+    images: [
+      { id: "7-1", url: kindergarten1, alt: "大厅全景", caption: "幼儿园大厅与黄色网织装置" },
+      { id: "7-2", url: kindergarten2, alt: "大厅空间", caption: "开放式大厅与多功能区" },
+      { id: "7-3", url: kindergarten3, alt: "接待台与空间", caption: "接待台与网织装置" },
+      { id: "7-4", url: kindergarten4, alt: "黄色内嵌空间", caption: "黄色内嵌窗口细节" },
+      { id: "7-5", url: kindergarten5, alt: "儿童活动", caption: "儿童活动与木质积木" },
+      { id: "7-6", url: kindergarten6, alt: "空间概念图", caption: "功能体块分析图" },
+      { id: "7-7", url: kindergarten7, alt: "尺度分析", caption: "儿童与成人尺度对比" },
+    ],
     description: `幼儿园项目描述待补充。
 
 地点：待定
