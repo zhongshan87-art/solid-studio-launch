@@ -56,8 +56,8 @@ const defaultProjects: Project[] = [
     location: "建筑 Architecture",
     mainImage: juluoFutian1,
     images: [
-      { id: "4-1", url: juluoFutian1, alt: "滨水鸟瞰", caption: "三分荡滨水商业聚落鸟瞰" },
-      { id: "4-2", url: juluoFutian2, alt: "聚落与水系", caption: "圩田聚落与水系景观" },
+      { id: "4-1", url: juluoFutian2, alt: "滨水鸟瞰", caption: "三分荡滨水商业聚落鸟瞰" },
+      { id: "4-2", url: juluoFutian1, alt: "聚落与水系", caption: "圩田聚落与水系景观" },
       { id: "4-3", url: juluoFutian3, alt: "圩田与聚落概念", caption: "圩田与聚落-设计理念" },
       { id: "4-4", url: juluoFutian4, alt: "重现圩田聚落", caption: "重现圩田聚落，让社区凝聚" },
       { id: "4-5", url: juluoFutian5, alt: "空中圩田商业", caption: "空中圩田-首层通透空间" },
