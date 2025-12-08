@@ -81,6 +81,16 @@ import kindergarten5 from "@/assets/kindergarten/5.jpg";
 import kindergarten6 from "@/assets/kindergarten/6.png";
 import kindergarten7 from "@/assets/kindergarten/7.jpg";
 
+// 篱笆图片
+import liba1 from "@/assets/liba/1.jpg";
+import liba2 from "@/assets/liba/2.jpg";
+import liba3 from "@/assets/liba/3.jpg";
+import liba4 from "@/assets/liba/4.jpg";
+import liba5 from "@/assets/liba/5.jpg";
+import liba6 from "@/assets/liba/6.jpg";
+import liba7 from "@/assets/liba/7.jpg";
+import liba8 from "@/assets/liba/8.jpg";
+
 const defaultProjects: Project[] = [
   {
     id: 2,
@@ -241,9 +251,18 @@ const defaultProjects: Project[] = [
   {
     id: 8,
     title: "篱笆",
-    location: "建筑 Architecture",
-    mainImage: "/images/projects/liba/main.jpg",
-    images: [{ id: "8-1", url: "/images/projects/liba/1.jpg", alt: "篱笆建筑", caption: "篱笆" }],
+    location: "家具 Furniture",
+    mainImage: liba1,
+    images: [
+      { id: "8-1", url: liba1, alt: "篱笆沙发与植物", caption: "篱笆沙发与绿植搭配" },
+      { id: "8-2", url: liba2, alt: "篱笆家具系列", caption: "篱笆家具组合与空间" },
+      { id: "8-3", url: liba3, alt: "篱笆床头板", caption: "篱笆床头板与灯光效果" },
+      { id: "8-4", url: liba4, alt: "弯曲模具与材料", caption: "曲木弯曲模具与材料准备" },
+      { id: "8-5", url: liba5, alt: "弯曲工艺", caption: "曲木弯曲成型过程" },
+      { id: "8-6", url: liba6, alt: "夹具固定", caption: "多层夹具固定与定型" },
+      { id: "8-7", url: liba7, alt: "工作室制作", caption: "工作室曲木部件制作" },
+      { id: "8-8", url: liba8, alt: "成品结构", caption: "曲木编织结构成品" },
+    ],
     description: `篱笆项目描述待补充。
 
 地点：待定
