@@ -60,6 +60,18 @@ import yishiyiyuan8 from "@/assets/yishiyiyuan/8.jpg";
 import yishiyiyuan9 from "@/assets/yishiyiyuan/9.jpg";
 import yishiyiyuan10 from "@/assets/yishiyiyuan/10.jpg";
 
+// 食仓图片
+import shicang1 from "@/assets/shicang/1.jpg";
+import shicang2 from "@/assets/shicang/2.jpg";
+import shicang3 from "@/assets/shicang/3.jpg";
+import shicang4 from "@/assets/shicang/4.jpg";
+import shicang5 from "@/assets/shicang/5.jpg";
+import shicang6 from "@/assets/shicang/6.jpg";
+import shicang7 from "@/assets/shicang/7.jpg";
+import shicang8 from "@/assets/shicang/8.jpg";
+import shicang9 from "@/assets/shicang/9.jpg";
+import shicang10 from "@/assets/shicang/10.jpg";
+
 const defaultProjects: Project[] = [
   {
     id: 2,
@@ -180,10 +192,18 @@ const defaultProjects: Project[] = [
     id: 5,
     title: "食仓",
     location: "室内 Interior",
-    mainImage: "/images/projects/shicang/main.jpg",
+    mainImage: shicang1,
     images: [
-      { id: "5-1", url: "/images/projects/shicang/1.jpg", alt: "食仓餐厅", caption: "食仓" },
-      { id: "5-2", url: "/images/projects/shicang/2.jpg", alt: "钢构货架系统", caption: "工业食集空间" },
+      { id: "5-1", url: shicang1, alt: "餐厅内景", caption: "食仓餐厅全景" },
+      { id: "5-2", url: shicang2, alt: "用餐区细节", caption: "用餐区与吊灯" },
+      { id: "5-3", url: shicang3, alt: "室内全景", caption: "开放式厨房与用餐区" },
+      { id: "5-4", url: shicang4, alt: "入口与廊道", caption: "入口空间与展示廊道" },
+      { id: "5-5", url: shicang5, alt: "货架结构", caption: "钢构货架系统" },
+      { id: "5-6", url: shicang6, alt: "户外用餐", caption: "户外棚架用餐区" },
+      { id: "5-7", url: shicang7, alt: "外立面", caption: "建筑外立面" },
+      { id: "5-8", url: shicang8, alt: "户外广场", caption: "户外广场与弧形座椅" },
+      { id: "5-9", url: shicang9, alt: "家具细节", caption: "木质座椅与餐桌细节" },
+      { id: "5-10", url: shicang10, alt: "吊灯细节", caption: "吊灯与开放厨房" },
     ],
     description: `肉仙来是一家以东北熏酱为核心的创意餐厅，同时也是美食文化交流场所。在东北城市哈尔滨，厂区工人们下班后在户外吃熏酱、唠嗑，是最朴实的本地生活。设计概念"食仓"正是为了还原这份东北记忆。餐厅空间犹如工业货仓旁的食集，设计师在4.5m层高的空间里置入钢构货架系统，将明档、食物展示和仓储垂直整合，形成后厨与前场的互动界面。流动的室内外空间增强了公共性，户外轻盈棚架下食客往来，宛如东北早市般热闹。
 
