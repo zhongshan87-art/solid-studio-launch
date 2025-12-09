@@ -310,7 +310,7 @@ const defaultProjects: Project[] = [
   },
   {
     id: 7,
-    title: "“框景 Framed View",
+    title: "框景 Framed View",
     location: "建筑 Architecture",
     mainImage: kindergarten1,
     images: [
@@ -329,7 +329,7 @@ const defaultProjects: Project[] = [
   },
   {
     id: 8,
-    title: "篱笆",
+    title: "篱笆 Liba",
     location: "家具 Furniture",
     mainImage: liba1,
     images: [
