@@ -290,7 +290,7 @@ const defaultProjects: Project[] = [
     id: 5,
     title: "食仓",
     location: "室内 Interior",
-    mainImage: shicang1,
+    mainImage: shicang3,
     images: [
       { id: "5-1", url: shicang1, alt: "餐厅内景", caption: "食仓餐厅全景" },
       { id: "5-2", url: shicang2, alt: "用餐区细节", caption: "用餐区与吊灯" },
