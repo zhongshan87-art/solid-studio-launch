@@ -309,23 +309,26 @@ const defaultProjects: Project[] = [
 完成时间：2025年2月`,
   },
   {
-    id: 7,
-    title: "幼儿园",
+    id: 15,
+    title: "风栖·雪筑",
     location: "建筑 Architecture",
-    mainImage: kindergarten1,
+    mainImage: fengqi2,
     images: [
-      { id: "7-1", url: kindergarten1, alt: "大厅全景", caption: "幼儿园大厅与黄色网织装置" },
-      { id: "7-2", url: kindergarten2, alt: "大厅空间", caption: "开放式大厅与多功能区" },
-      { id: "7-3", url: kindergarten3, alt: "接待台与空间", caption: "接待台与网织装置" },
-      { id: "7-4", url: kindergarten4, alt: "黄色内嵌空间", caption: "黄色内嵌窗口细节" },
-      { id: "7-5", url: kindergarten5, alt: "儿童活动", caption: "儿童活动与木质积木" },
-      { id: "7-6", url: kindergarten6, alt: "空间概念图", caption: "功能体块分析图" },
-      { id: "7-7", url: kindergarten7, alt: "尺度分析", caption: "儿童与成人尺度对比" },
+      { id: "15-2", url: fengqi2, alt: "北方木屋外观", caption: "北方干冷气候木屋" },
+      { id: "15-3", url: fengqi3, alt: "北方木屋细节", caption: "北方木屋建筑细节" },
+      { id: "15-4", url: fengqi4, alt: "北方木屋内景", caption: "北方木屋室内空间" },
+      { id: "15-5", url: fengqi5, alt: "北方木屋全景", caption: "北方木屋环境融合" },
+      { id: "15-6", url: fengqi6, alt: "南方木屋外观", caption: "南方湿热气候木屋" },
+      { id: "15-7", url: fengqi7, alt: "南方木屋细节", caption: "南方木屋建筑细节" },
+      { id: "15-8", url: fengqi8, alt: "南方木屋内景", caption: "南方木屋室内空间" },
+      { id: "15-9", url: fengqi9, alt: "南方木屋全景", caption: "南方木屋环境融合" },
+      { id: "15-10", url: fengqi10, alt: "南方木屋夜景", caption: "南方木屋夜间效果" },
+      { id: "15-1", url: fengqi1, alt: "总平面图", caption: "项目总平面布局" },
     ],
-    description: `4700平方米建筑面积，12个班级的私立幼儿园。设计通过统一的色彩视觉营造温馨舒适的园所场景。室内通过一系列“框景”柜子，在幼儿园大厅创造出捉迷藏的空间氛围。
+    description: `让气候变成居住体验的一部分
+    风栖雪筑创造了一套可适应不同气候的系统性木屋预制方案。设计用同一套预制建材系统来搭建针对湿热和干冷两种类型气候的房屋，同时注重与自然连接的居住体验，为乡村文旅，自然保护地等场所提供有趣，美观，快速搭建，持久的居住和活动场所。
 
-地点：福建
-完成时间：2018年9月`,
+完成时间：2025年8月`,
   },
   {
     id: 8,
@@ -474,26 +477,23 @@ const defaultProjects: Project[] = [
 完成时间：2024年6月`,
   },
   {
-    id: 15,
-    title: "风栖·雪筑",
+    id: 7,
+    title: "幼儿园",
     location: "建筑 Architecture",
-    mainImage: fengqi2,
+    mainImage: kindergarten1,
     images: [
-      { id: "15-2", url: fengqi2, alt: "北方木屋外观", caption: "北方干冷气候木屋" },
-      { id: "15-3", url: fengqi3, alt: "北方木屋细节", caption: "北方木屋建筑细节" },
-      { id: "15-4", url: fengqi4, alt: "北方木屋内景", caption: "北方木屋室内空间" },
-      { id: "15-5", url: fengqi5, alt: "北方木屋全景", caption: "北方木屋环境融合" },
-      { id: "15-6", url: fengqi6, alt: "南方木屋外观", caption: "南方湿热气候木屋" },
-      { id: "15-7", url: fengqi7, alt: "南方木屋细节", caption: "南方木屋建筑细节" },
-      { id: "15-8", url: fengqi8, alt: "南方木屋内景", caption: "南方木屋室内空间" },
-      { id: "15-9", url: fengqi9, alt: "南方木屋全景", caption: "南方木屋环境融合" },
-      { id: "15-10", url: fengqi10, alt: "南方木屋夜景", caption: "南方木屋夜间效果" },
-      { id: "15-1", url: fengqi1, alt: "总平面图", caption: "项目总平面布局" },
+      { id: "7-1", url: kindergarten1, alt: "大厅全景", caption: "幼儿园大厅与黄色网织装置" },
+      { id: "7-2", url: kindergarten2, alt: "大厅空间", caption: "开放式大厅与多功能区" },
+      { id: "7-3", url: kindergarten3, alt: "接待台与空间", caption: "接待台与网织装置" },
+      { id: "7-4", url: kindergarten4, alt: "黄色内嵌空间", caption: "黄色内嵌窗口细节" },
+      { id: "7-5", url: kindergarten5, alt: "儿童活动", caption: "儿童活动与木质积木" },
+      { id: "7-6", url: kindergarten6, alt: "空间概念图", caption: "功能体块分析图" },
+      { id: "7-7", url: kindergarten7, alt: "尺度分析", caption: "儿童与成人尺度对比" },
     ],
-    description: `让气候变成居住体验的一部分
-    风栖雪筑创造了一套可适应不同气候的系统性木屋预制方案。设计用同一套预制建材系统来搭建针对湿热和干冷两种类型气候的房屋，同时注重与自然连接的居住体验，为乡村文旅，自然保护地等场所提供有趣，美观，快速搭建，持久的居住和活动场所。
+    description: `4700平方米建筑面积，12个班级的私立幼儿园。设计通过统一的色彩视觉营造温馨舒适的园所场景。室内通过一系列“框景”柜子，在幼儿园大厅创造出捉迷藏的空间氛围。
 
-完成时间：2025年8月`,
+地点：福建
+完成时间：2018年9月`,
   },
 ];
 
