@@ -215,7 +215,7 @@ const defaultProjects: Project[] = [
   },
   {
     id: 6,
-    title: "探索山岭 EXPLORE MOUNTAIN",
+    title: "探索山岭 Explore Mountain",
     location: "展览 Exhibition",
     mainImage: exploreMountain1,
     images: [
@@ -237,7 +237,7 @@ const defaultProjects: Project[] = [
   },
   {
     id: 3,
-    title: "听，有嗡嗡声",
+    title: "听，有嗡嗡声 Listen, There is a Buzz",
     location: "展览 Exhibition",
     mainImage: listenBuzz5,
     images: [
@@ -261,7 +261,7 @@ const defaultProjects: Project[] = [
   },
   {
     id: 1,
-    title: "一室亦园",
+    title: "一室亦园 One Room One Garden",
     location: "室内 Interior",
     mainImage: yishiyiyuan1,
     images: [
@@ -288,7 +288,7 @@ const defaultProjects: Project[] = [
   },
   {
     id: 5,
-    title: "食仓",
+    title: "食仓 The Gourmet Depot",
     location: "室内 Interior",
     mainImage: shicang3,
     images: [
@@ -310,7 +310,7 @@ const defaultProjects: Project[] = [
   },
   {
     id: 7,
-    title: "幼儿园",
+    title: "“框景 Framed View",
     location: "建筑 Architecture",
     mainImage: kindergarten1,
     images: [
@@ -349,7 +349,7 @@ const defaultProjects: Project[] = [
   },
   {
     id: 9,
-    title: "手艺之家",
+    title: "手艺之家 House of Crafts",
     location: "展览 Exhibition",
     mainImage: shouyi1,
     images: [
@@ -371,7 +371,7 @@ const defaultProjects: Project[] = [
   },
   {
     id: 10,
-    title: "双棚",
+    title: "双棚 Double Sheds",
     location: "室内 Interior",
     mainImage: shuangpeng1,
     images: [
@@ -391,7 +391,7 @@ const defaultProjects: Project[] = [
   },
   {
     id: 11,
-    title: "柔和过渡",
+    title: "柔和过渡 Soft Transitions",
     location: "室内 Interior",
     mainImage: rouhe1,
     images: [
@@ -412,7 +412,7 @@ const defaultProjects: Project[] = [
   },
   {
     id: 12,
-    title: "青松住宅",
+    title: "青松住宅 Pine Resi",
     location: "室内 Interior",
     mainImage: qingsong1,
     images: [
@@ -435,7 +435,7 @@ const defaultProjects: Project[] = [
   },
   {
     id: 13,
-    title: "光影梧桐",
+    title: "光影梧桐 Light and Shadow Wutong",
     location: "建筑 Architecture",
     mainImage: guangying1,
     images: [
@@ -456,7 +456,7 @@ const defaultProjects: Project[] = [
   },
   {
     id: 14,
-    title: "小花野美",
+    title: "小花野美 Small Flower Wild Beauty",
     location: "装置 Installation",
     mainImage: xiaohua2,
     images: [
@@ -475,7 +475,7 @@ const defaultProjects: Project[] = [
   },
   {
     id: 15,
-    title: "风栖·雪筑",
+    title: "风栖·雪筑 Wind & Snow Cabin",
     location: "建筑 Architecture",
     mainImage: fengqi2,
     images: [
@@ -490,7 +490,7 @@ const defaultProjects: Project[] = [
       { id: "15-10", url: fengqi10, alt: "南方木屋夜景", caption: "南方木屋夜间效果" },
       { id: "15-1", url: fengqi1, alt: "总平面图", caption: "项目总平面布局" },
     ],
-    description: `让气候变成居住体验的一部分
+    description: `风栖雪筑——气候双生木屋，让气候变成居住体验的一部分。
     风栖雪筑创造了一套可适应不同气候的系统性木屋预制方案。设计用同一套预制建材系统来搭建针对湿热和干冷两种类型气候的房屋，同时注重与自然连接的居住体验，为乡村文旅，自然保护地等场所提供有趣，美观，快速搭建，持久的居住和活动场所。
 
 完成时间：2025年8月`,
