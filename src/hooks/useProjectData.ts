@@ -123,6 +123,18 @@ import rouhe7 from "@/assets/rouhe/7.jpg";
 import rouhe8 from "@/assets/rouhe/8.jpg";
 import rouhe9 from "@/assets/rouhe/9.jpg";
 
+// 青松住宅图片
+import qingsong1 from "@/assets/qingsong/1.jpg";
+import qingsong2 from "@/assets/qingsong/2.jpg";
+import qingsong3 from "@/assets/qingsong/3.jpg";
+import qingsong4 from "@/assets/qingsong/4.jpg";
+import qingsong5 from "@/assets/qingsong/5.jpg";
+import qingsong6 from "@/assets/qingsong/6.jpg";
+import qingsong7 from "@/assets/qingsong/7.jpg";
+import qingsong8 from "@/assets/qingsong/8.jpg";
+import qingsong9 from "@/assets/qingsong/9.jpg";
+import qingsong10 from "@/assets/qingsong/10.jpg";
+
 const defaultProjects: Project[] = [
   {
     id: 2,
@@ -372,10 +384,21 @@ const defaultProjects: Project[] = [
     id: 12,
     title: "青松住宅",
     location: "室内 Interior",
-    mainImage: "/images/projects/qingsong/main.jpg",
-    images: [{ id: "12-1", url: "/images/projects/qingsong/1.jpg", alt: "青松住宅", caption: "青松住宅" }],
-    description: `初次探访基地，窗外的青松给所有人留下了映象，在静安区建筑密度如此高的地段，凝视着窗外这颗青松能感知到“心远地自偏”。室内的材料也延续“雪落青松”展开。公区明亮，如雪后的白净，墙裙的白色大理石在客厅里延伸，壁炉的火焰在白色石材中轻盈舞动。书房和卧室犹如松树杆的深沉褐色，创造静谧沉浸的休体验。
-这次的设计目标是为业主在繁忙的都市生活中打造一个宁静，治愈，滋养的居住空间。希望我们都能在忙碌的城市里享受到“心远地自偏”的愉悦。
+    mainImage: qingsong1,
+    images: [
+      { id: "12-1", url: qingsong1, alt: "客厅全景", caption: "客厅与大理石壁炉" },
+      { id: "12-2", url: qingsong2, alt: "壁炉细节", caption: "单椅与壁炉细节" },
+      { id: "12-3", url: qingsong3, alt: "沙发区", caption: "沙发区与艺术装饰" },
+      { id: "12-4", url: qingsong4, alt: "阳台空间", caption: "大理石阳台与青松" },
+      { id: "12-5", url: qingsong5, alt: "壁炉与松", caption: "壁炉与青松盆景" },
+      { id: "12-6", url: qingsong6, alt: "餐厅空间", caption: "餐厅与吊灯" },
+      { id: "12-7", url: qingsong7, alt: "餐厅细节", caption: "吧台与城市景观" },
+      { id: "12-8", url: qingsong8, alt: "卧室空间", caption: "卧室与木饰面" },
+      { id: "12-9", url: qingsong9, alt: "主卧走廊", caption: "主卧走廊与书房" },
+      { id: "12-10", url: qingsong10, alt: "走廊空间", caption: "走廊与艺术画作" },
+    ],
+    description: `初次探访基地，窗外的青松给所有人留下了映象，在静安区建筑密度如此高的地段，凝视着窗外这颗青松能感知到"心远地自偏"。室内的材料也延续"雪落青松"展开。公区明亮，如雪后的白净，墙裙的白色大理石在客厅里延伸，壁炉的火焰在白色石材中轻盈舞动。书房和卧室犹如松树杆的深沉褐色，创造静谧沉浸的休体验。
+这次的设计目标是为业主在繁忙的都市生活中打造一个宁静，治愈，滋养的居住空间。希望我们都能在忙碌的城市里享受到"心远地自偏"的愉悦。
 
 地点：上海静安
 完成时间：2023年11月`,
