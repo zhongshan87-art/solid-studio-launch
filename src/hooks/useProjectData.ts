@@ -460,8 +460,8 @@ const defaultProjects: Project[] = [
     location: "装置 Installation",
     mainImage: xiaohua2,
     images: [
-      { id: "14-1", url: xiaohua1, alt: "花亭概念图", caption: "花亭设计概念" },
-      { id: "14-2", url: xiaohua2, alt: "花亭装置全景", caption: "商场中庭的花亭装置" },
+      { id: "14-1", url: xiaohua2, alt: "花亭概念图", caption: "花亭设计概念" },
+      { id: "14-2", url: xiaohua1, alt: "花亭装置全景", caption: "商场中庭的花亭装置" },
       { id: "14-3", url: xiaohua3, alt: "参观者互动", caption: "参观者与花亭互动" },
       { id: "14-4", url: xiaohua4, alt: "野花影像", caption: "彩色X光野花影像" },
       { id: "14-5", url: xiaohua5, alt: "织物细节", caption: "透明织物层叠细节" },
