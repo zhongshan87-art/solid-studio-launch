@@ -479,7 +479,6 @@ const defaultProjects: Project[] = [
     location: "建筑 Architecture",
     mainImage: fengqi2,
     images: [
-      { id: "15-1", url: fengqi1, alt: "总平面图", caption: "项目总平面布局" },
       { id: "15-2", url: fengqi2, alt: "北方木屋外观", caption: "北方干冷气候木屋" },
       { id: "15-3", url: fengqi3, alt: "北方木屋细节", caption: "北方木屋建筑细节" },
       { id: "15-4", url: fengqi4, alt: "北方木屋内景", caption: "北方木屋室内空间" },
@@ -489,8 +488,10 @@ const defaultProjects: Project[] = [
       { id: "15-8", url: fengqi8, alt: "南方木屋内景", caption: "南方木屋室内空间" },
       { id: "15-9", url: fengqi9, alt: "南方木屋全景", caption: "南方木屋环境融合" },
       { id: "15-10", url: fengqi10, alt: "南方木屋夜景", caption: "南方木屋夜间效果" },
+      { id: "15-1", url: fengqi1, alt: "总平面图", caption: "项目总平面布局" },
     ],
-    description: `风栖雪筑创造了一套可适应不同气候的系统性木屋预制方案。设计用同一套预制建材系统来搭建针对湿热和干冷两种类型气候的房屋，同时注重与自然连接的居住体验，为乡村文旅，自然保护地等场所提供有趣，美观，快速搭建，持久的居住和活动场所。
+    description: `让气候变成居住体验的一部分
+    风栖雪筑创造了一套可适应不同气候的系统性木屋预制方案。设计用同一套预制建材系统来搭建针对湿热和干冷两种类型气候的房屋，同时注重与自然连接的居住体验，为乡村文旅，自然保护地等场所提供有趣，美观，快速搭建，持久的居住和活动场所。
 
 完成时间：2025年8月`,
   },
