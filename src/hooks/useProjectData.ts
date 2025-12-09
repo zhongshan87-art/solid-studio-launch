@@ -144,6 +144,15 @@ import guangying5 from "@/assets/guangying-wutong/5.jpg";
 import guangying6 from "@/assets/guangying-wutong/6.jpg";
 import guangying7 from "@/assets/guangying-wutong/7.jpg";
 
+// 小花野美图片
+import xiaohua1 from "@/assets/xiaohua/1.jpg";
+import xiaohua2 from "@/assets/xiaohua/2.jpg";
+import xiaohua3 from "@/assets/xiaohua/3.jpg";
+import xiaohua4 from "@/assets/xiaohua/4.jpg";
+import xiaohua5 from "@/assets/xiaohua/5.jpg";
+import xiaohua6 from "@/assets/xiaohua/6.jpg";
+import xiaohua7 from "@/assets/xiaohua/7.jpg";
+
 const defaultProjects: Project[] = [
   {
     id: 2,
@@ -437,8 +446,16 @@ const defaultProjects: Project[] = [
     id: 14,
     title: "小花野美",
     location: "装置 Installation",
-    mainImage: "/images/projects/xiaohua/main.jpg",
-    images: [{ id: "14-1", url: "/images/projects/xiaohua/1.jpg", alt: "小花野美室内", caption: "小花野美" }],
+    mainImage: xiaohua2,
+    images: [
+      { id: "14-1", url: xiaohua1, alt: "花亭概念图", caption: "花亭设计概念" },
+      { id: "14-2", url: xiaohua2, alt: "花亭装置全景", caption: "商场中庭的花亭装置" },
+      { id: "14-3", url: xiaohua3, alt: "参观者互动", caption: "参观者与花亭互动" },
+      { id: "14-4", url: xiaohua4, alt: "野花影像", caption: "彩色X光野花影像" },
+      { id: "14-5", url: xiaohua5, alt: "织物细节", caption: "透明织物层叠细节" },
+      { id: "14-6", url: xiaohua6, alt: "朦胧色彩", caption: "朦胧色彩体验" },
+      { id: "14-7", url: xiaohua7, alt: "夜间效果", caption: "夜间灯光效果" },
+    ],
     description: `小花野美是一个感知长三角本土野花的体验装置。充满体量感的色彩雕塑--花亭,用透明织物表达花朵轻盈柔软,层层包裹的状态。花亭邀请观众进入朦胧色彩之中,沉浸地欣赏彩色X光片般的本土野花影像。
 
 地点：上海黄浦
