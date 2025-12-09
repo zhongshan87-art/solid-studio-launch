@@ -135,6 +135,15 @@ import qingsong8 from "@/assets/qingsong/8.jpg";
 import qingsong9 from "@/assets/qingsong/9.jpg";
 import qingsong10 from "@/assets/qingsong/10.jpg";
 
+// 光影梧桐图片
+import guangying1 from "@/assets/guangying-wutong/1.png";
+import guangying2 from "@/assets/guangying-wutong/2.jpg";
+import guangying3 from "@/assets/guangying-wutong/3.jpg";
+import guangying4 from "@/assets/guangying-wutong/4.jpg";
+import guangying5 from "@/assets/guangying-wutong/5.jpg";
+import guangying6 from "@/assets/guangying-wutong/6.jpg";
+import guangying7 from "@/assets/guangying-wutong/7.jpg";
+
 const defaultProjects: Project[] = [
   {
     id: 2,
@@ -407,9 +416,17 @@ const defaultProjects: Project[] = [
     id: 13,
     title: "光影梧桐",
     location: "建筑 Architecture",
-    mainImage: "/images/projects/guangying/main.jpg",
-    images: [{ id: "13-1", url: "/images/projects/guangying/1.jpg", alt: "光影梧桐室内", caption: "光影梧桐" }],
-    description: `项目位于上海市长宁区江苏路地铁站。“第三层车站”是希望把车站的城市层作为一个整体的空间系统去考虑，研究怎样让这些公共空间被合理有效的利用起来，并能够很好的接入到周边的社区当中。 愚园路斑驳的梧桐树影给了我们很深的印象，所以我们用一片梧桐叶的意向串联街角空间。在不同主题的公共空间当中， 植入光影装置和艺术盒子，希望用这种当下的文化语言去实时呈现包罗万象又充满活力的愚园路文化。
+    mainImage: guangying1,
+    images: [
+      { id: "13-1", url: guangying1, alt: "城市阳台透视", caption: "城市阳台与高架廊道" },
+      { id: "13-2", url: guangying2, alt: "街道透视", caption: "梧桐树下的街道空间" },
+      { id: "13-3", url: guangying3, alt: "人行步道", caption: "高架廊道下的人行空间" },
+      { id: "13-4", url: guangying4, alt: "街角空间", caption: "街角公共空间与光影装置" },
+      { id: "13-5", url: guangying5, alt: "功能分析图", caption: "空间功能与流线分析" },
+      { id: "13-6", url: guangying6, alt: "鸟瞰总平面", caption: "街区鸟瞰总平面" },
+      { id: "13-7", url: guangying7, alt: "剖面透视", caption: "建筑剖面透视" },
+    ],
+    description: `项目位于上海市长宁区江苏路地铁站。"第三层车站"是希望把车站的城市层作为一个整体的空间系统去考虑，研究怎样让这些公共空间被合理有效的利用起来，并能够很好的接入到周边的社区当中。 愚园路斑驳的梧桐树影给了我们很深的印象，所以我们用一片梧桐叶的意向串联街角空间。在不同主题的公共空间当中， 植入光影装置和艺术盒子，希望用这种当下的文化语言去实时呈现包罗万象又充满活力的愚园路文化。
 业主：上海市长宁区规划和自然资源局
 方案征集获奖方案
 
