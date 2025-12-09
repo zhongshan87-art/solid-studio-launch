@@ -153,6 +153,18 @@ import xiaohua5 from "@/assets/xiaohua/5.jpg";
 import xiaohua6 from "@/assets/xiaohua/6.jpg";
 import xiaohua7 from "@/assets/xiaohua/7.jpg";
 
+// 风栖·雪筑图片
+import fengqi1 from "@/assets/fengqi-xuezhu/1.jpg";
+import fengqi2 from "@/assets/fengqi-xuezhu/2.jpg";
+import fengqi3 from "@/assets/fengqi-xuezhu/3.jpg";
+import fengqi4 from "@/assets/fengqi-xuezhu/4.jpg";
+import fengqi5 from "@/assets/fengqi-xuezhu/5.jpg";
+import fengqi6 from "@/assets/fengqi-xuezhu/6.jpg";
+import fengqi7 from "@/assets/fengqi-xuezhu/7.jpg";
+import fengqi8 from "@/assets/fengqi-xuezhu/8.jpg";
+import fengqi9 from "@/assets/fengqi-xuezhu/9.jpg";
+import fengqi10 from "@/assets/fengqi-xuezhu/10.jpg";
+
 const defaultProjects: Project[] = [
   {
     id: 2,
@@ -465,8 +477,19 @@ const defaultProjects: Project[] = [
     id: 15,
     title: "风栖·雪筑",
     location: "建筑 Architecture",
-    mainImage: "/images/projects/fengqi/main.jpg",
-    images: [{ id: "15-1", url: "/images/projects/fengqi/1.jpg", alt: "风栖·雪筑室内", caption: "风栖·雪筑" }],
+    mainImage: fengqi2,
+    images: [
+      { id: "15-1", url: fengqi1, alt: "总平面图", caption: "项目总平面布局" },
+      { id: "15-2", url: fengqi2, alt: "北方木屋外观", caption: "北方干冷气候木屋" },
+      { id: "15-3", url: fengqi3, alt: "北方木屋细节", caption: "北方木屋建筑细节" },
+      { id: "15-4", url: fengqi4, alt: "北方木屋内景", caption: "北方木屋室内空间" },
+      { id: "15-5", url: fengqi5, alt: "北方木屋全景", caption: "北方木屋环境融合" },
+      { id: "15-6", url: fengqi6, alt: "南方木屋外观", caption: "南方湿热气候木屋" },
+      { id: "15-7", url: fengqi7, alt: "南方木屋细节", caption: "南方木屋建筑细节" },
+      { id: "15-8", url: fengqi8, alt: "南方木屋内景", caption: "南方木屋室内空间" },
+      { id: "15-9", url: fengqi9, alt: "南方木屋全景", caption: "南方木屋环境融合" },
+      { id: "15-10", url: fengqi10, alt: "南方木屋夜景", caption: "南方木屋夜间效果" },
+    ],
     description: `风栖雪筑创造了一套可适应不同气候的系统性木屋预制方案。设计用同一套预制建材系统来搭建针对湿热和干冷两种类型气候的房屋，同时注重与自然连接的居住体验，为乡村文旅，自然保护地等场所提供有趣，美观，快速搭建，持久的居住和活动场所。
 
 完成时间：2025年8月`,
