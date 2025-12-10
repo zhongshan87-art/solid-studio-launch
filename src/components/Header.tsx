@@ -11,7 +11,7 @@ interface MediaCardItemProps {
 
 const MediaCardItem = ({ card }: MediaCardItemProps) => {
   return (
-    <Card className="overflow-hidden w-[80%] mx-auto">
+    <Card className="overflow-hidden w-full md:w-[80%] mx-auto rounded-none md:rounded-lg">
       <CardContent className="p-0">
         <div className="relative">
           <img 
@@ -22,7 +22,7 @@ const MediaCardItem = ({ card }: MediaCardItemProps) => {
           />
         </div>
         
-        <div className="p-3">
+        <div className="p-2.5 md:p-3">
           <p className="text-base leading-relaxed whitespace-pre-line text-foreground font-bold">
             {card.description}
           </p>
@@ -57,16 +57,16 @@ export const Header = () => {
         </nav>
 
         <Dialog open={isMediaOpen} onOpenChange={setIsMediaOpen}>
-          <DialogContent className="w-[80vw] max-w-none h-[80vh] max-h-none">
-            <DialogHeader>
+          <DialogContent className="w-screen h-screen max-w-none max-h-none p-0 rounded-none">
+            <DialogHeader className="p-2.5 md:p-4 pb-0">
               <DialogTitle>奖项和新闻 Awards & News</DialogTitle>
             </DialogHeader>
             <div className="flex-1 overflow-auto">
-              <div className="p-4">
+              <div className="p-2.5 md:p-4">
                 {mediaLoading ? (
                   <p className="text-center text-muted-foreground">Loading...</p>
                 ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                     {cards.map(card => (
                       <MediaCardItem key={card.id} card={card} />
                     ))}
@@ -78,18 +78,18 @@ export const Header = () => {
         </Dialog>
 
         <Dialog open={isStudioOpen} onOpenChange={setIsStudioOpen}>
-          <DialogContent className="w-[80vw] max-w-none h-[80vh] max-h-none">
-            <DialogHeader>
+          <DialogContent className="w-screen h-screen max-w-none max-h-none p-0 rounded-none">
+            <DialogHeader className="p-2.5 md:p-4 pb-0">
               <DialogTitle>尺度森林S.F.A</DialogTitle>
             </DialogHeader>
-            <div className="flex-1 overflow-auto p-4">
+            <div className="flex-1 overflow-auto p-2.5 md:p-4">
               {studioLoading ? (
                 <p className="text-center text-muted-foreground">Loading...</p>
               ) : (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 h-full">
                   {/* Left column - Display text */}
                   <div className="flex flex-col gap-4 items-center justify-center h-full">
-                    <div className="text-sm leading-relaxed w-[60%] space-y-6 text-justify">
+                    <div className="text-sm leading-relaxed w-full md:w-[60%] space-y-6 text-justify">
                       <p className="font-medium">
                         {studio.introChinese}
                       </p>
@@ -101,7 +101,7 @@ export const Header = () => {
                   
                   {/* Right column - Display image */}
                   <div className="flex flex-col gap-4">
-                    <div className="flex-1 rounded-md overflow-hidden">
+                    <div className="flex-1 overflow-hidden rounded-none md:rounded-md">
                       <img 
                         src={studio.image} 
                         alt="Studio" 
