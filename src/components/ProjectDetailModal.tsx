@@ -31,16 +31,16 @@ export const ProjectDetailModal = ({
           <DialogDescription>查看项目信息与图片</DialogDescription>
         </DialogHeader>
         {project ? (
-          <div className="h-full w-full flex flex-col lg:flex-row">
+          <div className="h-full w-full flex flex-col lg:flex-row overflow-hidden">
             {/* Left side - Text content (1/3 on desktop) */}
-            <div className="lg:w-1/3 p-6 md:p-8 lg:border-r border-border">
+            <div className="lg:w-1/3 p-6 md:p-8 lg:border-r border-border flex-shrink-0 overflow-y-auto">
               <h3 className="text-2xl font-bold mb-2 text-foreground">{project.title}</h3>
               <p className="text-lg mb-4 text-muted-foreground">{project.location}</p>
               <p className="text-base leading-relaxed text-foreground/90 whitespace-pre-wrap">{projectDescription}</p>
             </div>
 
             {/* Right side - Images (2/3 on desktop) */}
-            <ScrollArea className="flex-1 lg:w-2/3 h-full">
+            <ScrollArea className="flex-1 lg:w-2/3 h-full min-h-0">
               <div className="p-6 md:p-8 space-y-6">
                 {project.images.map((media) => (
                   <div key={media.id} className="w-full">
