@@ -82,13 +82,13 @@ export const Header = () => {
             <DialogHeader className="pt-5 md:pt-4 px-2.5 md:px-4 pb-0">
               <DialogTitle>尺度森林S.F.A</DialogTitle>
             </DialogHeader>
-            <div className="flex-1 overflow-auto mt-6 md:mt-4 p-2.5 md:p-4">
+            <div className="flex-1 overflow-auto mt-2 md:mt-4 p-2.5 md:p-4">
               {studioLoading ? (
                 <p className="text-center text-muted-foreground">Loading...</p>
               ) : (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 lg:h-full">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 md:gap-6 lg:h-full">
                   {/* Left column - Display text */}
-                  <div className="flex flex-col gap-4 items-center lg:justify-center lg:h-full">
+                  <div className="flex flex-col items-center lg:justify-center lg:h-full">
                     <div className="text-sm leading-relaxed w-full md:w-[60%] space-y-6 text-justify">
                       <p className="font-medium">
                         {studio.introChinese}
