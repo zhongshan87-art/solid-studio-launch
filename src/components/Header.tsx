@@ -86,9 +86,9 @@ export const Header = () => {
               {studioLoading ? (
                 <p className="text-center text-muted-foreground">Loading...</p>
               ) : (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 h-full">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 lg:h-full">
                   {/* Left column - Display text */}
-                  <div className="flex flex-col gap-4 items-center justify-center h-full">
+                  <div className="flex flex-col gap-4 items-center lg:justify-center lg:h-full">
                     <div className="text-sm leading-relaxed w-full md:w-[60%] space-y-6 text-justify">
                       <p className="font-medium">
                         {studio.introChinese}
