@@ -84,11 +84,11 @@ export const Header = () => {
         </Dialog>
 
         <Dialog open={isStudioOpen} onOpenChange={setIsStudioOpen}>
-          <DialogContent className="w-screen h-screen max-w-none max-h-none p-0 gap-0 rounded-none">
-            <DialogHeader className="pt-1 md:pt-4 px-2.5 md:px-4 pb-0 space-y-0 md:space-y-1.5">
+          <DialogContent className="w-screen h-screen max-w-none max-h-none p-0 gap-0 rounded-none flex flex-col">
+            <DialogHeader className="pt-2 md:pt-4 px-2.5 md:px-4 pb-0 shrink-0">
               <DialogTitle className="text-base md:text-lg">尺度森林S.F.A</DialogTitle>
             </DialogHeader>
-            <div className="flex-1 overflow-auto mt-0 md:mt-4 p-2.5 md:p-4">
+            <div className="flex-1 overflow-auto p-2.5 md:p-4">
               {studioLoading ? (
                 <p className="text-center text-muted-foreground">Loading...</p>
               ) : (
