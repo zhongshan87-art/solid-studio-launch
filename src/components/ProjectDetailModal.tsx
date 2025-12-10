@@ -25,7 +25,7 @@ export const ProjectDetailModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="w-[90vw] max-w-none h-[90vh] max-h-none p-0">
+      <DialogContent className="w-screen h-screen max-w-none max-h-none p-0 rounded-none">
         <DialogHeader className="sr-only">
           <DialogTitle>项目详情</DialogTitle>
           <DialogDescription>查看项目信息与图片</DialogDescription>
