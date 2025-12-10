@@ -88,7 +88,7 @@ export const Header = () => {
             <DialogHeader className="pt-1 md:pt-4 px-2.5 md:px-4 pb-0">
               <DialogTitle>尺度森林S.F.A</DialogTitle>
             </DialogHeader>
-            <div className="flex-1 overflow-auto mt-2 md:mt-4 p-2.5 md:p-4">
+            <div className="flex-1 overflow-auto mt-0 md:mt-4 p-2.5 md:p-4">
               {studioLoading ? (
                 <p className="text-center text-muted-foreground">Loading...</p>
               ) : (
