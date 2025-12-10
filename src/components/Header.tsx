@@ -78,7 +78,7 @@ export const Header = () => {
         </Dialog>
 
         <Dialog open={isStudioOpen} onOpenChange={setIsStudioOpen}>
-          <DialogContent className="w-screen h-screen max-w-none max-h-none p-0 rounded-none">
+          <DialogContent className="w-screen h-screen max-w-none max-h-none p-0 gap-0 rounded-none">
             <DialogHeader className="pt-5 md:pt-4 px-2.5 md:px-4 pb-0">
               <DialogTitle>尺度森林S.F.A</DialogTitle>
             </DialogHeader>
