@@ -14,18 +14,18 @@ const MediaCardItem = ({ card }: MediaCardItemProps) => {
     <Card className="overflow-hidden w-full md:w-[80%] mx-auto rounded-none md:rounded-lg">
       <CardContent className="p-0">
         <div className="relative">
-          <img 
-            src={card.image} 
-            alt="Media card" 
-            className="w-full aspect-[3/4] object-cover" 
-            onError={e => { e.currentTarget.src = '/placeholder.svg'; }} 
+          <img
+            src={card.image}
+            alt="Media card"
+            className="w-full aspect-[3/4] object-cover"
+            onError={(e) => {
+              e.currentTarget.src = "/placeholder.svg";
+            }}
           />
         </div>
-        
+
         <div className="p-2.5 md:p-3">
-          <p className="text-base leading-relaxed whitespace-pre-line text-foreground font-bold">
-            {card.description}
-          </p>
+          <p className="text-base leading-relaxed whitespace-pre-line text-foreground font-bold">{card.description}</p>
         </div>
       </CardContent>
     </Card>
@@ -39,7 +39,7 @@ export const Header = () => {
   const { studio, isLoading: studioLoading } = useStudioData();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-30 bg-background shadow-sm">
       <div className="container-studio flex justify-end items-center py-6 gap-8">
         <nav className="flex items-center gap-8">
           <Link to="/" className="text-caption font-medium hover:text-primary transition-colors">
@@ -48,10 +48,16 @@ export const Header = () => {
           <Link to="/works" className="text-caption font-medium hover:text-primary transition-colors">
             Works
           </Link>
-          <button className="text-caption font-medium hover:text-primary transition-colors" onClick={() => setIsMediaOpen(true)}>
+          <button
+            className="text-caption font-medium hover:text-primary transition-colors"
+            onClick={() => setIsMediaOpen(true)}
+          >
             News
           </button>
-          <button className="text-caption font-medium hover:text-primary transition-colors" onClick={() => setIsStudioOpen(true)}>
+          <button
+            className="text-caption font-medium hover:text-primary transition-colors"
+            onClick={() => setIsStudioOpen(true)}
+          >
             Studio
           </button>
         </nav>
@@ -67,7 +73,7 @@ export const Header = () => {
                   <p className="text-center text-muted-foreground">Loading...</p>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                    {cards.map(card => (
+                    {cards.map((card) => (
                       <MediaCardItem key={card.id} card={card} />
                     ))}
                   </div>
@@ -90,23 +96,26 @@ export const Header = () => {
                   {/* Left column - Display text */}
                   <div className="flex flex-col items-center lg:justify-center lg:h-full">
                     <div className="text-sm leading-relaxed w-full md:w-[60%] space-y-6 text-justify">
-                      <p className="font-medium">
-                        {studio.introChinese}
-                      </p>
-                      <p className="font-light" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+                      <p className="font-medium">{studio.introChinese}</p>
+                      <p
+                        className="font-light"
+                        style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}
+                      >
                         {studio.introEnglish}
                       </p>
                     </div>
                   </div>
-                  
+
                   {/* Right column - Display image */}
                   <div className="flex flex-col gap-4">
                     <div className="flex-1 overflow-hidden rounded-none md:rounded-md">
-                      <img 
-                        src={studio.image} 
-                        alt="Studio" 
-                        className="w-full h-full object-cover" 
-                        onError={e => { e.currentTarget.src = '/placeholder.svg'; }} 
+                      <img
+                        src={studio.image}
+                        alt="Studio"
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.src = "/placeholder.svg";
+                        }}
                       />
                     </div>
                   </div>
