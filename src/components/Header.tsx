@@ -58,10 +58,10 @@ export const Header = () => {
 
         <Dialog open={isMediaOpen} onOpenChange={setIsMediaOpen}>
           <DialogContent className="w-screen h-screen max-w-none max-h-none p-0 rounded-none">
-            <DialogHeader className="p-2.5 md:p-4 pb-0">
+            <DialogHeader className="pt-5 md:pt-4 px-2.5 md:px-4 pb-0">
               <DialogTitle>奖项和新闻 Awards & News</DialogTitle>
             </DialogHeader>
-            <div className="flex-1 overflow-auto">
+            <div className="flex-1 overflow-auto mt-[50px] md:mt-4">
               <div className="p-2.5 md:p-4">
                 {mediaLoading ? (
                   <p className="text-center text-muted-foreground">Loading...</p>
@@ -79,10 +79,10 @@ export const Header = () => {
 
         <Dialog open={isStudioOpen} onOpenChange={setIsStudioOpen}>
           <DialogContent className="w-screen h-screen max-w-none max-h-none p-0 rounded-none">
-            <DialogHeader className="p-2.5 md:p-4 pb-0">
+            <DialogHeader className="pt-5 md:pt-4 px-2.5 md:px-4 pb-0">
               <DialogTitle>尺度森林S.F.A</DialogTitle>
             </DialogHeader>
-            <div className="flex-1 overflow-auto p-2.5 md:p-4">
+            <div className="flex-1 overflow-auto mt-[50px] md:mt-4 p-2.5 md:p-4">
               {studioLoading ? (
                 <p className="text-center text-muted-foreground">Loading...</p>
               ) : (
