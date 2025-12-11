@@ -16,7 +16,6 @@ export interface MediaCard {
 }
 
 const defaultMediaCards: MediaCard[] = [
- 
   {
     id: "e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b",
     image: xiaohongshu2025,
@@ -42,10 +41,10 @@ const defaultMediaCards: MediaCard[] = [
     image: ad100,
     description: "2022AD100Y0UNG 中国最具影响力100个建筑和室内设计新锐",
   },
-   {
+  {
     id: "a0b1c2d3-e4f5-4a6b-7c8d-9e0f1a2b3c4d",
     image: roca2024,
-    description: "尺度森林创始合伙人顾嘉在Roca Shanghai Gallery分享自宅建造故事,
+    description: "尺度森林创始合伙人顾嘉在Roca Shanghai Gallery分享自宅建造故事",
   },
   {
     id: "b1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d5e",
