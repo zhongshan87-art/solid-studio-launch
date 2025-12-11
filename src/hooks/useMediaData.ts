@@ -4,6 +4,9 @@ import youfang2023 from "@/assets/media/youfang-2023.jpg";
 import youfang2021 from "@/assets/media/youfang-2021.jpg";
 import xiaohongshu2025 from "@/assets/media/xiaohongshu-2025.jpg";
 import wudaxincheng2024_2 from "@/assets/media/2024-wudaxincheng-2.jpg";
+import roca2024 from "@/assets/media/2024-roca.jpg";
+import designShanghai2024 from "@/assets/media/2024-design-shanghai.jpg";
+import xintiandi2024 from "@/assets/media/2024-xintiandi.jpg";
 
 export interface MediaCard {
   id: string;
@@ -13,6 +16,21 @@ export interface MediaCard {
 }
 
 const defaultMediaCards: MediaCard[] = [
+  {
+    id: "a0b1c2d3-e4f5-4a6b-7c8d-9e0f1a2b3c4d",
+    image: roca2024,
+    description: "Roca Shanghai Gallery《设计互说》宅语：家的元素",
+  },
+  {
+    id: "b1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d5e",
+    image: designShanghai2024,
+    description: "设计上海 2024 听有嗡嗡声",
+  },
+  {
+    id: "c2d3e4f5-a6b7-4c8d-9e0f-1a2b3c4d5e6f",
+    image: xintiandi2024,
+    description: "新天地设计节 2024",
+  },
   {
     id: "e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b",
     image: xiaohongshu2025,
