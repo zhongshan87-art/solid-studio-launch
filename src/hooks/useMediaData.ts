@@ -29,7 +29,7 @@ const defaultMediaCards: MediaCard[] = [
   {
     id: "f6a7b8c9-d0e1-4f2a-3b4c-5d6e7f8a9b0c",
     image: wudaxincheng2024_2,
-    description: "2024 上海新城公共建筑及景观项目设计方案征集 三分荡国际生态湖岸公园滨水商业片区设计 优胜方案",
+    description: "2024上海新城公共建筑及景观项目设计方案征集-三分荡国际生态湖岸公园滨水商业片区设计-优胜方案",
   },
   {
     id: "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f",
