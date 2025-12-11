@@ -20,7 +20,13 @@ const generateRandomProps = (index: number) => {
   // Random horizontal alignment: 0 = left, 1 = center, 2 = right
   const alignment = Math.floor(random(2) * 3);
   
-  return { width, alignment };
+  // Random vertical margin between 60px and 200px
+  const marginTop = 60 + random(3) * 140;
+  
+  // Random speed multiplier between 0.3 and 1.2
+  const speed = 0.3 + random(4) * 0.9;
+  
+  return { width, alignment, marginTop, speed };
 };
 
 const Home = () => {
@@ -30,6 +36,7 @@ const Home = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [imageOpacities, setImageOpacities] = useState<number[]>([]);
+  const [scrollOffsets, setScrollOffsets] = useState<number[]>([]);
 
   // Generate random properties for all images
   const imageProps = useMemo(() => {
@@ -82,14 +89,15 @@ const Home = () => {
     };
   }, [projects, isLoading]);
 
-  // Auto-scroll effect
+  // Auto-scroll effect with individual speeds
   useEffect(() => {
     const container = scrollContainerRef.current;
-    if (!container || isLoading) return;
+    if (!container || isLoading || imageProps.length === 0) return;
 
     let animationFrameId: number;
     let lastTimestamp = 0;
-    const scrollSpeed = 0.5;
+    const baseSpeed = 0.5;
+    const offsets = new Array(imageProps.length).fill(0);
 
     const scroll = (timestamp: number) => {
       if (lastTimestamp === 0) {
@@ -99,10 +107,19 @@ const Home = () => {
       const delta = timestamp - lastTimestamp;
       lastTimestamp = timestamp;
 
-      container.scrollTop += scrollSpeed * (delta / 16);
+      // Update base scroll
+      container.scrollTop += baseSpeed * (delta / 16);
+
+      // Update individual offsets based on each image's speed
+      for (let i = 0; i < imageProps.length; i++) {
+        const speedDiff = imageProps[i].speed - 1;
+        offsets[i] += speedDiff * baseSpeed * (delta / 16) * 2;
+      }
+      setScrollOffsets([...offsets]);
 
       if (container.scrollTop >= container.scrollHeight - container.clientHeight) {
         container.scrollTop = 0;
+        offsets.fill(0);
       }
 
       animationFrameId = requestAnimationFrame(scroll);
@@ -115,7 +132,7 @@ const Home = () => {
         cancelAnimationFrame(animationFrameId);
       }
     };
-  }, [isLoading]);
+  }, [isLoading, imageProps]);
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
@@ -155,9 +172,10 @@ const Home = () => {
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', pointerEvents: 'none' }}
       >
         {/* Duplicate projects for infinite scroll effect */}
-        <div className="flex flex-col gap-8 py-8" style={{ pointerEvents: 'auto' }}>
+        <div className="flex flex-col py-8" style={{ pointerEvents: 'auto' }}>
           {allProjects.map((project, index) => {
             const props = imageProps[index];
+            const offset = scrollOffsets[index] ?? 0;
             return (
               <div
                 key={`${project.id}-${index}`}
@@ -165,6 +183,8 @@ const Home = () => {
                 className={`w-full flex ${getAlignmentClass(props.alignment)} cursor-pointer transition-opacity duration-300`}
                 style={{ 
                   opacity: imageOpacities[index] ?? 0.5,
+                  marginTop: index === 0 ? 0 : `${props.marginTop}px`,
+                  transform: `translateY(${offset}px)`,
                 }}
                 onClick={() => handleProjectClick(project)}
               >
