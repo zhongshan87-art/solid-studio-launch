@@ -3,7 +3,6 @@ import archiDaily from "@/assets/media/ArchiDaily.jpg";
 import youfang2023 from "@/assets/media/youfang-2023.jpg";
 import youfang2021 from "@/assets/media/youfang-2021.jpg";
 import xiaohongshu2025 from "@/assets/media/xiaohongshu-2025.jpg";
-import wudaxincheng2024 from "@/assets/media/2024-wudaxincheng.jpg";
 
 export interface MediaCard {
   id: string;
@@ -14,20 +13,16 @@ export interface MediaCard {
 
 const defaultMediaCards: MediaCard[] = [
   {
-    id: "f7a8b9c0-d1e2-4f3a-5b6c-7d8e9f0a1b2c",
-    image: wudaxincheng2024,
-    description: "2024\n上海新城公共建筑及景观项目设计方案征集\n三分荡国际生态湖岸公园滨水商业片区设计\n景观和建筑概念方案征集\n优胜方案",
+    id: "e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b",
+    image: xiaohongshu2025,
+    description: "InAward 小红书设计大赛 2025 获奖作品",
   },
   {
     id: "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
     image: archiDaily,
     description: "ArchDaily Building of the Year 2024 Nominee",
   },
-  {
-    id: "e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b",
-    image: xiaohongshu2025,
-    description: "InAward 小红书设计大赛 2025 获奖作品",
-  },
+
   {
     id: "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f",
     image: youfang2023,
