@@ -40,7 +40,8 @@ export const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-30 bg-background shadow-sm">
-      <div className="container-studio flex justify-end items-center py-6 gap-8">
+      <div className="container-studio flex justify-between items-center py-6">
+        <span className="text-caption font-medium">尺度森林S.F.A</span>
         <nav className="flex items-center gap-8">
           <Link to="/" className="text-caption font-medium hover:text-primary transition-colors">
             Forest
