@@ -16,21 +16,7 @@ export interface MediaCard {
 }
 
 const defaultMediaCards: MediaCard[] = [
-  {
-    id: "a0b1c2d3-e4f5-4a6b-7c8d-9e0f1a2b3c4d",
-    image: roca2024,
-    description: "Roca Shanghai Gallery《设计互说》宅语：家的元素",
-  },
-  {
-    id: "b1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d5e",
-    image: designShanghai2024,
-    description: "设计上海 2024 听有嗡嗡声",
-  },
-  {
-    id: "c2d3e4f5-a6b7-4c8d-9e0f-1a2b3c4d5e6f",
-    image: xintiandi2024,
-    description: "新天地设计节 2024",
-  },
+ 
   {
     id: "e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b",
     image: xiaohongshu2025,
@@ -49,17 +35,32 @@ const defaultMediaCards: MediaCard[] = [
   {
     id: "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f",
     image: youfang2023,
-    description: "有方 2023 中国年轻建筑事务所",
+    description: "入选有方2023中国年轻建筑事务所榜单",
   },
   {
     id: "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
     image: ad100,
     description: "2022AD100Y0UNG 中国最具影响力100个建筑和室内设计新锐",
   },
+   {
+    id: "a0b1c2d3-e4f5-4a6b-7c8d-9e0f1a2b3c4d",
+    image: roca2024,
+    description: "尺度森林创始合伙人顾嘉在Roca Shanghai Gallery分享自宅建造故事,
+  },
+  {
+    id: "b1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d5e",
+    image: designShanghai2024,
+    description: "受Burgeree邀请，尺度森林携手山与自然空间将寺坞岭的生态修复故事带来设计上海。",
+  },
+  {
+    id: "c2d3e4f5-a6b7-4c8d-9e0f-1a2b3c4d5e6f",
+    image: xintiandi2024,
+    description: "在新天地设计节，尺度森林呈现小花野美艺术装置。",
+  },
   {
     id: "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f8a",
     image: youfang2021,
-    description: "有方 2021 中国年轻建筑事务所",
+    description: "入选有方2021中国年轻建筑事务所榜单",
   },
 ];
 
