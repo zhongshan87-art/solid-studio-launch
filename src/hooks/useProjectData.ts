@@ -170,7 +170,7 @@ const defaultProjects: Project[] = [
     id: 2,
     title: "金塘水獭科普馆 Jintang Otter Center",
     location: "展览 Exhibition",
-    mainImage: jintangOtter4,
+    mainImage: jintangOtter9,
     images: [
       { id: "2-1", url: jintangOtter1, alt: "寻獭客厅展示", caption: "灵动的獭-投影展示" },
       { id: "2-2", url: jintangOtter2, alt: "展厅全景", caption: "寻獭客厅全景" },
@@ -195,7 +195,7 @@ const defaultProjects: Project[] = [
     id: 4,
     title: "聚落浮田.圩水相依 WE LAND",
     location: "建筑 Architecture",
-    mainImage: juluoFutian1,
+    mainImage: juluoFutian3,
     images: [
       { id: "4-1", url: juluoFutian2, alt: "滨水鸟瞰", caption: "三分荡滨水商业聚落鸟瞰" },
       { id: "4-2", url: juluoFutian1, alt: "聚落与水系", caption: "圩田聚落与水系景观" },
@@ -217,7 +217,7 @@ const defaultProjects: Project[] = [
     id: 6,
     title: "探索山岭 Explore Mountain",
     location: "展览 Exhibition",
-    mainImage: exploreMountain1,
+    mainImage: exploreMountain6,
     images: [
       { id: "6-1", url: exploreMountain1, alt: "探索山岭展厅空间", caption: "探索山岭展厅空间" },
       { id: "6-2", url: exploreMountain2, alt: "山岭模型", caption: "山岭模型" },
@@ -239,7 +239,7 @@ const defaultProjects: Project[] = [
     id: 3,
     title: "听，有嗡嗡声 Listen, There is a Buzz",
     location: "展览 Exhibition",
-    mainImage: listenBuzz5,
+    mainImage: listenBuzz7,
     images: [
       { id: "3-1", url: listenBuzz5, alt: "昆虫夜观", caption: "昆虫夜观与夜听" },
       { id: "3-2", url: listenBuzz2, alt: "展厅平面图", caption: "展厅平面布局" },
@@ -263,7 +263,7 @@ const defaultProjects: Project[] = [
     id: 1,
     title: "一室亦园 One Room One Garden",
     location: "室内 Interior",
-    mainImage: yishiyiyuan1,
+    mainImage: yishiyiyuan9,
     images: [
       { id: "1-1", url: yishiyiyuan1, alt: "层叠的木空间", caption: "层叠的木空间 Layered wooden space" },
       { id: "1-2", url: yishiyiyuan2, alt: "院落般的客厅", caption: "院落般的客厅 Yard-like living room" },
@@ -290,7 +290,7 @@ const defaultProjects: Project[] = [
     id: 5,
     title: "食仓 The Gourmet Depot",
     location: "室内 Interior",
-    mainImage: shicang3,
+    mainImage: shicang9,
     images: [
       { id: "5-1", url: shicang1, alt: "餐厅内景", caption: "食仓餐厅全景" },
       { id: "5-2", url: shicang2, alt: "用餐区细节", caption: "用餐区与吊灯" },
@@ -312,7 +312,7 @@ const defaultProjects: Project[] = [
     id: 7,
     title: "框景 Framed View",
     location: "建筑 Architecture",
-    mainImage: kindergarten1,
+    mainImage: kindergarten5,
     images: [
       { id: "7-1", url: kindergarten1, alt: "大厅全景", caption: "幼儿园大厅与黄色网织装置" },
       { id: "7-2", url: kindergarten2, alt: "大厅空间", caption: "开放式大厅与多功能区" },
@@ -331,7 +331,7 @@ const defaultProjects: Project[] = [
     id: 8,
     title: "篱笆 Liba",
     location: "家具 Furniture",
-    mainImage: liba1,
+    mainImage: liba5,
     images: [
       { id: "8-1", url: liba1, alt: "篱笆沙发与植物", caption: "篱笆沙发与绿植搭配" },
       { id: "8-2", url: liba2, alt: "篱笆家具系列", caption: "篱笆家具组合与空间" },
@@ -351,7 +351,7 @@ const defaultProjects: Project[] = [
     id: 9,
     title: "手艺之家 House of Crafts",
     location: "展览 Exhibition",
-    mainImage: shouyi1,
+    mainImage: shouyi2,
     images: [
       { id: "9-1", url: shouyi1, alt: "展厅鸟瞰", caption: "手艺之家展厅鸟瞰" },
       { id: "9-2", url: shouyi2, alt: "展厅模型", caption: "展厅概念模型" },
@@ -373,7 +373,7 @@ const defaultProjects: Project[] = [
     id: 10,
     title: "双棚 Double Sheds",
     location: "室内 Interior",
-    mainImage: shuangpeng1,
+    mainImage: shuangpeng8,
     images: [
       { id: "10-1", url: shuangpeng1, alt: "外立面", caption: "外立面与蓝色雨棚" },
       { id: "10-2", url: shuangpeng2, alt: "门廊细节", caption: "门廊结构细节" },
@@ -393,7 +393,7 @@ const defaultProjects: Project[] = [
     id: 11,
     title: "柔和过渡 Soft Transitions",
     location: "室内 Interior",
-    mainImage: rouhe1,
+    mainImage: rouhe9,
     images: [
       { id: "11-1", url: rouhe1, alt: "客厅空间", caption: "客厅空间与艺术画作" },
       { id: "11-2", url: rouhe2, alt: "起居空间", caption: "起居空间与书架" },
@@ -414,7 +414,7 @@ const defaultProjects: Project[] = [
     id: 12,
     title: "青松住宅 Pine Resi",
     location: "室内 Interior",
-    mainImage: qingsong1,
+    mainImage: qingsong5,
     images: [
       { id: "12-1", url: qingsong1, alt: "客厅全景", caption: "客厅与大理石壁炉" },
       { id: "12-2", url: qingsong2, alt: "壁炉细节", caption: "单椅与壁炉细节" },
