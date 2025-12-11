@@ -30,6 +30,14 @@ const Home = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [imageOpacities, setImageOpacities] = useState<number[]>([]);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
+
+  // Track screen size for responsive behavior
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Generate random properties for all images
   const imageProps = useMemo(() => {
@@ -162,7 +170,7 @@ const Home = () => {
               <div
                 key={`${project.id}-${index}`}
                 ref={(el) => { imageRefs.current[index] = el; }}
-                className={`w-full flex ${getAlignmentClass(props.alignment)} cursor-pointer transition-opacity duration-300`}
+                className={`w-full flex ${isDesktop ? getAlignmentClass(props.alignment) : 'justify-center'} cursor-pointer transition-opacity duration-300`}
                 style={{ 
                   opacity: imageOpacities[index] ?? 0.5,
                 }}
@@ -170,7 +178,7 @@ const Home = () => {
               >
                 <div 
                   className="aspect-[4/3]"
-                  style={{ width: `${props.width}%` }}
+                  style={{ width: isDesktop ? `${props.width}%` : '100%' }}
                 >
                   <img
                     src={project.mainImage}
