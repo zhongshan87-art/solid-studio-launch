@@ -3,6 +3,7 @@ import archiDaily from "@/assets/media/ArchiDaily.jpg";
 import youfang2023 from "@/assets/media/youfang-2023.jpg";
 import youfang2021 from "@/assets/media/youfang-2021.jpg";
 import xiaohongshu2025 from "@/assets/media/xiaohongshu-2025.jpg";
+import wudaxincheng2024_2 from "@/assets/media/2024-wudaxincheng-2.jpg";
 
 export interface MediaCard {
   id: string;
@@ -12,6 +13,11 @@ export interface MediaCard {
 }
 
 const defaultMediaCards: MediaCard[] = [
+  {
+    id: "f6a7b8c9-d0e1-4f2a-3b4c-5d6e7f8a9b0c",
+    image: wudaxincheng2024_2,
+    description: "2024 上海新城公共建筑及景观项目设计方案征集 三分荡国际生态湖岸公园滨水商业片区设计 优胜方案",
+  },
   {
     id: "e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b",
     image: xiaohongshu2025,
