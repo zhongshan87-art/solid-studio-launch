@@ -20,11 +20,11 @@ const generateRandomProps = (index: number) => {
   // Random horizontal alignment: 0 = left, 1 = center, 2 = right
   const alignment = Math.floor(random(2) * 3);
   
-  // Random vertical margin between 60px and 200px
-  const marginTop = 60 + random(3) * 140;
+  // Random vertical margin between 60px and 100px
+  const marginTop = 60 + random(3) * 40;
   
-  // Random speed multiplier between 0.3 and 1.2
-  const speed = 0.3 + random(4) * 0.9;
+  // Random speed multiplier between 0.3 and 0.5
+  const speed = 0.3 + random(4) * 0.2;
   
   return { width, alignment, marginTop, speed };
 };
