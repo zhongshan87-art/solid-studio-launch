@@ -495,6 +495,45 @@ const defaultProjects: Project[] = [
 
 完成时间：2025年8月`,
   },
+  {
+    id: 16,
+    title: "服装展厅 Fashion Showroom",
+    location: "展览 Exhibition",
+    mainImage: jintangOtter1,
+    images: [
+      { id: "16-1", url: jintangOtter1, alt: "服装展厅", caption: "服装展厅" },
+    ],
+    description: `服装展厅项目。
+
+地点：待定
+完成时间：待定`,
+  },
+  {
+    id: 17,
+    title: "涟驿波园 Lianyi Boyuan",
+    location: "建筑 Architecture",
+    mainImage: juluoFutian1,
+    images: [
+      { id: "17-1", url: juluoFutian1, alt: "涟驿波园", caption: "涟驿波园" },
+    ],
+    description: `涟驿波园项目。
+
+地点：待定
+完成时间：待定`,
+  },
+  {
+    id: 18,
+    title: "野花秘境 Wildflower Wonderland",
+    location: "装置 Installation",
+    mainImage: xiaohua1,
+    images: [
+      { id: "18-1", url: xiaohua1, alt: "野花秘境", caption: "野花秘境" },
+    ],
+    description: `野花秘境项目。
+
+地点：待定
+完成时间：待定`,
+  },
 ];
 
 export const useProjectData = () => {
