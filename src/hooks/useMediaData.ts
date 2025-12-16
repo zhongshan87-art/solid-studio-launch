@@ -49,12 +49,12 @@ const defaultMediaCards: MediaCard[] = [
   {
     id: "b1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d5e",
     image: designShanghai2024,
-    description: "受Burgeree邀请，尺度森林携手山与自然空间将寺坞岭的生态修复故事带来设计上海。",
+    description: "受Burgeree邀请，尺度森林携手山与自然空间将寺坞岭的生态修复故事带来2024设计上海。",
   },
   {
     id: "c2d3e4f5-a6b7-4c8d-9e0f-1a2b3c4d5e6f",
     image: xintiandi2024,
-    description: "在新天地设计节，尺度森林呈现小花野美艺术装置。",
+    description: "2024新天地设计节，尺度森林呈现小花野美艺术装置。",
   },
   {
     id: "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f8a",
