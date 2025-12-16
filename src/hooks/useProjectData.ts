@@ -165,6 +165,18 @@ import fengqi8 from "@/assets/fengqi-xuezhu/8.jpg";
 import fengqi9 from "@/assets/fengqi-xuezhu/9.jpg";
 import fengqi10 from "@/assets/fengqi-xuezhu/10.jpg";
 
+// 服装展厅图片
+import fuzhuang1 from "@/assets/fuzhuang-zhanting/1.jpg";
+import fuzhuang2 from "@/assets/fuzhuang-zhanting/2.jpg";
+import fuzhuang3 from "@/assets/fuzhuang-zhanting/3.jpg";
+import fuzhuang4 from "@/assets/fuzhuang-zhanting/4.jpg";
+import fuzhuang5 from "@/assets/fuzhuang-zhanting/5.jpg";
+import fuzhuang6 from "@/assets/fuzhuang-zhanting/6.jpg";
+import fuzhuang7 from "@/assets/fuzhuang-zhanting/7.jpg";
+import fuzhuang8 from "@/assets/fuzhuang-zhanting/8.jpg";
+import fuzhuang9 from "@/assets/fuzhuang-zhanting/9.png";
+import fuzhuang10 from "@/assets/fuzhuang-zhanting/10.png";
+
 const defaultProjects: Project[] = [
   {
     id: 2,
@@ -499,9 +511,18 @@ const defaultProjects: Project[] = [
     id: 16,
     title: "服装展厅 Fashion Showroom",
     location: "展览 Exhibition",
-    mainImage: jintangOtter1,
+    mainImage: fuzhuang1,
     images: [
-      { id: "16-1", url: jintangOtter1, alt: "服装展厅", caption: "服装展厅" },
+      { id: "16-1", url: fuzhuang1, alt: "展厅全景", caption: "弧形展墙与服装展示" },
+      { id: "16-2", url: fuzhuang2, alt: "入口空间", caption: "展览序言与展厅空间" },
+      { id: "16-3", url: fuzhuang3, alt: "展厅空间", caption: "展厅中央与展示台" },
+      { id: "16-4", url: fuzhuang4, alt: "弧形廊道", caption: "弧形展墙与光影效果" },
+      { id: "16-5", url: fuzhuang5, alt: "面料展示", caption: "雨露麻面料展示" },
+      { id: "16-6", url: fuzhuang6, alt: "展示窗口", caption: "框景展示与灯笼装置" },
+      { id: "16-7", url: fuzhuang7, alt: "走廊空间", caption: "走廊通向展厅空间" },
+      { id: "16-8", url: fuzhuang8, alt: "面料与展示", caption: "三醋酸面料展示区" },
+      { id: "16-9", url: fuzhuang9, alt: "空间分析图", caption: "两面受光空间分析" },
+      { id: "16-10", url: fuzhuang10, alt: "展陈布局图", caption: "展陈，在柔光中漫游" },
     ],
     description: `服装展厅项目。
 
