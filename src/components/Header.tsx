@@ -63,7 +63,7 @@ export const Header = () => {
             </DialogHeader>
             <div className="flex-1 overflow-auto mt-[50px] md:mt-4">
               <div className="p-2.5 md:p-4">
-                {mediaLoading ? <p className="text-center text-muted-foreground">Loading...</p> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                {mediaLoading ? <p className="text-center text-muted-foreground">Loading...</p> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-[72px]">
                     {cards.map(card => <MediaCardItem key={card.id} card={card} />)}
                   </div>}
               </div>
