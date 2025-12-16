@@ -509,13 +509,13 @@ const defaultProjects: Project[] = [
   },
   {
     id: 16,
-    title: "服装展厅 Fashion Showroom",
+    title: "光·线",
     location: "展览 Exhibition",
-    mainImage: fuzhuang1,
+    mainImage: fuzhuang3,
     images: [
-      { id: "16-1", url: fuzhuang1, alt: "展厅全景", caption: "弧形展墙与服装展示" },
+      { id: "16-1", url: fuzhuang3, alt: "展厅全景", caption: "弧形展墙与服装展示" },
       { id: "16-2", url: fuzhuang2, alt: "入口空间", caption: "展览序言与展厅空间" },
-      { id: "16-3", url: fuzhuang3, alt: "展厅空间", caption: "展厅中央与展示台" },
+      { id: "16-3", url: fuzhuang1, alt: "展厅空间", caption: "展厅中央与展示台" },
       { id: "16-4", url: fuzhuang4, alt: "弧形廊道", caption: "弧形展墙与光影效果" },
       { id: "16-5", url: fuzhuang5, alt: "面料展示", caption: "雨露麻面料展示" },
       { id: "16-6", url: fuzhuang6, alt: "展示窗口", caption: "框景展示与灯笼装置" },
@@ -524,36 +524,34 @@ const defaultProjects: Project[] = [
       { id: "16-9", url: fuzhuang9, alt: "空间分析图", caption: "两面受光空间分析" },
       { id: "16-10", url: fuzhuang10, alt: "展陈布局图", caption: "展陈，在柔光中漫游" },
     ],
-    description: `服装展厅项目。
+    description: `以布料围合出温柔的圆形空间，布艺的故事轻盈呈现在这柔软的空间中。
 
-地点：待定
-完成时间：待定`,
+地点：杭州
+完成时间：2025年11月`,
   },
   {
     id: 17,
-    title: "涟驿波园 Lianyi Boyuan",
+    title: "涟驿·波园",
     location: "建筑 Architecture",
     mainImage: juluoFutian1,
-    images: [
-      { id: "17-1", url: juluoFutian1, alt: "涟驿波园", caption: "涟驿波园" },
-    ],
-    description: `涟驿波园项目。
+    images: [{ id: "17-1", url: juluoFutian1, alt: "涟驿波园", caption: "涟驿波园" }],
+    description: `虹口作为江南水乡的一部分，河港纵横，有独特的城市风貌和历史底蕴。设计基地紧邻的沙泾港承载了虹口乃至上海的城市记忆于发展变迁。设计将虹口河港纵横的城市记忆在场地重现，用水波的语言来链接和激活场地。场地新增波浪屋顶和波浪墙面，以地铁站口为中心， 水波的语言像南北两侧蔓延往西将沙泾港的沿河慢行绿道接入场地，往东疏散交通人流。
 
-地点：待定
-完成时间：待定`,
+景观设计：MANDAWORKS
+
+地点：上海虹口
+完成时间：2025年8月`,
   },
   {
     id: 18,
-    title: "野花秘境 Wildflower Wonderland",
+    title: "野花秘境 The Path of Wildflowers",
     location: "装置 Installation",
     mainImage: xiaohua1,
-    images: [
-      { id: "18-1", url: xiaohua1, alt: "野花秘境", caption: "野花秘境" },
-    ],
-    description: `野花秘境项目。
+    images: [{ id: "18-1", url: xiaohua1, alt: "野花秘境", caption: "野花秘境" }],
+    description: `昆虫访问的本土野花大多个体小,开花时间短,极容易被忽视,但它们的生态作用却十分重要。野花秘境是由5个野花观察器组成的序列影像雕塑来呈现华东地区的50 种本土野花。每个观察器都由正面野花的超高清呈像和背面的万花筒组成。每个雕塑的形态都犹如一个立体的花瓣。穿梭在野花秘境之间可以看到平时肉眼看不到的花朵蜜导斑点。我们从生态修复地采集野花、压制成标本,通过微距拍摄记录,编辑成影像讲述植物自身特点和昆虫之间互利共生的故事。野花影像在幽暗环境中绽放、摇曳,并用多种万花筒镜面成像重构野花图像:野花虽小但以其精巧的美触动观众。
 
-地点：待定
-完成时间：待定`,
+地点：杭州
+完成时间：2024年5月`,
   },
 ];
 
