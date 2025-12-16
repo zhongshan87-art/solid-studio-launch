@@ -24,7 +24,7 @@ const defaultMediaCards: MediaCard[] = [
   {
     id: "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
     image: archiDaily,
-    description: "ArchDaily Building of the Year 2024 Nominee",
+    description: "One Room One Garden was nominated for the ArchDaily 2024 Building of the Year Awards.",
   },
   {
     id: "f6a7b8c9-d0e1-4f2a-3b4c-5d6e7f8a9b0c",
