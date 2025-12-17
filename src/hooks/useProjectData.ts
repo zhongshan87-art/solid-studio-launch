@@ -12,13 +12,21 @@ import jintangOtter7 from "@/assets/jintang-otter/7.jpg";
 import jintangOtter8 from "@/assets/jintang-otter/8.jpg";
 import jintangOtter9 from "@/assets/jintang-otter/9.jpg";
 
-// 涟驿波园图片
+// 聚落浮田图片（需要重新上传）
 import juluoFutian1 from "@/assets/juluo-futian/1.jpg";
 import juluoFutian2 from "@/assets/juluo-futian/2.jpg";
 import juluoFutian3 from "@/assets/juluo-futian/3.jpg";
 import juluoFutian4 from "@/assets/juluo-futian/4.jpg";
 import juluoFutian5 from "@/assets/juluo-futian/5.jpg";
 import juluoFutian6 from "@/assets/juluo-futian/6.jpg";
+
+// 涟驿波园图片
+import lianyiBoyuan1 from "@/assets/lianyi-boyuan/1.jpg";
+import lianyiBoyuan2 from "@/assets/lianyi-boyuan/2.jpg";
+import lianyiBoyuan3 from "@/assets/lianyi-boyuan/3.jpg";
+import lianyiBoyuan4 from "@/assets/lianyi-boyuan/4.jpg";
+import lianyiBoyuan5 from "@/assets/lianyi-boyuan/5.jpg";
+import lianyiBoyuan6 from "@/assets/lianyi-boyuan/6.jpg";
 
 // 探索山岭图片
 import exploreMountain1 from "@/assets/explore-mountain/1.jpg";
@@ -528,14 +536,14 @@ const defaultProjects: Project[] = [
     id: 17,
     title: "涟驿·波园",
     location: "建筑 Architecture",
-    mainImage: juluoFutian1,
+    mainImage: lianyiBoyuan1,
     images: [
-      { id: "17-1", url: juluoFutian1, alt: "涟驿波园鸟瞰", caption: "地铁站口全景鸟瞰" },
-      { id: "17-2", url: juluoFutian2, alt: "场地现状分析", caption: "场地现状分析" },
-      { id: "17-3", url: juluoFutian3, alt: "设计概念", caption: "设计概念" },
-      { id: "17-4", url: juluoFutian4, alt: "街道人视", caption: "街道人视" },
-      { id: "17-5", url: juluoFutian5, alt: "剖面图", caption: "剖面图" },
-      { id: "17-6", url: juluoFutian6, alt: "口袋公园", caption: "口袋公园" },
+      { id: "17-1", url: lianyiBoyuan1, alt: "涟驿波园鸟瞰", caption: "地铁站口全景鸟瞰" },
+      { id: "17-2", url: lianyiBoyuan2, alt: "场地现状分析", caption: "场地现状分析" },
+      { id: "17-3", url: lianyiBoyuan3, alt: "设计概念", caption: "设计概念" },
+      { id: "17-4", url: lianyiBoyuan4, alt: "街道人视", caption: "街道人视" },
+      { id: "17-5", url: lianyiBoyuan5, alt: "剖面图", caption: "剖面图" },
+      { id: "17-6", url: lianyiBoyuan6, alt: "口袋公园", caption: "口袋公园" },
     ],
     description: `虹口作为江南水乡的一部分，河港纵横，有独特的城市风貌和历史底蕴。设计基地紧邻的沙泾港承载了虹口乃至上海的城市记忆于发展变迁。设计将虹口河港纵横的城市记忆在场地重现，用水波的语言来链接和激活场地。场地新增波浪屋顶和波浪墙面，以地铁站口为中心， 水波的语言像南北两侧蔓延往西将沙泾港的沿河慢行绿道接入场地，往东疏散交通人流。
 
