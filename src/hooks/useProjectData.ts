@@ -12,17 +12,13 @@ import jintangOtter7 from "@/assets/jintang-otter/7.jpg";
 import jintangOtter8 from "@/assets/jintang-otter/8.jpg";
 import jintangOtter9 from "@/assets/jintang-otter/9.jpg";
 
-// 聚落浮田.圩水相依图片
+// 涟驿波园图片
 import juluoFutian1 from "@/assets/juluo-futian/1.jpg";
 import juluoFutian2 from "@/assets/juluo-futian/2.jpg";
 import juluoFutian3 from "@/assets/juluo-futian/3.jpg";
 import juluoFutian4 from "@/assets/juluo-futian/4.jpg";
 import juluoFutian5 from "@/assets/juluo-futian/5.jpg";
 import juluoFutian6 from "@/assets/juluo-futian/6.jpg";
-import juluoFutian7 from "@/assets/juluo-futian/7.jpg";
-import juluoFutian8 from "@/assets/juluo-futian/8.jpg";
-import juluoFutian9 from "@/assets/juluo-futian/9.jpg";
-import juluoFutian10 from "@/assets/juluo-futian/10.jpg";
 
 // 探索山岭图片
 import exploreMountain1 from "@/assets/explore-mountain/1.jpg";
@@ -215,10 +211,6 @@ const defaultProjects: Project[] = [
       { id: "4-4", url: juluoFutian4, alt: "重现圩田聚落", caption: "重现圩田聚落，让社区凝聚" },
       { id: "4-5", url: juluoFutian5, alt: "空中圩田商业", caption: "空中圩田-首层通透空间" },
       { id: "4-6", url: juluoFutian6, alt: "首层绿植庭院", caption: "首层商业与绿植庭院" },
-      { id: "4-7", url: juluoFutian7, alt: "形态生成策略", caption: "圩田聚落-形态生成与策略" },
-      { id: "4-8", url: juluoFutian8, alt: "沿街透视", caption: "空中圩田沿街透视" },
-      { id: "4-9", url: juluoFutian9, alt: "室内商业空间", caption: "首层商业休闲空间" },
-      { id: "4-10", url: juluoFutian10, alt: "景观商业体验", caption: "景观体验型商业空间" },
     ],
     description: `青浦本土的圩田景观代表着江南地区生态、生产、生活的智慧。本案在三分荡的滨水空间，以圩田、水体、和江南建筑为主要线索，将建筑融于自然的环境基底，创造出具有江南园林特色的生态商业空间。漂浮的空中圩田创造出具有标识感的商业聚落，同时为社区提供了新颖的景观体验及多样的商业空间。创造具有青浦记忆的"聚落浮田"。
 合作者：行波工作室
@@ -535,7 +527,14 @@ const defaultProjects: Project[] = [
     title: "涟驿·波园",
     location: "建筑 Architecture",
     mainImage: juluoFutian1,
-    images: [{ id: "17-1", url: juluoFutian1, alt: "涟驿波园", caption: "涟驿波园" }],
+    images: [
+      { id: "17-1", url: juluoFutian1, alt: "涟驿波园鸟瞰", caption: "地铁站口全景鸟瞰" },
+      { id: "17-2", url: juluoFutian2, alt: "场地现状分析", caption: "场地现状分析" },
+      { id: "17-3", url: juluoFutian3, alt: "设计概念", caption: "设计概念" },
+      { id: "17-4", url: juluoFutian4, alt: "街道人视", caption: "街道人视" },
+      { id: "17-5", url: juluoFutian5, alt: "剖面图", caption: "剖面图" },
+      { id: "17-6", url: juluoFutian6, alt: "口袋公园", caption: "口袋公园" },
+    ],
     description: `虹口作为江南水乡的一部分，河港纵横，有独特的城市风貌和历史底蕴。设计基地紧邻的沙泾港承载了虹口乃至上海的城市记忆于发展变迁。设计将虹口河港纵横的城市记忆在场地重现，用水波的语言来链接和激活场地。场地新增波浪屋顶和波浪墙面，以地铁站口为中心， 水波的语言像南北两侧蔓延往西将沙泾港的沿河慢行绿道接入场地，往东疏散交通人流。
 
 景观设计：MANDAWORKS
