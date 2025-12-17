@@ -47,6 +47,10 @@ export const ProjectDetailModal = ({
                         <video
                           src={media.url}
                           controls
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
                           className="w-full rounded-lg"
                           onError={(e) => {
                             console.error('Failed to load video:', media.url.substring(0, 50) + '...');
@@ -89,6 +93,10 @@ export const ProjectDetailModal = ({
                         <video
                           src={media.url}
                           controls
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
                           className="w-full rounded-lg"
                           onError={(e) => {
                             console.error('Failed to load video:', media.url.substring(0, 50) + '...');

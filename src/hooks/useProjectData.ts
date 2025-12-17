@@ -148,6 +148,7 @@ import xiaohua4 from "@/assets/xiaohua/4.jpg";
 import xiaohua5 from "@/assets/xiaohua/5.jpg";
 import xiaohua6 from "@/assets/xiaohua/6.jpg";
 import xiaohua7 from "@/assets/xiaohua/7.jpg";
+import xiaohuaVideo from "@/assets/xiaohua/video.mp4";
 
 // 风栖·雪筑图片
 import fengqi1 from "@/assets/fengqi-xuezhu/1.jpg";
@@ -547,7 +548,7 @@ const defaultProjects: Project[] = [
     title: "野花秘境 The Path of Wildflowers",
     location: "装置 Installation",
     mainImage: xiaohua1,
-    images: [{ id: "18-1", url: xiaohua1, alt: "野花秘境", caption: "野花秘境" }],
+    images: [{ id: "18-1", url: xiaohuaVideo, alt: "野花秘境视频", caption: "野花秘境展览视频", type: "video" }],
     description: `昆虫访问的本土野花大多个体小,开花时间短,极容易被忽视,但它们的生态作用却十分重要。野花秘境是由5个野花观察器组成的序列影像雕塑来呈现华东地区的50 种本土野花。每个观察器都由正面野花的超高清呈像和背面的万花筒组成。每个雕塑的形态都犹如一个立体的花瓣。穿梭在野花秘境之间可以看到平时肉眼看不到的花朵蜜导斑点。我们从生态修复地采集野花、压制成标本,通过微距拍摄记录,编辑成影像讲述植物自身特点和昆虫之间互利共生的故事。野花影像在幽暗环境中绽放、摇曳,并用多种万花筒镜面成像重构野花图像:野花虽小但以其精巧的美触动观众。
 
 地点：杭州
