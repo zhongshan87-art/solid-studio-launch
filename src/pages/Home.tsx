@@ -90,10 +90,10 @@ const Home = () => {
     };
   }, [projects, isLoading]);
 
-  // Auto-scroll effect
+  // Auto-scroll effect - only on desktop
   useEffect(() => {
     const container = scrollContainerRef.current;
-    if (!container || isLoading) return;
+    if (!container || isLoading || !isDesktop) return;
 
     let animationFrameId: number;
     let lastTimestamp = 0;
@@ -123,7 +123,7 @@ const Home = () => {
         cancelAnimationFrame(animationFrameId);
       }
     };
-  }, [isLoading]);
+  }, [isLoading, isDesktop]);
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
@@ -160,7 +160,7 @@ const Home = () => {
       <div 
         ref={scrollContainerRef}
         className="fixed inset-0 overflow-y-scroll pt-16 px-4 lg:px-20"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', pointerEvents: 'none' }}
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', pointerEvents: isDesktop ? 'none' : 'auto' }}
       >
         {/* Duplicate projects for infinite scroll effect */}
         <div className="flex flex-col gap-8 py-8" style={{ pointerEvents: 'auto' }}>
