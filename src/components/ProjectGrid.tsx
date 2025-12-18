@@ -11,7 +11,7 @@ interface ProjectCardProps {
 const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
   return (
     <article className="group cursor-pointer" onClick={onClick}>
-      <div className="w-full overflow-hidden aspect-[3/4]">
+      <div className="w-full overflow-hidden aspect-[4/3] md:aspect-[3/4]">
         {project.images[0]?.type === 'video' && project.images[0]?.thumbnail ? (
           <div className="relative w-full h-full">
             <img 
