@@ -40,8 +40,14 @@ export const Header = () => {
     isLoading: studioLoading
   } = useStudioData();
   return <header className="fixed top-0 left-0 right-0 z-30 bg-background shadow-sm">
-      <div className="container-studio flex justify-center lg:justify-end items-center py-6 gap-8">
-        <nav className="flex items-center gap-8 text-lg">
+      <div className="flex justify-between items-center py-6 px-[30px]">
+        {/* Left side - Studio name (hidden on mobile) */}
+        <div className="hidden md:block">
+          <span className="text-caption font-medium">尺度森林S.F.A</span>
+        </div>
+        
+        {/* Right side - Navigation */}
+        <nav className="flex items-center gap-8 text-lg md:ml-auto">
           <Link to="/" className="text-caption font-medium hover:text-primary transition-colors">
             Forest
           </Link>
