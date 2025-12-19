@@ -69,9 +69,12 @@ const Home = () => {
         const distanceFromCenter = Math.abs(imageCenter - containerCenter);
         const maxDistance = containerHeight / 2 + rect.height / 2;
         
-        // Calculate opacity: 1 at center, fading to 0.1 at edges
-        const ratio = 1 - (distanceFromCenter / maxDistance);
-        const opacity = Math.max(0.1, Math.min(1, ratio * 1.2));
+        // Calculate opacity with smooth easing curve
+        const ratio = Math.max(0, Math.min(1, 1 - (distanceFromCenter / maxDistance)));
+        // Apply ease-in-out curve for smoother transition: 3x² - 2x³
+        const easedRatio = ratio * ratio * (3 - 2 * ratio);
+        // Map to opacity range 0.15 to 1 for gentler fade
+        const opacity = 0.15 + easedRatio * 0.85;
         
         newOpacities.push(opacity);
       });
@@ -170,9 +173,10 @@ const Home = () => {
               <div
                 key={`${project.id}-${index}`}
                 ref={(el) => { imageRefs.current[index] = el; }}
-                className={`w-full flex ${isDesktop ? getAlignmentClass(props.alignment) : 'justify-center'} cursor-pointer transition-opacity duration-300`}
+                className={`w-full flex ${isDesktop ? getAlignmentClass(props.alignment) : 'justify-center'} cursor-pointer`}
                 style={{ 
-                  opacity: imageOpacities[index] ?? 0.5,
+                  opacity: imageOpacities[index] ?? 0.15,
+                  transition: 'opacity 0.4s ease-out',
                 }}
                 onClick={() => handleProjectClick(project)}
               >
