@@ -324,24 +324,41 @@ const defaultProjects: Project[] = [
 地点：上海静安
 完成时间：2025年2月`,
   },
-  {
-    id: 7,
-    title: "框景 Framed View",
-    location: "建筑 Architecture",
-    mainImage: kindergarten1,
+    {
+    id: 16,
+    title: "光·线",
+    location: "展览 Exhibition",
+    mainImage: fuzhuang3,
     images: [
-      { id: "7-1", url: kindergarten1, alt: "大厅全景", caption: "幼儿园大厅与黄色网织装置" },
-      { id: "7-2", url: kindergarten2, alt: "大厅空间", caption: "开放式大厅与多功能区" },
-      { id: "7-3", url: kindergarten3, alt: "接待台与空间", caption: "接待台与网织装置" },
-      { id: "7-4", url: kindergarten4, alt: "黄色内嵌空间", caption: "黄色内嵌窗口细节" },
-      { id: "7-5", url: kindergarten5, alt: "儿童活动", caption: "儿童活动与木质积木" },
-      { id: "7-6", url: kindergarten6, alt: "空间概念图", caption: "功能体块分析图" },
-      { id: "7-7", url: kindergarten7, alt: "尺度分析", caption: "儿童与成人尺度对比" },
+      { id: "16-1", url: fuzhuang3, alt: "展厅全景", caption: "弧形展墙与服装展示" },
+      { id: "16-2", url: fuzhuang2, alt: "入口空间", caption: "展览序言与展厅空间" },
+      { id: "16-3", url: fuzhuang1, alt: "展厅空间", caption: "展厅中央与展示台" },
+      { id: "16-4", url: fuzhuang4, alt: "弧形廊道", caption: "弧形展墙与光影效果" },
+      { id: "16-5", url: fuzhuang5, alt: "面料展示", caption: "雨露麻面料展示" },
+      { id: "16-6", url: fuzhuang6, alt: "展示窗口", caption: "框景展示与灯笼装置" },
+      { id: "16-7", url: fuzhuang7, alt: "走廊空间", caption: "走廊通向展厅空间" },
+      { id: "16-8", url: fuzhuang8, alt: "面料与展示", caption: "三醋酸面料展示区" },
+      { id: "16-9", url: fuzhuang9, alt: "空间分析图", caption: "两面受光空间分析" },
+      { id: "16-10", url: fuzhuang10, alt: "展陈布局图", caption: "展陈，在柔光中漫游" },
     ],
-    description: `4700平方米建筑面积，12个班级的私立幼儿园。设计通过统一的色彩视觉营造温馨舒适的园所场景。室内通过一系列“框景”柜子，在幼儿园大厅创造出捉迷藏的空间氛围。
+    description: `以布料围合出温柔的圆形空间，布艺的故事轻盈呈现在这柔软的空间中。
 
-地点：福建
-完成时间：2018年9月`,
+地点：杭州
+完成时间：2025年11月`,
+  },
+    {
+    id: 18,
+    title: "野花秘境 The Path of Wildflowers",
+    location: "装置 Installation",
+    mainImage: xiaohua8,
+    images: [
+      { id: "18-2", url: xiaohua8, alt: "野花秘境展览空间", caption: "野花观察器序列影像雕塑" },
+      { id: "18-1", url: xiaohuaVideo, alt: "野花秘境视频", caption: "野花秘境展览视频", type: "video" },
+    ],
+    description: `昆虫访问的本土野花大多个体小,开花时间短,极容易被忽视,但它们的生态作用却十分重要。野花秘境是由5个野花观察器组成的序列影像雕塑来呈现华东地区的50 种本土野花。每个观察器都由正面野花的超高清呈像和背面的万花筒组成。每个雕塑的形态都犹如一个立体的花瓣。穿梭在野花秘境之间可以看到平时肉眼看不到的花朵蜜导斑点。我们从生态修复地采集野花、压制成标本,通过微距拍摄记录,编辑成影像讲述植物自身特点和昆虫之间互利共生的故事。野花影像在幽暗环境中绽放、摇曳,并用多种万花筒镜面成像重构野花图像:野花虽小但以其精巧的美触动观众。
+
+地点：杭州
+完成时间：2024年5月`,
   },
   {
     id: 8,
@@ -511,27 +528,24 @@ const defaultProjects: Project[] = [
 
 完成时间：2025年8月`,
   },
-  {
-    id: 16,
-    title: "光·线",
-    location: "展览 Exhibition",
-    mainImage: fuzhuang3,
+   {
+    id: 7,
+    title: "框景 Framed View",
+    location: "建筑 Architecture",
+    mainImage: kindergarten1,
     images: [
-      { id: "16-1", url: fuzhuang3, alt: "展厅全景", caption: "弧形展墙与服装展示" },
-      { id: "16-2", url: fuzhuang2, alt: "入口空间", caption: "展览序言与展厅空间" },
-      { id: "16-3", url: fuzhuang1, alt: "展厅空间", caption: "展厅中央与展示台" },
-      { id: "16-4", url: fuzhuang4, alt: "弧形廊道", caption: "弧形展墙与光影效果" },
-      { id: "16-5", url: fuzhuang5, alt: "面料展示", caption: "雨露麻面料展示" },
-      { id: "16-6", url: fuzhuang6, alt: "展示窗口", caption: "框景展示与灯笼装置" },
-      { id: "16-7", url: fuzhuang7, alt: "走廊空间", caption: "走廊通向展厅空间" },
-      { id: "16-8", url: fuzhuang8, alt: "面料与展示", caption: "三醋酸面料展示区" },
-      { id: "16-9", url: fuzhuang9, alt: "空间分析图", caption: "两面受光空间分析" },
-      { id: "16-10", url: fuzhuang10, alt: "展陈布局图", caption: "展陈，在柔光中漫游" },
+      { id: "7-1", url: kindergarten1, alt: "大厅全景", caption: "幼儿园大厅与黄色网织装置" },
+      { id: "7-2", url: kindergarten2, alt: "大厅空间", caption: "开放式大厅与多功能区" },
+      { id: "7-3", url: kindergarten3, alt: "接待台与空间", caption: "接待台与网织装置" },
+      { id: "7-4", url: kindergarten4, alt: "黄色内嵌空间", caption: "黄色内嵌窗口细节" },
+      { id: "7-5", url: kindergarten5, alt: "儿童活动", caption: "儿童活动与木质积木" },
+      { id: "7-6", url: kindergarten6, alt: "空间概念图", caption: "功能体块分析图" },
+      { id: "7-7", url: kindergarten7, alt: "尺度分析", caption: "儿童与成人尺度对比" },
     ],
-    description: `以布料围合出温柔的圆形空间，布艺的故事轻盈呈现在这柔软的空间中。
+    description: `4700平方米建筑面积，12个班级的私立幼儿园。设计通过统一的色彩视觉营造温馨舒适的园所场景。室内通过一系列“框景”柜子，在幼儿园大厅创造出捉迷藏的空间氛围。
 
-地点：杭州
-完成时间：2025年11月`,
+地点：福建
+完成时间：2018年9月`,
   },
   {
     id: 17,
@@ -553,20 +567,7 @@ const defaultProjects: Project[] = [
 地点：上海虹口
 完成时间：2025年8月`,
   },
-  {
-    id: 18,
-    title: "野花秘境 The Path of Wildflowers",
-    location: "装置 Installation",
-    mainImage: xiaohua8,
-    images: [
-      { id: "18-2", url: xiaohua8, alt: "野花秘境展览空间", caption: "野花观察器序列影像雕塑" },
-      { id: "18-1", url: xiaohuaVideo, alt: "野花秘境视频", caption: "野花秘境展览视频", type: "video" },
-    ],
-    description: `昆虫访问的本土野花大多个体小,开花时间短,极容易被忽视,但它们的生态作用却十分重要。野花秘境是由5个野花观察器组成的序列影像雕塑来呈现华东地区的50 种本土野花。每个观察器都由正面野花的超高清呈像和背面的万花筒组成。每个雕塑的形态都犹如一个立体的花瓣。穿梭在野花秘境之间可以看到平时肉眼看不到的花朵蜜导斑点。我们从生态修复地采集野花、压制成标本,通过微距拍摄记录,编辑成影像讲述植物自身特点和昆虫之间互利共生的故事。野花影像在幽暗环境中绽放、摇曳,并用多种万花筒镜面成像重构野花图像:野花虽小但以其精巧的美触动观众。
 
-地点：杭州
-完成时间：2024年5月`,
-  },
 ];
 
 export const useProjectData = () => {
