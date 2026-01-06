@@ -93,6 +93,11 @@ export const Header = () => {
                   }}>
                         {studio.introEnglish}
                       </p>
+                      <p className="font-light" style={{
+                    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+                  }}>
+                        {studio.contact}
+                      </p>
                     </div>
                   </div>
 
