@@ -47,7 +47,7 @@ export const Header = () => {
         </div>
         
         {/* Right side - Navigation */}
-        <nav className="flex items-center gap-8 text-lg md:ml-auto">
+        <nav className="flex items-end gap-8 text-lg md:ml-auto">
           <Link to="/" className="text-caption font-medium hover:text-primary transition-colors inline-flex items-baseline">
             <span className="animate-grow-up" style={{ color: '#498422', fontSize: '2em', lineHeight: '1', transformOrigin: 'bottom center' }}>F</span>orest
           </Link>
