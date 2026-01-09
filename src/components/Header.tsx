@@ -43,13 +43,13 @@ export const Header = () => {
       <div className="flex justify-between items-center py-6 px-[30px]">
         {/* Left side - Studio name (hidden on mobile) */}
         <div className="hidden md:block">
-          <span className="text-caption font-medium">尺度森林S.<span style={{ color: '#3fcf00' }}>F</span>.A</span>
+          <span className="text-caption font-medium">尺度森林S.<span style={{ color: '#498422' }}>F</span>.A</span>
         </div>
         
         {/* Right side - Navigation */}
         <nav className="flex items-center gap-8 text-lg md:ml-auto">
           <Link to="/" className="text-caption font-medium hover:text-primary transition-colors">
-            <span style={{ color: '#3fcf00' }}>F</span>orest
+            <span style={{ color: '#498422' }}>F</span>orest
           </Link>
           <Link to="/works" className="text-caption font-medium hover:text-primary transition-colors">
             Works
