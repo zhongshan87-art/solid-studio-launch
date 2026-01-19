@@ -17,7 +17,7 @@ const Studio = () => {
               {/* Left column - Text content */}
               <div className="flex flex-col items-center justify-center min-h-[60vh]">
                 <div className="text-sm leading-relaxed w-full md:w-[70%] space-y-6 text-justify">
-                  <h1 className="text-2xl font-medium text-left">About the studio</h1>
+                  <h1 className="text-2xl font-medium text-left">About us</h1>
                   <p className="font-medium">{studio.introChinese}</p>
                   <p
                     className="font-light"
