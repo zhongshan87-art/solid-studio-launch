@@ -173,7 +173,7 @@ const Home = () => {
               <div
                 key={`${project.id}-${index}`}
                 ref={(el) => { imageRefs.current[index] = el; }}
-                className={`w-full flex ${isDesktop ? getAlignmentClass(props.alignment) : 'justify-center'} cursor-pointer`}
+                className={`w-full flex ${isDesktop ? (index === 0 ? 'justify-center' : getAlignmentClass(props.alignment)) : 'justify-center'} cursor-pointer`}
                 style={{ 
                   opacity: imageOpacities[index] ?? 0.15,
                   transition: 'opacity 0.4s ease-out',
