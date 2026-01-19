@@ -159,15 +159,10 @@ const Home = () => {
     <main className="relative min-h-screen bg-background overflow-hidden">
       <Header />
 
-      {/* Tagline below header */}
-      <div className="fixed top-16 left-0 right-0 z-10 text-center py-4 bg-background">
-        <p className="text-sm text-muted-foreground tracking-wider">有温度且灵动的设计表达</p>
-      </div>
-
       {/* Auto-scrolling image container */}
       <div 
         ref={scrollContainerRef}
-        className="fixed inset-0 overflow-y-scroll pt-28 px-4 lg:px-20"
+        className="fixed inset-0 overflow-y-scroll pt-16 px-4 lg:px-20"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', pointerEvents: isDesktop ? 'none' : 'auto' }}
       >
         {/* Duplicate projects for infinite scroll effect */}
