@@ -8,17 +8,7 @@ export const Header = () => {
         <div className="hidden md:block">
           <span className="text-2xl font-medium inline-flex items-baseline">
             尺度森林S.
-            <span
-              className="animate-grow-up"
-              style={{
-                color: "#498422",
-                fontSize: "2em",
-                lineHeight: "1",
-                transformOrigin: "bottom center",
-              }}
-            >
-              F
-            </span>
+            <span className="animate-grow-up">F</span>
             .A
           </span>
         </div>
@@ -42,22 +32,13 @@ export const Header = () => {
             </span>
             orest
           </Link>
-          <Link
-            to="/works"
-            className="text-caption font-medium hover:text-primary transition-colors"
-          >
+          <Link to="/works" className="text-caption font-medium hover:text-primary transition-colors">
             Works
           </Link>
-          <Link
-            to="/news"
-            className="text-caption font-medium hover:text-primary transition-colors"
-          >
+          <Link to="/news" className="text-caption font-medium hover:text-primary transition-colors">
             News
           </Link>
-          <Link
-            to="/studio"
-            className="text-caption font-medium hover:text-primary transition-colors"
-          >
+          <Link to="/studio" className="text-caption font-medium hover:text-primary transition-colors">
             Studio
           </Link>
         </nav>
