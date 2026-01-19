@@ -10,7 +10,7 @@ const Studio = () => {
       <Header />
       <div className="pt-24 md:pt-28">
         <div className="px-4 md:px-[50px] py-8">
-          <h1 className="text-2xl font-medium mb-8">尺度森林S.F.A</h1>
+          <h1 className="text-2xl font-medium mb-8">About</h1>
           {isLoading ? (
             <p className="text-center text-muted-foreground">Loading...</p>
           ) : (
@@ -22,8 +22,7 @@ const Studio = () => {
                   <p
                     className="font-light"
                     style={{
-                      fontFamily:
-                        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+                      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
                     }}
                   >
                     {studio.introEnglish}
@@ -31,8 +30,7 @@ const Studio = () => {
                   <p
                     className="font-light"
                     style={{
-                      fontFamily:
-                        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+                      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
                     }}
                   >
                     {studio.contact}
