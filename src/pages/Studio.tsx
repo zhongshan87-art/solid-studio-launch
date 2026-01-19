@@ -10,7 +10,7 @@ const Studio = () => {
       <Header />
       <div className="pt-24 md:pt-28">
         <div className="px-4 md:px-[50px] py-8">
-          <h1 className="text-2xl font-medium mb-8">About</h1>
+          <h1 className="text-2xl font-medium mb-8">About the studio</h1>
           {isLoading ? (
             <p className="text-center text-muted-foreground">Loading...</p>
           ) : (
