@@ -1,12 +1,12 @@
 export const Hero = () => {
   return (
-    <section className="pt-22 pb-16">
+    <section className="pt-32 pb-16">
       <div className="w-full px-[50px]">
         <div className="relative">
           <h1 className="tracking-tighter leading-none font-sans font-thick lg:text-2xl md:text-2xl text-2xl">
             空间 展览 装置
           </h1>
-          <p className="mt-2 font-bold text-foreground" style={{ fontSize: '80%' }}>
+          <p className="mt-2 font-bold text-foreground" style={{ fontSize: "80%" }}>
             有温度且灵动的设计表达
           </p>
           <div className="mt-4 text-left md:absolute md:top-0 md:right-0 md:text-right md:mt-0">
