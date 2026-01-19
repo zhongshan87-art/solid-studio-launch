@@ -10,14 +10,14 @@ const Studio = () => {
       <Header />
       <div className="pt-24 md:pt-28">
         <div className="px-4 md:px-[50px] py-8">
-          <h1 className="text-2xl font-medium mb-8">About the studio</h1>
           {isLoading ? (
             <p className="text-center text-muted-foreground">Loading...</p>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6">
-              {/* Left column - Display text */}
-              <div className="flex flex-col items-center lg:justify-center mt-10 md:mt-0">
+              {/* Left column - Text content */}
+              <div className="flex flex-col">
                 <div className="text-sm leading-relaxed w-full md:w-[60%] space-y-6 text-justify">
+                  <h1 className="text-2xl font-medium text-left">About the studio</h1>
                   <p className="font-medium">{studio.introChinese}</p>
                   <p
                     className="font-light"
@@ -34,6 +34,11 @@ const Studio = () => {
                     }}
                   >
                     {studio.contact}
+                  </p>
+                  
+                  <h2 className="text-2xl font-medium text-left pt-4">Join us 加入森林，一起成长</h2>
+                  <p className="font-medium">
+                    建筑、室内、产品、设计相关专业，有良好的设计品味，热爱设计，擅长团队合作。职位：实习生、设计师。简历和作品集投递：info@scalefa.com
                   </p>
                 </div>
               </div>
