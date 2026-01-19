@@ -44,7 +44,7 @@ const defaultMediaCards: MediaCard[] = [
   {
     id: "a0b1c2d3-e4f5-4a6b-7c8d-9e0f1a2b3c4d",
     image: roca2024,
-    description: "尺度森林创始合伙人顾嘉在Roca Shanghai Gallery分享自宅建造故事",
+    description: "尺度森林创始合伙人顾嘉在Roca Shanghai Gallery分享一室亦园的设计与建造故事",
   },
   {
     id: "b1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d5e",
