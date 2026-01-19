@@ -15,8 +15,8 @@ const Studio = () => {
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6">
               {/* Left column - Text content */}
-              <div className="flex flex-col">
-                <div className="text-sm leading-relaxed w-full md:w-[60%] space-y-6 text-justify">
+              <div className="flex flex-col items-center">
+                <div className="text-sm leading-relaxed w-full md:w-[70%] space-y-6 text-justify">
                   <h1 className="text-2xl font-medium text-left">About the studio</h1>
                   <p className="font-medium">{studio.introChinese}</p>
                   <p
