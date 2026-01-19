@@ -8,7 +8,7 @@ export const Header = () => {
         <div className="hidden md:block">
           <span className="text-2xl font-medium inline-flex items-baseline">
             尺度森林S.
-            <span className="animate-grow-up">F</span>
+            <span>F</span>
             .A
           </span>
         </div>
