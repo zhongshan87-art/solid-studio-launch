@@ -26,9 +26,7 @@ const MediaCardItem = ({ card }: MediaCardItemProps) => {
           />
         </div>
         <div className="p-2.5 md:p-3">
-          <p className="text-base leading-relaxed whitespace-pre-line text-foreground font-bold">
-            {card.description}
-          </p>
+          <p className="text-base leading-relaxed whitespace-pre-line text-foreground font-bold">{card.description}</p>
         </div>
       </CardContent>
     </Card>
@@ -43,7 +41,7 @@ const News = () => {
       <Header />
       <div className="pt-24 md:pt-28">
         <div className="px-4 md:px-[50px] py-8">
-          <h1 className="text-2xl font-medium mb-8">奖项和新闻 Awards & News</h1>
+          <h1 className="text-2xl font-medium mb-8"> </h1>
           {isLoading ? (
             <p className="text-center text-muted-foreground">Loading...</p>
           ) : (
