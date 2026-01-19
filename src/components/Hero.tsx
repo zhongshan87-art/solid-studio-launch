@@ -7,7 +7,7 @@ export const Hero = () => {
             空间 展览 装置
           </h1>
           <div className="mt-4 text-left md:absolute md:top-0 md:right-0 md:text-right md:mt-0">
-            <p className="text-lg md:text-xl text-foreground">有温度且灵动的设计表达</p>
+            <p className="text-lg md:text-xl text-foreground"> </p>
           </div>
         </div>
       </div>
