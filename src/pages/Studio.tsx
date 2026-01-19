@@ -39,10 +39,10 @@ const Studio = () => {
                   <h2 className="text-2xl font-medium text-left pt-4">Join us </h2>
                   <div className="font-medium space-y-1">
                     <p>加入森林，一起成长。</p>
-                    <p>建筑、室内、产品、设计相关专业，有良好的设计品味，热爱设计，擅长团队合作。</p>
-                    <p>职位：实习生、设计师。</p>
-                    <p>工作地点：上海市愚园路</p>
-                    <p>简历和作品集投递：info@scalefa.com</p>
+                    <p>
+                      建筑、室内、产品、设计相关专业，有良好的设计品味，热爱设计，擅长团队合作。提供职位：实习生、设计师。
+                    </p>
+                    <p>工作地点：上海市愚园路 简历和作品集投递：info@scalefa.com</p>
                   </div>
                 </div>
               </div>
