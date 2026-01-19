@@ -160,7 +160,7 @@ const Home = () => {
       <Header />
 
       {/* Floating subtitle below header title */}
-      <div className="fixed top-[72px] left-0 z-20 px-4 md:px-[50px]">
+      <div className="fixed top-[calc(72px+1.25em)] left-0 z-20 px-4 md:px-[50px]">
         <p className="font-bold text-foreground text-lg md:text-xl">
           有温度且灵动的设计表达
         </p>
