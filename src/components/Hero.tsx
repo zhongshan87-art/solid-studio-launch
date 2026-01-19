@@ -1,9 +1,9 @@
 export const Hero = () => {
   return (
     <section className="pt-32 pb-16">
-      <div className="w-full px-[20px]">
+      <div className="w-full px-[50px]">
         <div className="relative">
-          <h1 className="tracking-tighter leading-none font-sans font-thin lg:text-7xl md:text-7xl text-6xl">
+          <h1 className="tracking-tighter leading-none font-sans font-thin lg:text-2xl md:text-2xl text-2xl">
             空间 展览 装置
           </h1>
           <div className="mt-4 text-left md:absolute md:top-0 md:right-0 md:text-right md:mt-0">
