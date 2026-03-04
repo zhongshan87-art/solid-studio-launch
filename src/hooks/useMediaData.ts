@@ -19,7 +19,7 @@ const defaultMediaCards: MediaCard[] = [
   {
     id: "e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b",
     image: xiaohongshu2025,
-    description: "InAward 小红书设计大赛 2025 获奖作品",
+    description: "荣获 2025小红书设计大赛InAward室内设计Top9，于上海西岸美术馆展出",
   },
   {
     id: "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
