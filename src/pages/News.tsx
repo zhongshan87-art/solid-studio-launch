@@ -15,6 +15,9 @@ const MediaCardItem = ({ card }: MediaCardItemProps) => {
   return (
     <Card className="overflow-hidden w-full md:w-[80%] mx-auto rounded-none md:rounded-lg">
       <CardContent className="p-0">
+        <div className="p-2.5 md:p-3">
+          <p className="text-base leading-relaxed whitespace-pre-line text-foreground font-bold">{card.description}</p>
+        </div>
         <div className="relative">
           <img
             src={card.image}
@@ -24,9 +27,6 @@ const MediaCardItem = ({ card }: MediaCardItemProps) => {
               e.currentTarget.src = "/placeholder.svg";
             }}
           />
-        </div>
-        <div className="p-2.5 md:p-3">
-          <p className="text-base leading-relaxed whitespace-pre-line text-foreground font-bold">{card.description}</p>
         </div>
       </CardContent>
     </Card>
