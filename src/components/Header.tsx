@@ -10,11 +10,11 @@ export const Header = () => {
           <img src={logoHeader} alt="尺度森林工作室 FoliFoli Works" className="h-[90px]" />
         </div>
 
-        {/* Center - FoliFoli Works text */}
+        {/* Center - Works text */}
         <div className="absolute left-1/2 -translate-x-1/2">
-          <Link to="/" className="font-medium hover:text-primary transition-colors" style={{ letterSpacing: "0.05em" }}>
-            FoliFoli Works
-          </Link>
+          <span className="font-medium" style={{ letterSpacing: "0.05em" }}>
+            Works
+          </span>
         </div>
 
         {/* News - between center and right */}
