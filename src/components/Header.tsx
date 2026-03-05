@@ -12,25 +12,7 @@ export const Header = () => {
 
         {/* Right side - Navigation */}
         <nav className="flex items-end gap-16 md:ml-auto" style={{ fontSize: "2.625rem" }}>
-          <Link
-            to="/"
-            className="font-medium hover:text-primary transition-colors inline-flex items-baseline"
-            style={{ fontSize: "2.625rem" }}
-          >
-            <span
-              className="animate-grow-up"
-              style={{
-                color: "#498422",
-                fontSize: "2em",
-                lineHeight: "1",
-                transformOrigin: "bottom center",
-              }}
-            >
-              F
-            </span>
-            orest
-          </Link>
-          <Link to="/works" className="font-medium hover:text-primary transition-colors">
+          <Link to="/" className="font-medium hover:text-primary transition-colors">
             Works
           </Link>
           <Link to="/news" className="font-medium hover:text-primary transition-colors">
