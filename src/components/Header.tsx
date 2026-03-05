@@ -7,7 +7,7 @@ export const Header = () => {
       <div className="flex justify-between items-center py-6 px-4 md:px-[50px]">
         {/* Left side - Logo (hidden on mobile) */}
         <div className="hidden md:block">
-          <img src={logo} alt="尺度森林工作室 FoliFoli Works" className="h-6" />
+          <img src={logo} alt="尺度森林工作室 FoliFoli Works" className="h-6 origin-top-left scale-200" />
         </div>
 
         {/* Right side - Navigation */}
