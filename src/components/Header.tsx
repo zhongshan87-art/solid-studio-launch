@@ -12,7 +12,7 @@ export const Header = () => {
 
         {/* Right side - Navigation */}
         <nav className="flex items-end gap-16 md:ml-auto" style={{ fontSize: "2.625rem" }}>
-          <Link to="/" className="font-medium hover:text-primary transition-colors">
+          <Link to="/" className="font-medium hover:text-primary transition-colors" style={{ color: '#35AE3B' }}>
             FoliFoli Works
           </Link>
           <Link to="/news" className="font-medium hover:text-primary transition-colors">
