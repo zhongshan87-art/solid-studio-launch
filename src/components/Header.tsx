@@ -11,11 +11,11 @@ export const Header = () => {
         </div>
 
         {/* Right side - Navigation */}
-        <nav className="flex items-end gap-16 md:ml-auto" style={{ fontSize: '2.625rem' }}>
+        <nav className="flex items-end gap-16 md:ml-auto" style={{ fontSize: "2.625rem" }}>
           <Link
             to="/"
             className="font-medium hover:text-primary transition-colors inline-flex items-baseline"
-            style={{ fontSize: '2.625rem' }}
+            style={{ fontSize: "2.625rem" }}
           >
             <span
               className="animate-grow-up"
@@ -28,7 +28,7 @@ export const Header = () => {
             >
               F
             </span>
-            olifoli
+            orest
           </Link>
           <Link to="/works" className="font-medium hover:text-primary transition-colors">
             Works
