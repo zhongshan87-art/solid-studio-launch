@@ -12,7 +12,7 @@ export const Header = () => {
 
         {/* Center - FoliFoli Works */}
         <div className="absolute left-1/2 -translate-x-1/2">
-          <Link to="/" className="font-medium hover:text-primary transition-colors" style={{ color: '#35AE3B' }}>
+          <Link to="/" className="font-medium hover:text-primary transition-colors" style={{ color: "#35AE3B" }}>
             FoliFoli Works
           </Link>
         </div>
@@ -20,7 +20,7 @@ export const Header = () => {
         {/* News - between center and right */}
         <div className="absolute left-3/4 -translate-x-1/2">
           <Link to="/news" className="font-medium hover:text-primary transition-colors">
-            News
+            Award&News
           </Link>
         </div>
 
