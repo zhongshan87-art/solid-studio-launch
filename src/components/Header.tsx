@@ -13,7 +13,7 @@ export const Header = () => {
         {/* Center - FoliFoli Works text */}
         <div className="absolute left-1/2 -translate-x-1/2">
           <Link to="/" className="font-medium hover:text-primary transition-colors" style={{ letterSpacing: "0.05em" }}>
-            FoliFoli Works
+            Works
           </Link>
         </div>
 
