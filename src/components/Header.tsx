@@ -1,36 +1,29 @@
 import { Link } from "react-router-dom";
-import { useRef, useCallback, useEffect } from "react";
-import logoVideo from "@/assets/logo-animation.mov";
+import { useRef, useCallback } from "react";
+import logoGif from "@/assets/logo-animation.gif";
 
 export const Header = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   const playOnce = useCallback(() => {
-    const video = videoRef.current;
-    if (video) {
-      video.currentTime = 0;
-      video.play();
-    }
-  }, []);
-
-  useEffect(() => {
-    // Play once on mount
-    const video = videoRef.current;
-    if (video) {
-      video.play();
+    const img = imgRef.current;
+    if (img) {
+      // Force reload GIF to replay animation
+      const src = img.src;
+      img.src = "";
+      img.src = src;
     }
   }, []);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-30 bg-background shadow-sm">
       <div className="relative flex items-center py-12 px-4 md:px-[50px]" style={{ fontSize: "2.625rem" }}>
-        {/* Left side - Logo Video (hidden on mobile) */}
+        {/* Left side - Logo GIF (hidden on mobile) */}
         <div className="hidden md:block">
-          <video
-            ref={videoRef}
-            src={logoVideo}
-            muted
-            playsInline
+          <img
+            ref={imgRef}
+            src={logoGif}
+            alt="FoliFoli Logo"
             className="h-[90px]"
           />
         </div>
