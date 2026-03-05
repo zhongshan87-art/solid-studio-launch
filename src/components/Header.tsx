@@ -7,9 +7,14 @@ export const Header = () => {
       <div className="relative flex items-center py-12 px-4 md:px-[50px]" style={{ fontSize: "2.625rem" }}>
         {/* Left side - Logo Image */}
         <div className="hidden md:block">
-          <Link to="/">
-            <img src={logoHeader} alt="尺度森林工作室 FoliFoli Works" className="h-[90px]" />
-          </Link>
+          <img src={logoHeader} alt="尺度森林工作室 FoliFoli Works" className="h-[90px]" />
+        </div>
+
+        {/* Center - FoliFoli Works text */}
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <span className="font-medium" style={{ letterSpacing: "0.05em" }}>
+            FoliFoli Works
+          </span>
         </div>
 
         {/* News - between center and right */}
