@@ -12,8 +12,8 @@ interface MediaCardItemProps {
 
 const MediaCardItem = ({ card }: MediaCardItemProps) => {
   return (
-    <div className="flex flex-col">
-      <div className="w-full flex-1">
+    <div className="flex flex-row gap-4 items-start">
+      <div className="w-[45%] flex-shrink-0">
         <img
           src={card.image}
           alt="Media card"
@@ -23,7 +23,7 @@ const MediaCardItem = ({ card }: MediaCardItemProps) => {
           }}
         />
       </div>
-      <div className="mt-2">
+      <div className="flex-1 pt-1">
         <p className="text-sm md:text-base leading-relaxed whitespace-pre-line text-foreground font-normal">{card.description}</p>
       </div>
     </div>
@@ -51,7 +51,7 @@ const News = () => {
                   const count = rowIndex % 2 === 0 ? 3 : 2;
                   const rowCards = cards.slice(i, i + count);
                   rows.push(
-                    <div key={rowIndex} className={`grid grid-cols-1 ${count === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2 md:max-w-[66%] md:mx-auto'} gap-10 md:gap-x-10`}>
+                    <div key={rowIndex} className={`grid grid-cols-1 ${count === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-10 md:gap-x-10`}>
                       {rowCards.map((card) => (
                         <MediaCardItem key={card.id} card={card} />
                       ))}
