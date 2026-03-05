@@ -11,7 +11,7 @@ export const Header = () => {
         </div>
 
         {/* Right side - Navigation */}
-        <nav className="flex items-end gap-8 text-4xl md:ml-auto">
+        <nav className="flex items-end gap-10 text-5xl md:ml-auto">
           <Link
             to="/"
             className="text-caption font-medium hover:text-primary transition-colors inline-flex items-baseline"
