@@ -16,7 +16,7 @@ export const Header = () => {
             Works
           </Link>
         </div>
-        <div className="absolute left-5/6 -translate-x-1/2">
+        <div className="absolute -translate-x-1/2" style={{ left: "83.3%" }}>
           <Link to="/news" className="font-medium hover:text-primary transition-colors">
             Award&News
           </Link>
