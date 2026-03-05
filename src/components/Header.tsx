@@ -1,82 +1,14 @@
 import { Link } from "react-router-dom";
-import { useRef, useCallback, useEffect, useState } from "react";
-import logoGif from "@/assets/logo-animation.gif";
-
-const GIF_DURATION = 2999; // freeze just before GIF loops back to first frame
 
 export const Header = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
-  const timerRef = useRef<number | null>(null);
-  const [showGif, setShowGif] = useState(true);
-  const [gifSrc, setGifSrc] = useState(logoGif + "?t=" + Date.now());
-
-  const clearFreezeTimer = useCallback(() => {
-    if (timerRef.current !== null) {
-      window.clearTimeout(timerRef.current);
-      timerRef.current = null;
-    }
-  }, []);
-
-  const freezeCurrentFrame = useCallback(() => {
-    const canvas = canvasRef.current;
-    const img = imgRef.current;
-
-    if (!canvas || !img) return;
-
-    const width = img.naturalWidth || img.width;
-    const height = img.naturalHeight || img.height;
-
-    if (!width || !height) return;
-
-    canvas.width = width;
-    canvas.height = height;
-
-    const ctx = canvas.getContext("2d");
-    if (ctx) {
-      ctx.drawImage(img, 0, 0, width, height);
-      setShowGif(false);
-    }
-  }, []);
-
-  const scheduleFreeze = useCallback(() => {
-    clearFreezeTimer();
-    timerRef.current = window.setTimeout(() => {
-      freezeCurrentFrame();
-      timerRef.current = null;
-    }, GIF_DURATION);
-  }, [clearFreezeTimer, freezeCurrentFrame]);
-
-  const playOnce = useCallback(() => {
-    const newSrc = logoGif + "?t=" + Date.now();
-    setGifSrc(newSrc);
-    setShowGif(true);
-    scheduleFreeze();
-  }, [scheduleFreeze]);
-
-  useEffect(() => {
-    scheduleFreeze();
-    return () => clearFreezeTimer();
-  }, [scheduleFreeze, clearFreezeTimer]);
-
   return (
     <header className="fixed top-0 left-0 right-0 z-30 bg-background shadow-sm">
       <div className="relative flex items-center py-12 px-4 md:px-[50px]" style={{ fontSize: "2.625rem" }}>
-        {/* Left side - Logo */}
-        <div className="hidden md:block relative h-[90px]">
-          {showGif && (
-            <img
-              ref={imgRef}
-              src={gifSrc}
-              alt="FoliFoli Logo"
-              className="h-[90px]"
-            />
-          )}
-          <canvas
-            ref={canvasRef}
-            className="h-[90px]"
-            style={{ display: showGif ? "none" : "block" }}
-          />
+        {/* Left side - Logo Text */}
+        <div className="hidden md:block">
+          <Link to="/" style={{ fontFamily: "'Noto Serif SC', serif", fontWeight: 700, fontSize: "2rem", letterSpacing: "0.05em" }}>
+            尺度森林工作室
+          </Link>
         </div>
 
         {/* Center - FoliFoli Works */}
@@ -88,14 +20,14 @@ export const Header = () => {
 
         {/* News - between center and right */}
         <div className="absolute left-3/4 -translate-x-1/2">
-          <Link to="/news" className="font-medium hover:text-primary transition-colors" onClick={playOnce}>
+          <Link to="/news" className="font-medium hover:text-primary transition-colors">
             Award&News
           </Link>
         </div>
 
         {/* Right side - Studio */}
         <nav className="ml-auto">
-          <Link to="/studio" className="font-medium hover:text-primary transition-colors" onClick={playOnce}>
+          <Link to="/studio" className="font-medium hover:text-primary transition-colors">
             Studio
           </Link>
         </nav>
