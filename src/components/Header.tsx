@@ -11,12 +11,12 @@ export const Header = () => {
         </div>
 
         {/* Works at 1/3, Award&News midway between Works and Studio */}
-        <div className="absolute left-1/3 -translate-x-1/2">
+        <div className="absolute left-2/3 -translate-x-1/2">
           <Link to="/" className="font-medium hover:text-primary transition-colors" style={{ letterSpacing: "0.05em" }}>
             Works
           </Link>
         </div>
-        <div className="absolute left-2/3 -translate-x-1/2">
+        <div className="absolute left-5/6 -translate-x-1/2">
           <Link to="/news" className="font-medium hover:text-primary transition-colors">
             Award&News
           </Link>
