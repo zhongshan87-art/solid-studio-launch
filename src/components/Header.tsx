@@ -10,18 +10,14 @@ export const Header = () => {
           <img src={logoHeader} alt="尺度森林工作室 FoliFoli Works" className="h-[90px]" />
         </div>
 
-        {/* Works at 1/3, Award&News midway between Works and Studio */}
-        <div className="absolute left-2/3 -translate-x-1/2">
+        {/* Right navigation with equal spacing */}
+        <nav className="ml-auto flex items-center gap-16">
           <Link to="/" className="font-medium hover:text-primary transition-colors" style={{ letterSpacing: "0.05em" }}>
             Works
           </Link>
-        </div>
-        <div className="absolute -translate-x-1/2" style={{ left: "83.3%" }}>
           <Link to="/news" className="font-medium hover:text-primary transition-colors">
             Award&News
           </Link>
-        </div>
-        <nav className="ml-auto">
           <Link to="/studio" className="font-medium hover:text-primary transition-colors">
             Studio
           </Link>
