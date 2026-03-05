@@ -12,16 +12,20 @@ interface MediaCardItemProps {
 
 const MediaCardItem = ({ card }: MediaCardItemProps) => {
   return (
-    <div className="flex flex-col gap-3">
-      <img
-        src={card.image}
-        alt="Media card"
-        className="w-full aspect-[3/4] object-cover block"
-        onError={(e) => {
-          e.currentTarget.src = "/placeholder.svg";
-        }}
-      />
-      <p className="text-sm md:text-base leading-relaxed whitespace-pre-line text-foreground font-normal">{card.description}</p>
+    <div className="flex flex-row gap-4 items-start">
+      <div className="w-[45%] flex-shrink-0">
+        <img
+          src={card.image}
+          alt="Media card"
+          className="w-full aspect-[3/4] object-cover block"
+          onError={(e) => {
+            e.currentTarget.src = "/placeholder.svg";
+          }}
+        />
+      </div>
+      <div className="flex-1 pt-1">
+        <p className="text-sm md:text-base leading-relaxed whitespace-pre-line text-foreground font-normal">{card.description}</p>
+      </div>
     </div>
   );
 };
