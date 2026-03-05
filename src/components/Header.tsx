@@ -16,7 +16,7 @@ export const Header = () => {
             Works
           </Link>
           <Link to="/news" className="font-medium hover:text-primary transition-colors">
-            Award&News
+            Awards
           </Link>
           <Link to="/studio" className="font-medium hover:text-primary transition-colors">
             Studio
