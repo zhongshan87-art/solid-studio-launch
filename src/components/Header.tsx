@@ -10,25 +10,21 @@ export const Header = () => {
           <img src={logoHeader} alt="尺度森林工作室 FoliFoli Works" className="h-[90px]" />
         </div>
 
-        {/* Center - FoliFoli Works text */}
-        <div className="absolute left-1/2 -translate-x-1/2">
-          <Link to="/" className="font-medium hover:text-primary transition-colors" style={{ letterSpacing: "0.05em" }}>
-            Works
-          </Link>
-        </div>
-
-        {/* News - between center and right */}
-        <div className="absolute left-3/4 -translate-x-1/2">
-          <Link to="/news" className="font-medium hover:text-primary transition-colors">
-            Award&News
-          </Link>
-        </div>
-
-        {/* Right side - Studio */}
-        <nav className="ml-auto">
-          <Link to="/studio" className="font-medium hover:text-primary transition-colors">
-            Studio
-          </Link>
+        {/* Right navigation: Works, Award&News, Studio evenly spaced */}
+        <nav className="ml-auto flex items-center">
+          <div style={{ marginRight: "300px" }}>
+            <Link to="/" className="font-medium hover:text-primary transition-colors" style={{ letterSpacing: "0.05em" }}>
+              Works
+            </Link>
+          </div>
+          <div className="flex items-center gap-16">
+            <Link to="/news" className="font-medium hover:text-primary transition-colors">
+              Award&News
+            </Link>
+            <Link to="/studio" className="font-medium hover:text-primary transition-colors">
+              Studio
+            </Link>
+          </div>
         </nav>
       </div>
     </header>
