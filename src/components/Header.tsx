@@ -17,11 +17,15 @@ export const Header = () => {
           </Link>
         </div>
 
-        {/* Right side - News & Studio */}
-        <nav className="flex items-end gap-16 ml-auto">
+        {/* News - between center and right */}
+        <div className="absolute left-3/4 -translate-x-1/2">
           <Link to="/news" className="font-medium hover:text-primary transition-colors">
             News
           </Link>
+        </div>
+
+        {/* Right side - Studio */}
+        <nav className="ml-auto">
           <Link to="/studio" className="font-medium hover:text-primary transition-colors">
             Studio
           </Link>
