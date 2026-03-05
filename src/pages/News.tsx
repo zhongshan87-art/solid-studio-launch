@@ -36,16 +36,32 @@ const News = () => {
   return (
     <main className="min-h-screen">
       <Header />
-      <div className="pt-24 md:pt-28">
+      <div className="pt-[280px]">
         <div className="px-4 md:px-[50px] py-8">
           <h1 className="text-3xl font-medium mb-8"> </h1>
           {isLoading ? (
             <p className="text-center text-muted-foreground">Loading...</p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-y-16 md:gap-x-10">
-              {cards.map((card) => (
-                <MediaCardItem key={card.id} card={card} />
-              ))}
+            <div className="flex flex-col gap-10 md:gap-y-16">
+              {(() => {
+                const rows: React.ReactNode[] = [];
+                let i = 0;
+                let rowIndex = 0;
+                while (i < cards.length) {
+                  const count = rowIndex % 2 === 0 ? 3 : 2;
+                  const rowCards = cards.slice(i, i + count);
+                  rows.push(
+                    <div key={rowIndex} className={`grid grid-cols-1 ${count === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-10 md:gap-x-10`}>
+                      {rowCards.map((card) => (
+                        <MediaCardItem key={card.id} card={card} />
+                      ))}
+                    </div>
+                  );
+                  i += count;
+                  rowIndex++;
+                }
+                return rows;
+              })()}
             </div>
           )}
         </div>
