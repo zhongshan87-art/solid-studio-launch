@@ -13,16 +13,16 @@ interface MediaCardItemProps {
 
 const MediaCardItem = ({ card }: MediaCardItemProps) => {
   return (
-    <Card className="overflow-hidden w-full md:w-[80%] mx-auto rounded-none md:rounded-lg">
+    <Card className="overflow-hidden w-[80%] mx-auto rounded-none md:rounded-lg scale-[0.8] origin-top">
       <CardContent className="p-0">
-        <div className="p-2.5 md:p-3 bg-black">
-          <p className="text-base leading-relaxed whitespace-pre-line text-white font-bold">{card.description}</p>
+        <div className="p-2.5 md:p-3 bg-black min-h-[6.5rem] flex items-start">
+          <p className="text-base leading-relaxed whitespace-pre-line text-white font-bold line-clamp-4">{card.description}</p>
         </div>
         <div className="relative">
           <img
             src={card.image}
             alt="Media card"
-            className="w-full aspect-[3/4] object-cover block opacity-60"
+            className="w-full aspect-[3/4] object-cover block"
             onError={(e) => {
               e.currentTarget.src = "/placeholder.svg";
             }}
@@ -45,7 +45,7 @@ const News = () => {
           {isLoading ? (
             <p className="text-center text-muted-foreground">Loading...</p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-[72px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-x-[36px] md:gap-y-[72px]">
               {cards.map((card) => (
                 <MediaCardItem key={card.id} card={card} />
               ))}
