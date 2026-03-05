@@ -45,7 +45,7 @@ const News = () => {
           {isLoading ? (
             <p className="text-center text-muted-foreground">Loading...</p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-x-[36px] md:gap-y-[72px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-x-[18px] md:gap-y-[72px]">
               {cards.map((card) => (
                 <MediaCardItem key={card.id} card={card} />
               ))}
