@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useRef, useCallback, useEffect, useState } from "react";
 import logoGif from "@/assets/logo-animation.gif";
 
-const GIF_DURATION = 2000; // adjust to match actual GIF duration in ms
+const GIF_DURATION = 3000; // matches actual GIF duration (3s)
 
 export const Header = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
