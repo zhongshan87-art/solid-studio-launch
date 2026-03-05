@@ -2,59 +2,62 @@ import { Link } from "react-router-dom";
 import { useRef, useCallback, useEffect, useState } from "react";
 import logoGif from "@/assets/logo-animation.gif";
 
-const GIF_DURATION = 3000; // matches actual GIF duration (3s)
+const GIF_DURATION = 2999; // freeze just before GIF loops back to first frame
 
 export const Header = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const timerRef = useRef<number | null>(null);
   const [showGif, setShowGif] = useState(true);
   const [gifSrc, setGifSrc] = useState(logoGif + "?t=" + Date.now());
 
-  const freezeOnLastFrame = useCallback(() => {
-    const img = new Image();
-    img.onload = () => {
-      const canvas = canvasRef.current;
-      if (canvas) {
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
-        const ctx = canvas.getContext("2d");
-        if (ctx) {
-          ctx.drawImage(img, 0, 0);
-        }
-      }
+  const clearFreezeTimer = useCallback(() => {
+    if (timerRef.current !== null) {
+      window.clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
+
+  const freezeCurrentFrame = useCallback(() => {
+    const canvas = canvasRef.current;
+    const img = imgRef.current;
+
+    if (!canvas || !img) return;
+
+    const width = img.naturalWidth || img.width;
+    const height = img.naturalHeight || img.height;
+
+    if (!width || !height) return;
+
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx = canvas.getContext("2d");
+    if (ctx) {
+      ctx.drawImage(img, 0, 0, width, height);
       setShowGif(false);
-    };
-    // Load a fresh copy to get the last frame snapshot after animation
-    img.src = gifSrc;
-  }, [gifSrc]);
+    }
+  }, []);
+
+  const scheduleFreeze = useCallback(() => {
+    clearFreezeTimer();
+    timerRef.current = window.setTimeout(() => {
+      freezeCurrentFrame();
+      timerRef.current = null;
+    }, GIF_DURATION);
+  }, [clearFreezeTimer, freezeCurrentFrame]);
 
   const playOnce = useCallback(() => {
     const newSrc = logoGif + "?t=" + Date.now();
     setGifSrc(newSrc);
     setShowGif(true);
-    setTimeout(() => {
-      // After GIF plays, capture frame and freeze
-      const img = new Image();
-      img.onload = () => {
-        const canvas = canvasRef.current;
-        if (canvas) {
-          canvas.width = img.naturalWidth;
-          canvas.height = img.naturalHeight;
-          const ctx = canvas.getContext("2d");
-          if (ctx) {
-            ctx.drawImage(img, 0, 0);
-          }
-        }
-        setShowGif(false);
-      };
-      img.src = newSrc;
-    }, GIF_DURATION);
-  }, []);
+    scheduleFreeze();
+  }, [scheduleFreeze]);
 
   useEffect(() => {
-    // On mount, let GIF play then freeze
-    const timer = setTimeout(() => freezeOnLastFrame(), GIF_DURATION);
-    return () => clearTimeout(timer);
-  }, []);
+    scheduleFreeze();
+    return () => clearFreezeTimer();
+  }, [scheduleFreeze, clearFreezeTimer]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-30 bg-background shadow-sm">
@@ -63,6 +66,7 @@ export const Header = () => {
         <div className="hidden md:block relative h-[90px]">
           {showGif && (
             <img
+              ref={imgRef}
               src={gifSrc}
               alt="FoliFoli Logo"
               className="h-[90px]"
