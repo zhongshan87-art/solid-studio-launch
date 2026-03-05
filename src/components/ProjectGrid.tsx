@@ -60,7 +60,7 @@ export const ProjectGrid = () => {
   }
 
   return (
-    <section id="works" className="pt-[140px] pb-8">
+    <section id="works" className="pt-[560px] pb-8">
       <div className="w-full px-0 md:px-[50px]">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-[50px]">
           {projects.map(project => (
