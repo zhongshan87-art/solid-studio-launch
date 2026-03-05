@@ -4,7 +4,7 @@ import logo from "@/assets/logo.png";
 export const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-30 bg-background shadow-sm">
-      <div className="flex justify-between items-center py-18 px-4 md:px-[50px]">
+      <div className="flex justify-between items-center py-12 px-4 md:px-[50px]">
         {/* Left side - Logo (hidden on mobile) */}
         <div className="hidden md:block">
           <img src={logo} alt="尺度森林工作室 FoliFoli Works" className="h-[90px]" />
@@ -27,7 +27,7 @@ export const Header = () => {
             >
               F
             </span>
-            orest
+            olifoli
           </Link>
           <Link to="/works" className="text-caption font-medium hover:text-primary transition-colors">
             Works
