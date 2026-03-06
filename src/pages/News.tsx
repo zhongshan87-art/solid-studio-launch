@@ -12,8 +12,8 @@ interface MediaCardItemProps {
 
 const MediaCardItem = ({ card }: MediaCardItemProps) => {
   return (
-    <div className="md:col-span-2 flex flex-row gap-4 items-start">
-      <div className="w-[45%] flex-shrink-0">
+    <div className="md:col-span-2 grid grid-cols-2 gap-4 items-start">
+      <div>
         <img
           src={card.image}
           alt="Media card"
@@ -23,7 +23,7 @@ const MediaCardItem = ({ card }: MediaCardItemProps) => {
           }}
         />
       </div>
-      <div className="flex-1 pt-1">
+      <div className="pt-1">
         <p className="text-base md:text-lg leading-relaxed whitespace-pre-line text-foreground font-normal">{card.description}</p>
       </div>
     </div>
