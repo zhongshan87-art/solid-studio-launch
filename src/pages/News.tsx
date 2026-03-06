@@ -24,7 +24,7 @@ const MediaCardItem = ({ card }: MediaCardItemProps) => {
         />
       </div>
       <div className="flex-1 pt-1">
-        <p style={{ lineHeight: 2.4 }} className="text-sm md:text-base whitespace-pre-line text-foreground font-normal">{card.description}</p>
+        <p className="text-sm md:text-base leading-relaxed whitespace-pre-line text-foreground font-normal">{card.description}</p>
       </div>
     </div>
   );
