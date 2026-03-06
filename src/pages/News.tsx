@@ -51,7 +51,7 @@ const News = () => {
                   const count = rowIndex % 2 === 0 ? 3 : 2;
                   const rowCards = cards.slice(i, i + count);
                   rows.push(
-                    <div key={rowIndex} className={`grid grid-cols-1 ${count === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-10 md:gap-x-10`}>
+                    <div key={rowIndex} className={`grid grid-cols-1 ${count === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2 md:max-w-[66%] md:mx-auto'} gap-10 md:gap-x-10`}>
                       {rowCards.map((card) => (
                         <MediaCardItem key={card.id} card={card} />
                       ))}
